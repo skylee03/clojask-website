@@ -9,9 +9,9 @@
 Welcome to the Clojask Library! This is an open-source library for parallel computing of larger-than-memory datasets developed at the Faculty of Business and Economics ("HKU Business School") of the University of Hong Kong (HKU).
 
 
-## WHY WE BUILT THIS
+## WHY WE BUILT THIS DATA ANALYTICS TOOL
 
-Clojure is a functional programming language that allows developers to work with high-level mathematical abstractions. Its fundamental features of immutability and laziness renders it the ideal candidate tool for financial modeling as well as distributed computation. 
+Clojure is a functional programming language that allows developers to work with high-level mathematical abstractions. Its fundamental features of immutability and laziness renders it the ideal candidate tool for financial modeling as well as distributed computation (work in progress). 
 
 Here are some of the best things about Clojure:
 
