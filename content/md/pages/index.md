@@ -26,13 +26,15 @@ According to the recent [Stack Overflow developer survey](https://insights.stack
 We believe that there are plenty of underlying potentialities in Clojure. Thus, we would like to make an effort in developing resources for this community. This backtesting library serves to be a resource that assists users to write trading strategies and evaluate the strategy performance.
 
 <br>
-    
+
+
 ## Table of Contents
 
 ### Part I: Installation & Pre-requisites
+[Getting started](posts-output/2021-09-05-get-started)
 
+### Part II: Examples
 
-### Part II: API documentation
+### Part III: API documentation
+[Check out the documentaion post here](posts-output/2021-09-07-api-documentation)
 
-
-### Part III: Examples
