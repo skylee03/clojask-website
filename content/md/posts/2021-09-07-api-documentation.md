@@ -95,9 +95,9 @@ A more flexible way to set type.
 
 ---
 
-#### operate
+#### operate (In-place modification)
 
-In place modification on a single column
+**In-place modification** on a single column
 
 | Argument      | Type              | Function                      | Remarks                                                      |
 | ------------- | ----------------- | ----------------------------- | ------------------------------------------------------------ |
@@ -115,7 +115,7 @@ In place modification on a single column
 
 ---
 
-#### operate
+#### operate (Column generating)
 
 Calculate the result and store in a new column
 
