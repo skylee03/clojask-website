@@ -4,20 +4,46 @@
 :tags ["Start"]}
 
 ---
-Please note that the Onyx library used in Clojask for its distributed plateform.
+## Getting Started
 
-Currently, Onyx is supported only on Linux or MacOS and does not currently support Windows systems for its distributed computing. 
+Please note that the Onyx library is currently being used in Clojask for its distributed platform.
 
+Currently, Onyx is **supported only on Linux or MacOS** and **currently does not support Windows** for its distributed computing. 
 
-#### Installation on Linux or Mac
+As a result, Clojask is currently **not supported on Windows.**  
 
+We hope to be able to provide support soon. 
 
-#### Installation on Windows
+### Requirements
+```
+- Clojure
+- Leiningen
+```
 
-Clojask is currently not supported on Windows.  
-We will look to provide support soon. 
+### Dependencies 
 
-<br>
+Please include in the project.clj file as one of the dependencies
+``` clojure
+^{:voom {:repo "git@github.com:clojure-finance/clojask.git" :branch "master"}}
+[clojure-finance/clojask.git "snapshot"]
+```
+
+### Development
+To start an interactive prompt where you can enter arbitrary code to run in the context of your project:
+
+```
+lein repl
+```
+To run the default `:main` set in `project.clj`:
+```
+lein run
+```
+To run all tests written in the `test` namespace:
+```
+lein test
+```
+
+--- 
 
 ## Beginner Tutorials
 
@@ -34,7 +60,7 @@ If you are new to Clojure, we recommend having a quick read of the following tut
 ---
 
 
-## Dependencies
+## In Built Dependencies
 
 To make use of the functions in the Clojask library, it is important to ensure your dependencies are installed.
 
@@ -57,8 +83,6 @@ As a result, Clojask is currently **not supported in Windows.**
 
 --- 
 
-<br>
-
 ## Help & Support
 
 <br>
@@ -66,3 +90,8 @@ As a result, Clojask is currently **not supported in Windows.**
 In case you would encounter difficulties or have any suggestions for additional examples, please feel free to post it [here](https://github.com/clojure-finance/clojask/issues).
 
 ---
+
+### API Documentation 
+[Check out the documentaion post here](/posts-output/2021-09-07-api-documentation)
+ 
+If you more interested in the inner workings of Clojask, please [check out this post here](/posts-output/2021-09-06-overview)
