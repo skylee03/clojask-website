@@ -92,6 +92,6 @@ In case you would encounter difficulties or have any suggestions for additional 
 ---
 
 ### API Documentation 
-[Check out the documentaion post here](/posts-output/2021-09-07-api-documentation)
+[Check out the documentaion post here](/pages-output/API)
  
 If you more interested in the inner workings of Clojask, please [check out this post here](/posts-output/2021-09-06-overview)
