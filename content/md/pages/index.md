@@ -33,8 +33,8 @@ We believe that there are plenty of underlying potentialities in Clojure. Thus, 
 ### Part I: Installation & Pre-requisites
 [Getting started](posts-output/2021-09-05-get-started)
 
-### Part II: Examples
-
-### Part III: API documentation
+### Part II: API documentation
 [Check out the documentaion post here](posts-output/2021-09-07-api-documentation)
+
+### Part III: Examples
 
