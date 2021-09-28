@@ -1,7 +1,11 @@
 {:title "API Documentation"
-:layout :post
+:layout :page
+:page-index 3
 :toc true
+:navbar? true
+:home? true
 :tags  ["Documentation"]}
+
 
 ### Features
 
