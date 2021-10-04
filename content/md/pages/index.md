@@ -9,7 +9,7 @@
 Welcome to the Clojask Library! This is an open-source library for parallel computing of larger-than-memory datasets developed at the Faculty of Business and Economics ("HKU Business School") of the University of Hong Kong (HKU).
 
 
-## WHY WE BUILT THIS DATA ANALYTICS TOOL
+### WHY WE BUILT THIS DATA ANALYTICS TOOL
 
 Clojure is a functional programming language that allows developers to work with high-level mathematical abstractions. Its fundamental features of immutability and laziness renders it the ideal candidate tool for financial modeling as well as distributed computation (work in progress). 
 
@@ -28,13 +28,9 @@ We believe that there are plenty of underlying potentialities in Clojure. Thus, 
 <br>
 
 
-## Table of Contents
+### Table of Contents
 
-### Part I: Installation & Pre-requisites
-[Getting started](posts-output/2021-09-05-get-started)
-
-### Part II: API documentation
-[Check out the documentaion post here](posts-output/2021-09-07-api-documentation)
-
-### Part III: Examples
+- [Part 1: Installation & Pre-requisites](/posts-output/2021-09-30-get-started)
+- [Part 2: API documentation](/posts-output/2021-09-28-API)
+- [Part 3: Examples](/posts-output/2021-09-29-examples)
 
