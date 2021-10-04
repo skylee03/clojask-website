@@ -52,7 +52,7 @@ h1 {
   line-height: 1.05;
   letter-spacing: -0.01em;
 }
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   h1 {
     font-size: 2.5em;
     line-height: 1.05;
@@ -222,7 +222,6 @@ code {
   background-color: #eeeeee;
   border-radius: 2px;
   padding: 1px 3px;
-  width: 100%
 }
 
 code, kbd, samp {
@@ -497,7 +496,6 @@ img {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
-  
 }
 
 /* ==================================================
@@ -619,7 +617,6 @@ img {
 
 #post {
   margin: 0 auto;
-  max-width: 700px;
 }
 
 #footercont {

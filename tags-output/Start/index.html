@@ -14,17 +14,17 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
-        <link href="/clojask/css/normalize.css" rel="stylesheet" type="text/css" />
-        <link href="/clojask/css/blog.css" rel="stylesheet" type="text/css" />
-        <link href="/clojask/css/lotus-highlightjs.min.css" rel="stylesheet" type="text/css" />
+        <link href="/blog/css/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="/blog/css/blog.css" rel="stylesheet" type="text/css" />
+        <link href="/blog/css/lotus-highlightjs.min.css" rel="stylesheet" type="text/css" />
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/tomorrow-night-eighties.min.css">
     </head>
     <body>
         <aside id="sidebar">
             <div id="logo">
-                <a title="Clojask" href="/clojask/">
-                    <!-- <img class="icon" src="/clojask/img/white-lotus.svg"> -->
+                <a title="Clojask" href="/blog/">
+                    <!-- <img class="icon" src="/blog/img/white-lotus.svg"> -->
                     <div class="title-text text desktop-and-tablet-only">
                         <span class="desktop-and-tablet-only fa fa-cubes"></span>
                         <br>
@@ -39,33 +39,32 @@
                 <nav id="menucont">
                     <input type="checkbox" id="menu-checkbox" class="menu-checkbox">
                     <label for="menu-checkbox" class="menutitle">
-                        <svg class="icon icon-menu" aria-hidden="true"><use xlink:href="/clojask/img/icons.svg#icon-menu"></use></svg><span class="menu-text">Menu</span>
+                        <svg class="icon icon-menu" aria-hidden="true"><use xlink:href="/blog/img/icons.svg#icon-menu"></use></svg><span class="menu-text">Menu</span>
                     </label>
                     <ul class="menu">
-                        <li ><a title="Home" href="/clojask/"><div class="menu-item-text">Home</div></a></li>
+                        <li ><a title="Home" href="/blog/"><div class="menu-item-text">Home</div></a></li>
                         <!-- 
-                        <li ><a title="Tags" href="/clojask/tags/"><div class="menu-item-text">Tags</div></a></li>
+                        <li ><a title="Tags" href="/blog/tags/"><div class="menu-item-text">Tags</div></a></li>
                          -->
                         
                         <li >
-                            <a href="/clojask/pages-output/about/"><div class="menu-item-text">About</div></a>
+                            <a href="/blog/pages-output/about/"><div class="menu-item-text">About</div></a>
                         </li>
                         
-                        <li >
-                            <a href="/clojask/pages-output/API/"><div class="menu-item-text">API Documentation</div></a>
+                         <!-- custom navbar item -->
+                        <li>
+                            <a title="API Docs" href="/blog/posts-output/2021-09-28-API/"><div class="menu-item-text">API Docs</div></a>
                         </li>
-                        
-                        <li ><a title="Archives" href="/clojask/archives/"><div class="menu-item-text">Archives</div></a></li>
-                        <!-- <li ><a title="API Documentation" href=""><div class="menu-item-text">API Documentation</div></a></li> -->
-                        <!-- <li><a title="RSS" href="/clojask/feed.xml"><div class="menu-item-text">RSS</div></a></li> -->
+                        <li ><a title="Archives" href="/blog/archives/"><div class="menu-item-text">Archives</div></a></li>
+                        <!-- <li><a title="RSS" href="/blog/feed.xml"><div class="menu-item-text">RSS</div></a></li> -->
                     </ul>
                 </nav>
 
                 <nav id="socialmedia">
                     <ul>
-                        <li><a title="LinkedIn" href="https://www.linkedin.com/in/matthewdavidson1" rel="external"><svg class="icon icon-linkedin"><use xlink:href="/clojask/img/icons.svg#icon-linkedin"></use></svg></a></li>
-                        <li><a title="GitHub" href="https://github.com/KingMob" rel="external"><svg class="icon icon-github-circled"><use xlink:href="/clojask/img/icons.svg#icon-github-circled"></use></svg></a></li>
-                        <li><a title="RSS Feed" href="/clojask/feed.xml"><svg class="icon icon-rss-squared"><use xlink:href="/clojask/img/icons.svg#icon-rss-squared"></use></svg></a></li>
+                        <li><a title="LinkedIn" href="https://www.linkedin.com/in/matthewdavidson1" rel="external"><svg class="icon icon-linkedin"><use xlink:href="/blog/img/icons.svg#icon-linkedin"></use></svg></a></li>
+                        <li><a title="GitHub" href="https://github.com/KingMob" rel="external"><svg class="icon icon-github-circled"><use xlink:href="/blog/img/icons.svg#icon-github-circled"></use></svg></a></li>
+                        <li><a title="RSS Feed" href="/blog/feed.xml"><svg class="icon icon-rss-squared"><use xlink:href="/blog/img/icons.svg#icon-rss-squared"></use></svg></a></li>
                     </ul>
                 </nav>
             </nav>
@@ -80,7 +79,7 @@
     <ul>
     
         <li>
-            <a href="/clojask/posts-output/2021-09-05-get-started/">Get Started</a>
+            <a href="/blog/posts-output/2021-09-30-get-started/">Get Started</a>
         </li>
     
     </ul>
@@ -88,13 +87,13 @@
 
             <hr/>
             <div id="footercont">
-                Copyright &copy; 2021 clojask
+                Copyright &copy; 2021 clojure-backtesting
                 <br>Powered by <a href="http://cryogenweb.org">Cryogen</a>
                 <br>Theme by <a href="http://github.com/KingMob">KingMob</a>
             </div>
         </article>
 
-        <script src="/clojask/js/highlight.pack.js" type="application/javascript"></script>
+        <script src="/blog/js/highlight.pack.js" type="application/javascript"></script>
         <script>hljs.initHighlightingOnLoad();</script>
 
         
