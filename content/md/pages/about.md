@@ -3,11 +3,79 @@
  :page-index 0
  :navbar? true}
 
-
+## About
 This is the documentation library for the data frame with parallel computing for larger-than-memory dataset library written in Clojure. The source code can be found on [GitHub](https://github.com/clojure-finance/clojask).
 
 <br>
 
-**Report Bugs** 
+## Overview 
+Clojask is an library for parallel computing datasets on Clojure
 
-Clojask is currently under active development. If you find any bugs or mistakes, we would appreciate if you could help [report](https://github.com/clojure-finance/clojask/issues) these issues so that we could repair them accordingly.
+Our emphasis is on providing the following attributes
+- Ease of installation and use 
+- Efficient operations with low overhead 
+- Provide ability to quickly process larger-than-memory datasets
+- Utilise features of Clojure in the form of lazy sequences, macros, etc [link to the about page]
+- Provide flexibility on single/cluster machine operations (Currently in the works)
+
+## System of Operations
+Clojask is defined by two key types: incremental and replaceable operations. 
+
+### Replaceable operations 
+
+Replaceable operatons include 
+- set-type
+- add-parser 
+- group-by
+- add-formatter
+
+Replaceable operations can be called multiple times to **replace** the previous call of the operation 
+
+```clojure 
+(def x (dataframe "path/to/a.csv"))
+;; defines dataframe from csv file "a.csv" 
+
+(set-type x "int" "employee_no")
+;; makes column "employee numbers" integers
+ 
+(set-type x "str" "employee_no")
+;; makes column "employee numbers" strings  
+```
+
+In the case above, Clojask will ultimately interpret the "employeee_no" column as a **string**, rather than an **integer**. 
+
+### Incremental operations
+
+Incremental operations include
+- filter
+- operate
+- aggregate
+
+Incremental operations are able to build on top of one another and build up **incrementally** in their operation.
+
+```clojure
+(filter x "Salary" (fn [salary] (<= salary 800)))
+;; this statement deletes all the rows that have a salary larger than 800
+
+(filter x "Department" (fn [dept] (= dept "computer science")))
+;; this statements deletes all the rows that contain people not in the computer science department
+
+(filter x ["Salary" "Department"] (fn [salary dept] (and (<= salary 800) (= dept "computer science"))))
+;; keeps only people from computer science department with salary not larger than 800
+```
+
+This means additional incremental operations are appllied on top of exisiting operations
+
+## Clojask Logic Flow Diagram 
+(Click to view a closeup of image)
+<a href="https://raw.githubusercontent.com/clojure-finance/clojask/main/doc/diagram.jpg" target="_blank" >
+<img src="https://raw.githubusercontent.com/clojure-finance/clojask/main/doc/diagram.jpg" alt="some image" />
+</a>
+<!-- /img/diagram.png -->
+
+--- 
+
+## Report Bugs 
+
+Clojask is currently under active development.  
+If you find any bugs or errors, we would appreciate if you could help [report](https://github.com/clojure-finance/clojask/issues) these issues so that we could repair them accordingly.
