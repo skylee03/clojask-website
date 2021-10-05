@@ -24,8 +24,8 @@ We hope to be able to provide support soon.
 
 Please include in the project.clj file as one of the dependencies
 ``` clojure
-^{:voom {:repo "git@github.com:clojure-finance/clojask.git" :branch "master"}}
-[clojure-finance/clojask.git "snapshot"]
+[clojask "0.1.0-SNAPSHOT"]
+;; The current most recent snapshot
 ```
 
 ### Development
@@ -94,4 +94,4 @@ In case you would encounter difficulties or have any suggestions for additional 
 ### API Documentation 
 [Check out the documentaion post here](/pages-output/API)
  
-If you more interested in the inner workings of Clojask, please [check out this post here](/posts-output/2021-09-06-overview)
+If you more interested in the inner workings of Clojask, please [check out this post here](/posts-output/2021-09-27-overview)
