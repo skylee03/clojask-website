@@ -6,7 +6,12 @@
 ## About
 This is the documentation library for the data frame with parallel computing for larger-than-memory dataset library written in Clojure. The source code can be found on [GitHub](https://github.com/clojure-finance/clojask).
 
-<br>
+
+## Report Bugs 
+
+Clojask is currently under active development.  
+If you find any bugs or errors, we would appreciate if you could help [report](https://github.com/clojure-finance/clojask/issues) these issues so that we could repair them accordingly.
+
 
 ## Overview 
 Clojask is an library for parallel computing datasets on Clojure
@@ -74,8 +79,3 @@ This means additional incremental operations are appllied on top of exisiting op
 <!-- /img/diagram.png -->
 
 --- 
-
-## Report Bugs 
-
-Clojask is currently under active development.  
-If you find any bugs or errors, we would appreciate if you could help [report](https://github.com/clojure-finance/clojask/issues) these issues so that we could repair them accordingly.
