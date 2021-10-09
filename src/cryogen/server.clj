@@ -12,6 +12,13 @@
    [cryogen-core.config :refer [resolve-config]]
    [cryogen-core.io :refer [path]]))
 
+(cryogen-core.compiler/compile-assets-timed
+ {:update-article-fn
+  (fn update-article [{:keys [slug] :as article} config]
+    (if slug
+      (assoc article :uri (str "/" slug "/"))
+      article))})
+
 (defn init [fast?]
   (println "Init: fast compile enabled = " (boolean fast?))
   (load-plugins)
