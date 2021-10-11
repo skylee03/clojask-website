@@ -28,7 +28,7 @@ We believe that there are plenty of underlying potentialities in Clojure. Thus, 
 
 ### Table of Contents
 
-- [Part 1: Installation & Pre-requisites](/posts-output/2021-09-30-get-started)
-- [Part 2: API documentation](/posts-output/2021-09-28-API)
-- [Part 3: Examples](/posts-output/2021-09-29-examples)
+- [Part 1: Installation & Pre-requisites](/posts-output/get-started)
+- [Part 2: API documentation](/posts-output/API)
+- [Part 3: Examples](/posts-output/examples)
 

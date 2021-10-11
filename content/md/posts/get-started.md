@@ -1,4 +1,5 @@
 {:title "Get Started"
+:date "2021-09-30"
 :layout :post
 :toc true
 :tags ["Start"]}
@@ -92,6 +93,6 @@ In case you would encounter difficulties or have any suggestions for additional 
 ---
 
 ### API Documentation 
-[Check out the documentaion post here](/pages-output/API)
+[Check out the documentaion post here](/posts-output/API/)
  
-If you more interested in the inner workings of Clojask, please [check out this post here](/posts-output/2021-09-27-overview)
+If you more interested in the inner workings of Clojask, please [refer back to the abouts section](/pages-output/about)
