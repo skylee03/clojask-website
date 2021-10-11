@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Clojask: Get Started</title>
         
-<meta name="keywords" content="Start,Documentation">
+<meta name="keywords" content="Start">
 
 <meta name="description" content="Getting Started">
 
@@ -82,7 +82,7 @@
     <div id="post-meta">
         <h1>Get Started</h1>
         <div class="byline">
-            <!-- <span class="date">30 September 2021</span> -->
+            <!-- <span class="date">September 30, 2021</span> -->
             
         </div>
     </div>
@@ -91,8 +91,8 @@
     <ol class="toc"><li><a href="#getting-started">Getting Started</a></li><ol><li><a href="#requirements">Requirements</a></li><li><a href="#dependencies">Dependencies</a></li><li><a href="#development">Development</a></li></ol><li><a href="#beginner-tutorials">Beginner Tutorials</a></li><li><a href="#in-built-dependencies">In Built Dependencies</a></li><li><a href="#help--support">Help & Support</a></li><ol><li><a href="#api-documentation">API Documentation</a></li></ol></ol>
     <hr /><h2 id="getting-started">Getting Started</h2><p>Please note that the Onyx library is currently being used in Clojask for its distributed platform.</p><p>Currently, Onyx is <strong>supported only on Linux or MacOS</strong> and <strong>currently does not support Windows</strong> for its distributed computing.</p><p>As a result, Clojask is currently <strong>not supported on Windows.</strong></p><p>We hope to be able to provide support soon.</p><h3 id="requirements">Requirements</h3><pre><code>- Clojure
 - Leiningen
-</code></pre><h3 id="dependencies">Dependencies</h3><p>Please include in the project.clj file as one of the dependencies</p><pre><code class="clojure">^{:voom {:repo "git@github.com:clojure-finance/clojask.git" :branch "master"}}
-[clojure-finance/clojask.git "snapshot"]
+</code></pre><h3 id="dependencies">Dependencies</h3><p>Please include in the project.clj file as one of the dependencies</p><pre><code class="clojure">[clojask "0.1.0-SNAPSHOT"]
+;; The current most recent snapshot
 </code></pre><h3 id="development">Development</h3><p>To start an interactive prompt where you can enter arbitrary code to run in the context of your project:</p><pre><code>lein repl
 </code></pre><p>To run the default <code>:main</code> set in <code>project.clj</code>:</p><pre><code>lein run
 </code></pre><p>To run all tests written in the <code>test</code> namespace:</p><pre><code>lein test
@@ -103,7 +103,7 @@
                  [org.onyxplatform/onyx "0.14.5"]
                  [techascent/tech.ml.dataset "5.17" :exclusions [[ch.qos.logback/logback-classic][org.slf4j/slf4j-api]]]
                  [com.google.code.externalsortinginjava/externalsortinginjava "0.6.0"]]
-</code></pre><p>Please note that the above Onyx library is currently <strong>only supported in Linux or MacOS.</strong></p><p>As a result, Clojask is currently <strong>not supported in Windows.</strong></p><hr /><h2 id="help--support">Help &amp; Support</h2><br /><p>In case you would encounter difficulties or have any suggestions for additional examples, please feel free to post it <a href="https://github.com/clojure-finance/clojask/issues">here</a>.</p><hr /><h3 id="api-documentation">API Documentation</h3><p><a href="/clojask-website/pages-output/API">Check out the documentaion post here</a></p><p>If you more interested in the inner workings of Clojask, please <a href="/clojask-website/posts-output/2021-09-06-overview">check out this post here</a></p>
+</code></pre><p>Please note that the above Onyx library is currently <strong>only supported in Linux or MacOS.</strong></p><p>As a result, Clojask is currently <strong>not supported in Windows.</strong></p><hr /><h2 id="help--support">Help &amp; Support</h2><br /><p>In case you would encounter difficulties or have any suggestions for additional examples, please feel free to post it <a href="https://github.com/clojure-finance/clojask/issues">here</a>.</p><hr /><h3 id="api-documentation">API Documentation</h3><p><a href="/clojask-website/pages-output/API">Check out the documentaion post here</a></p><p>If you more interested in the inner workings of Clojask, please <a href="/clojask-website/posts-output/2021-09-27-overview">check out this post here</a></p>
 </div>
 <!-- 
 <div id="post-tags">

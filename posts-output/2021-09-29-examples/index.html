@@ -4,7 +4,11 @@
         <meta charset="utf-8">
         <title>Clojask: Examples</title>
         
-<meta name="keywords" content="Start,Documentation">
+<meta name="keywords" content="Start">
+
+<meta name="description" content="Multi-threading with core.async">
+
+<meta property="og:description" content="Multi-threading with core.async">
 
 <meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/2021-09-29-examples/" />
 <meta property="og:title" content="Examples" />
@@ -78,14 +82,22 @@
     <div id="post-meta">
         <h1>Examples</h1>
         <div class="byline">
-            <!-- <span class="date">29 September 2021</span> -->
+            <!-- <span class="date">September 29, 2021</span> -->
             
         </div>
     </div>
 </div>
 <div>
-    
-    
+    <ol class="toc"><li><a href="#multi-threading-with-coreasync">Multi-threading with core.async</a></li></ol>
+    <h4 id="multi-threading-with-coreasync">Multi-threading with core.async</h4><pre><code class="clojure">(def x (dataframe "resources/Employees-large.csv"))
+(def y (dataframe "resources/Employees.csv"))
+
+;; create a thread for each operation
+(async/thread (set-type x "double" "Department"))
+(async/thread (set-type y "double" "Department"))
+
+(time (left-join x y ["Employee"] ["Employee"] 4 "output/test.csv" :exception false))
+</code></pre>
 </div>
 <!--  -->
 <!-- <br/> -->
