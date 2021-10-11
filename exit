@@ -1,0 +1,180 @@
+[33mcommit 569fae56818d39d98fa0ad0caa61eba4da547f09[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Sat Oct 9 20:56:21 2021 +0800
+
+    removing dates on archives
+
+[33mcommit d212455f9f346967ad306bcdb871571f82190567[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Sat Oct 9 20:56:14 2021 +0800
+
+    small changes
+
+[33mcommit ce573e51d41ab78c7001f66abe07c0f7b8c5eb5e[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Sat Oct 9 20:52:41 2021 +0800
+
+    support for URL customisation
+
+[33mcommit 41a604e45a0e827c7a318edf1e0ca97796eec8bd[m
+Merge: aac313a 8b2fbce
+Author: Sung ho <sungho.chu8567@gmail.com>
+Date:   Sat Oct 9 20:36:13 2021 +0800
+
+    Merge remote-tracking branch 'origin/main' into main
+
+[33mcommit 8b2fbceb8afed20ef7c5845a0da21bf119daf45d[m
+Author: Angel Woo <awoo424@gmail.com>
+Date:   Fri Oct 8 01:33:20 2021 +0800
+
+    Add examples to the page
+
+[33mcommit aac313adafaa21f4387aa28c50dae00dd89bee7b[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Oct 5 17:23:10 2021 +0800
+
+    moving overview to about
+
+[33mcommit 9c48e6d150b81c94f9bb82c4be260c5fd62097f3[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Oct 5 17:23:01 2021 +0800
+
+    minor fixes of errors
+
+[33mcommit fb4881428161f4a23986818390ee277a641abbc2[m
+Author: Angel Woo <awoo424@gmail.com>
+Date:   Mon Oct 4 16:53:23 2021 +0800
+
+    Amend styles
+
+[33mcommit 53188a86e14b93099b3c446e04c6ceb985db1ac3[m
+Author: Angel Woo <awoo424@gmail.com>
+Date:   Mon Oct 4 16:41:57 2021 +0800
+
+    Change link to GitHub page
+
+[33mcommit b7da47dde12d12a92b03635ff76e8bee840a4670[m
+Author: Angel Woo <awoo424@gmail.com>
+Date:   Mon Oct 4 16:31:16 2021 +0800
+
+    Change link to API according to new route
+
+[33mcommit c7b33471544a8a58e51c88047f5dfdcf43d0e50e[m
+Author: Angel Woo <awoo424@gmail.com>
+Date:   Mon Oct 4 16:22:10 2021 +0800
+
+    Change website route prefix
+
+[33mcommit d753a4c37ca31f8ac3905223e8d0a6bd79aaa634[m
+Author: Angel Woo <awoo424@gmail.com>
+Date:   Mon Oct 4 16:12:57 2021 +0800
+
+    Update some html and css code
+
+[33mcommit 8f99f58196e86e70b24177caf0c3f24009c4d7bc[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 28 20:35:35 2021 +0800
+
+    Proper directory for API docs
+
+[33mcommit dd641b3aaec37bdb34c4b3e7eeecc97de9ffe5ef[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 28 20:35:13 2021 +0800
+
+    Ordering edits
+
+[33mcommit bbd12f09f676a84cc003dd363cba3e8b8d4f4d47[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 28 20:35:02 2021 +0800
+
+    API Documentation Sidebar
+
+[33mcommit b1a8939eb9575ca5e316ec9b2f0b563761c8525f[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 21 21:10:06 2021 +0800
+
+    small struture changes
+
+[33mcommit 352969255175e61114cc363c1bb9acc62819cf88[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 21 21:09:55 2021 +0800
+
+    details on getting started and links to other docs
+
+[33mcommit 7d7c181e6f56fb43357fc46ecc649cef0c8068c9[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 21 21:09:38 2021 +0800
+
+    small changes to function descriptions
+
+[33mcommit 0a623b2ff5e0bcc1792525bf50da828306aaab49[m
+Author: Angel Woo <awoo424@gmail.com>
+Date:   Sun Sep 19 15:03:43 2021 +0800
+
+    Update filenames and make minor amendments in api doc
+
+[33mcommit 5cc49442d819218c2597a8b2e08113fbc38c2a54[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Sat Sep 18 21:43:05 2021 +0800
+
+    New pages API docs
+
+[33mcommit 20b192ca5005ad494fc5d7fecd870e032568e465[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Sat Sep 18 21:42:44 2021 +0800
+
+    index change from meeting 14/09
+
+[33mcommit c5deaa0948dd725095698abec60fa6021fad4d8e[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Sat Sep 18 21:42:02 2021 +0800
+
+    overview page
+
+[33mcommit 5c144bb7dd1bf1fe891d557b4ac34222ced93a0b[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 14 16:47:42 2021 +0800
+
+    Began get started doc
+
+[33mcommit 6013a4466621c2d0eaaa72b8ec8c0a096f3ea1be[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 14 16:47:09 2021 +0800
+
+    Fixed issue of image size
+
+[33mcommit 022f67fbb0dab0a837121555b61c020b5c4a3673[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 14 16:46:58 2021 +0800
+
+    Overview of general Clojask process
+
+[33mcommit 36c598eb465884b0e635fb1aa4da04c50b3b325e[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 14 16:46:25 2021 +0800
+
+    Created Index/main page
+
+[33mcommit b5ca78b61bce60d9a4f3fdea2631def25969c501[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 14 16:46:04 2021 +0800
+
+    Created about page
+
+[33mcommit 7dae60f985c6acf6836b88035c53d70cf15c7e54[m
+Author: Sung Ho <sungho.chu8567@gmail.com>
+Date:   Tue Sep 14 16:45:39 2021 +0800
+
+    Uploaded diagram of Clojask process & Deleted page
+
+[33mcommit 4542511f24f861e6678dda4ec9a801448313e120[m
+Author: Angel Woo <awoo424@gmail.com>
+Date:   Mon Jul 26 21:06:19 2021 +0800
+
+    Create cryogen project
+
+[33mcommit 3705d3b63a66a27c5fcd57e5adf8bb4bcfe32c4e[m
+Author: awoo424 <43091328+awoo424@users.noreply.github.com>
+Date:   Mon Jul 26 17:05:09 2021 +0800
+
+    Create README.md
