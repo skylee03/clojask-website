@@ -2,11 +2,18 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Clojask: Posts Tagged &quot;Start&quot;</title>
+        <title>Clojask: Examples</title>
         
-        <meta name="description" content="This site serves as documentation for the dataframe library Clojask written in Clojure.">
-        <meta name="keywords" content="">
-        
+<meta name="keywords" content="Start">
+
+<meta name="description" content="Multi-threading with core.async">
+
+<meta property="og:description" content="Multi-threading with core.async">
+
+<meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/examples/" />
+<meta property="og:title" content="Examples" />
+<meta property="og:type" content="article" />
+
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         
         <link rel="shortcut icon" href="images/ico/favicon.png">
@@ -73,17 +80,47 @@
 
         <article id="main">
             
-<div id="posts-by-tag">
-    <div id="page-header">
-        <h1>Posts Tagged &quot;Start&quot;</h1>
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta">
+        <h1>Examples</h1>
+        <div class="byline">
+            <!-- <span class="date">September 29, 2021</span> -->
+            
+        </div>
     </div>
-    <ul>
+</div>
+<div>
+    <ol class="toc"><li><a href="#multi-threading-with-coreasync">Multi-threading with core.async</a></li></ol>
+    <h4 id="multi-threading-with-coreasync">Multi-threading with core.async</h4><pre><code class="clojure">(def x (dataframe "resources/Employees-large.csv"))
+(def y (dataframe "resources/Employees.csv"))
+
+;; create a thread for each operation
+(async/thread (set-type x "double" "Department"))
+(async/thread (set-type y "double" "Department"))
+
+(time (left-join x y ["Employee"] ["Employee"] 4 "output/test.csv" :exception false))
+</code></pre>
+</div>
+<!--  -->
+<!-- <br/> -->
+
+
+    <!-- 
+    <div id="prev-next">
     
-        <li>
-            <a href="/clojask-website/posts-output/get-started/">Get Started</a>
-        </li>
+    <a class="prev" href="/clojask-website/posts-output/get-started/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">Get Started</div></a>
     
-    </ul>
+    
+    <a class="next" href="/clojask-website/posts-output/API/"><div class="nav-text"">API Docs</div><svg class="icon icon-circle-right"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-right"></use></svg></a>
+    
+</div>
+
+     -->
+
+    
+
+
 </div>
 
             <!-- <hr/> -->
