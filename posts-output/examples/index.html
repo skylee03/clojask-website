@@ -2,16 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Clojask: Overview</title>
+        <title>Clojask: Examples</title>
         
-<meta name="keywords" content="Start,Documentation">
+<meta name="keywords" content="Start">
 
-<meta name="description" content="OverviewClojask is an library for parallel computing datasets on Clojure">
+<meta name="description" content="Multi-threading with core.async">
 
-<meta property="og:description" content="OverviewClojask is an library for parallel computing datasets on Clojure">
+<meta property="og:description" content="Multi-threading with core.async">
 
-<meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/2021-09-27-overview/" />
-<meta property="og:title" content="Overview" />
+<meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/examples/" />
+<meta property="og:title" content="Examples" />
 <meta property="og:type" content="article" />
 
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -60,7 +60,10 @@
                         
                          <!-- custom navbar item -->
                         <li>
-                            <a title="API Docs" href="/clojask-website/posts-output/2021-09-28-API/"><div class="menu-item-text">API Docs</div></a>
+                            <a title="API Docs" href="/clojask-website/posts-output/API/"><div class="menu-item-text">API Docs</div></a>
+                        </li>
+                        <li>
+                            <a title="Examples" href="/clojask-website/posts-output/examples/"><div class="menu-item-text">Examples</div></a>
                         </li>
                         <li ><a title="Archives" href="/clojask-website/archives/"><div class="menu-item-text">Archives</div></a></li>
                         <!-- <li><a title="RSS" href="/clojask-website/feed.xml"><div class="menu-item-text">RSS</div></a></li> -->
@@ -80,53 +83,36 @@
 <div id="post">
     <div class="post-header">
     <div id="post-meta">
-        <h1>Overview</h1>
+        <h1>Examples</h1>
         <div class="byline">
-            <!-- <span class="date">27 September 2021</span> -->
+            <!-- <span class="date">29 September 2021</span> -->
             
         </div>
     </div>
 </div>
 <div>
-    <ol class="toc"><li><a href="#overview">Overview</a></li><li><a href="#system-of-operations">System of Operations</a></li><ol><li><a href="#replaceable-operations">Replaceable operations</a></li><li><a href="#incremental-operations">Incremental operations</a></li></ol><li><a href="#clojask-logic-flow-diagram">Clojask Logic Flow Diagram</a></li></ol>
-    <h2 id="overview">Overview</h2><p>Clojask is an library for parallel computing datasets on Clojure</p><p>Our emphasis is on providing the following attributes</p><ul><li>Ease of installation and use</li><li>Efficient operations with low overhead</li><li>Provide ability to quickly process larger-than-memory datasets</li><li>Utilise features of Clojure in the form of lazy sequences, macros, etc [link to the about page]</li><li>Provide flexibility on single/cluster machine operations (Currently in the works)</li></ul><h2 id="system-of-operations">System of Operations</h2><p>Clojask is defined by two key types: incremental and replaceable operations.</p><h3 id="replaceable-operations">Replaceable operations</h3><p>Replaceable operatons include</p><ul><li>set-type</li><li>add-parser</li><li>group-by</li><li>add-formatter</li></ul><p>Replaceable operations can be called multiple times to <strong>replace</strong> the previous call of the operation</p><pre><code class="clojure">(def x (dataframe "path/to/a.csv"))
-;; defines dataframe from csv file "a.csv" 
+    <ul class="toc"><li><a href="#multi-threading-with-coreasync">Multi-threading with core.async</a></li></ul>
+    <h4 id="multi-threading-with-coreasync">Multi-threading with core.async</h4><pre><code class="clojure">(def x (dataframe "resources/Employees-large.csv"))
+(def y (dataframe "resources/Employees.csv"))
 
-(set-type x "int" "employee_no")
-;; makes column "employee numbers" integers
- 
-(set-type x "str" "employee_no")
-;; makes column "employee numbers" strings  
-</code></pre><p>In the case above, Clojask will ultimately interpret the "employeee_no" column as a <strong>string</strong>, rather than an <strong>integer</strong>.</p><h3 id="incremental-operations">Incremental operations</h3><p>Incremental operations include</p><ul><li>filter</li><li>operate</li><li>aggregate</li></ul><p>Incremental operations are able to build on top of one another and build up <strong>incrementally</strong> in their operation.</p><pre><code class="clojure">(filter x "Salary" (fn [salary] (&lt;= salary 800)))
-;; this statement deletes all the rows that have a salary larger than 800
+;; create a thread for each operation
+(async/thread (set-type x "double" "Department"))
+(async/thread (set-type y "double" "Department"))
 
-(filter x "Department" (fn [dept] (= dept "computer science")))
-;; this statements deletes all the rows that contain people not in the computer science department
-
-(filter x ["Salary" "Department"] (fn [salary dept] (and (&lt;= salary 800) (= dept "computer science"))))
-;; keeps only people from computer science department with salary not larger than 800
-</code></pre><p>This means additional incremental operations are appllied on top of exisiting operations</p><h2 id="clojask-logic-flow-diagram">Clojask Logic Flow Diagram</h2><p>(Click to view a closeup of image)
-<a href="https://raw.githubusercontent.com/clojure-finance/clojask/main/doc/diagram.jpg" target="_blank"><img src="https://raw.githubusercontent.com/clojure-finance/clojask/main/doc/diagram.jpg" alt="some image" /></a></p><!-- /img/diagram.png -->
+(time (left-join x y ["Employee"] ["Employee"] 4 "output/test.csv" :exception false))
+</code></pre>
 </div>
-<!-- 
-<div id="post-tags">
-    <br/>
-    <b>Tags: </b>
-    
-    <a href="/clojask-website/tags-output/Documentation/">Documentation</a>
-    
-</div>
- -->
+<!--  -->
 <!-- <br/> -->
 
 
     <!-- 
     <div id="prev-next">
     
-    <a class="prev" href="/clojask-website/posts-output/2021-09-28-API/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">API Docs</div></a>
+    <a class="prev" href="/clojask-website/posts-output/get-started/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">Get Started</div></a>
     
     
-    <div class="next"></div>
+    <a class="next" href="/clojask-website/posts-output/API/"><div class="nav-text"">API Docs</div><svg class="icon icon-circle-right"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-right"></use></svg></a>
     
 </div>
 
@@ -140,7 +126,7 @@
             <!-- <hr/> -->
             <br/>
             <div id="footercont">
-                Copyright &copy; 2021 clojure-backtesting
+                Copyright &copy; 2021 clojask
                 <br>Powered by <a href="http://cryogenweb.org">Cryogen</a>
             </div>
         </article>

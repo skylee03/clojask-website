@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Clojask: API Docs</title>
         
-<meta name="keywords" content="Start,Documentation">
+<meta name="keywords" content="Start">
 
 <meta name="description" content="FeaturesUnlimited size
 Theoretically speaking, it supports dataset larger than memory to infinity!All native types
@@ -20,7 +20,7 @@ Integrate IO inside the dataframe. No need to write your own read-in and output 
 Most operations could be distributed to different computers in a clusters. See the principle in Onyx  Lazy operations
 Some operations will not be executed immediately. Dataframe will intelligently pipeline the operations altogether in computation.">
 
-<meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/2021-09-28-API/" />
+<meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/API/" />
 <meta property="og:title" content="API Docs" />
 <meta property="og:type" content="article" />
 
@@ -70,7 +70,10 @@ Some operations will not be executed immediately. Dataframe will intelligently p
                         
                          <!-- custom navbar item -->
                         <li>
-                            <a title="API Docs" href="/clojask-website/posts-output/2021-09-28-API/"><div class="menu-item-text">API Docs</div></a>
+                            <a title="API Docs" href="/clojask-website/posts-output/API/"><div class="menu-item-text">API Docs</div></a>
+                        </li>
+                        <li>
+                            <a title="Examples" href="/clojask-website/posts-output/examples/"><div class="menu-item-text">Examples</div></a>
                         </li>
                         <li ><a title="Archives" href="/clojask-website/archives/"><div class="menu-item-text">Archives</div></a></li>
                         <!-- <li><a title="RSS" href="/clojask-website/feed.xml"><div class="menu-item-text">RSS</div></a></li> -->
@@ -98,8 +101,8 @@ Some operations will not be executed immediately. Dataframe will intelligently p
     </div>
 </div>
 <div>
-    <ol class="toc"><li><a href="#features">Features</a></li><li><a href="#basic-information">Basic Information</a></li><li><a href="#api-documentation">API Documentation</a></li><ol><li><a href="#filter">filter</a></li><li><a href="#set-type">set-type</a></li><li><a href="#set-parser">set-parser</a></li><li><a href="#operate-in-place-modification">operate (In-place modification)</a></li><li><a href="#operate-column-generating">operate (Column generating)</a></li><li><a href="#group-by">group-by</a></li><li><a href="#aggregate">aggregate</a></li><li><a href="#sort">sort</a></li><li><a href="#compute">compute</a></li><li><a href="#inner-join--left-join--right-join">inner-join / left-join / right-join</a></li><li><a href="#reordercol--renamecol">reorderCol / renameCol</a></li><li><a href="#rolling-join-forward">rolling-join-forward</a></li></ol></ol>
-    <h3 id="features">Features</h3><ul><li><p><strong>Unlimited size</strong>
+    <ul class="toc"><li><a href="#features">Features</a></li><li><a href="#basic-information">Basic Information</a></li><li><a href="#api-documentation">API Documentation</a></li><ul><li><a href="#filter">filter</a></li><li><a href="#set-type">set-type</a></li><li><a href="#set-parser">set-parser</a></li><li><a href="#operate-in-place-modification">operate (In-place modification)</a></li><li><a href="#operate-column-generating">operate (Column generating)</a></li><li><a href="#group-by">group-by</a></li><li><a href="#aggregate">aggregate</a></li><li><a href="#sort">sort</a></li><li><a href="#compute">compute</a></li><li><a href="#inner-join--left-join--right-join">inner-join / left-join / right-join</a></li><li><a href="#reordercol--renamecol">reorderCol / renameCol</a></li><li><a href="#rolling-join-forward">rolling-join-forward</a></li></ul></ul>
+    <h3 id="features">Features</h3><ul><li><p><strong>Unlimited size</strong><br />
 Theoretically speaking, it supports dataset larger than memory to infinity!</p></li><li><p><strong>All native types</strong><br />
 All the datatypes used to store data is native Clojure (or Java) types!</p></li><li><p><strong>From file to file</strong><br />
 Integrate IO inside the dataframe. No need to write your own read-in and output functions!</p></li><li><p><strong>Distributed (coming soon)</strong><br />
@@ -159,10 +162,10 @@ Some operations will not be executed immediately. Dataframe will intelligently p
     <!-- 
     <div id="prev-next">
     
-    <a class="prev" href="/clojask-website/posts-output/2021-09-29-examples/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">Examples</div></a>
+    <a class="prev" href="/clojask-website/posts-output/examples/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">Examples</div></a>
     
     
-    <a class="next" href="/clojask-website/posts-output/2021-09-27-overview/"><div class="nav-text"">Overview</div><svg class="icon icon-circle-right"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-right"></use></svg></a>
+    <div class="next"></div>
     
 </div>
 
@@ -176,7 +179,7 @@ Some operations will not be executed immediately. Dataframe will intelligently p
             <!-- <hr/> -->
             <br/>
             <div id="footercont">
-                Copyright &copy; 2021 clojure-backtesting
+                Copyright &copy; 2021 clojask
                 <br>Powered by <a href="http://cryogenweb.org">Cryogen</a>
             </div>
         </article>
