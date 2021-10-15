@@ -2,32 +2,18 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-<<<<<<< HEAD
-        <title>Clojask: Posts by clojure-backtesting </title>
+        <title>Clojask: Get Started</title>
         
-        <meta name="description" content="This site serves as documentation for the dataframe library Clojask written in Clojure.">
-        <meta name="keywords" content="">
-        
-<<<<<<< HEAD:posts-output/examples/index.html
-=======
-        <title>Clojask: Examples</title>
-        
->>>>>>> dc724f156b12de65db2f975c1fea06ad341ebd42
 <meta name="keywords" content="Start">
 
-<meta name="description" content="Multi-threading with core.async">
+<meta name="description" content="Getting Started">
 
-<meta property="og:description" content="Multi-threading with core.async">
+<meta property="og:description" content="Getting Started">
 
-<meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/examples/" />
-<meta property="og:title" content="Examples" />
+<meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/get-started/" />
+<meta property="og:title" content="Get Started" />
 <meta property="og:type" content="article" />
 
-<<<<<<< HEAD
-=======
->>>>>>> dc724f156b12de65db2f975c1fea06ad341ebd42:public/clojask-website/authors-output/clojure-backtesting/index.html
-=======
->>>>>>> dc724f156b12de65db2f975c1fea06ad341ebd42
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         
         <link rel="shortcut icon" href="images/ico/favicon.png">
@@ -94,91 +80,67 @@
 
         <article id="main">
             
-<<<<<<< HEAD
-<div id="posts">
-    <div id="page-header" class="post-header">
-        <h1>Posts by clojure-backtesting</h1>
-    </div>
-<<<<<<< HEAD:posts-output/examples/index.html
-</div>
-<div>
-    <ul class="toc"><li><a href="#multi-threading-with-coreasync">Multi-threading with core.async</a></li></ul>
-=======
 <div id="post">
     <div class="post-header">
     <div id="post-meta">
-        <h1>Examples</h1>
+        <h1>Get Started</h1>
         <div class="byline">
-            <!-- <span class="date">September 29, 2021</span> -->
+            <!-- <span class="date">September 30, 2021</span> -->
             
         </div>
     </div>
 </div>
 <div>
-    <ol class="toc"><li><a href="#multi-threading-with-coreasync">Multi-threading with core.async</a></li></ol>
->>>>>>> dc724f156b12de65db2f975c1fea06ad341ebd42
-    <h4 id="multi-threading-with-coreasync">Multi-threading with core.async</h4><pre><code class="clojure">(def x (dataframe "resources/Employees-large.csv"))
-(def y (dataframe "resources/Employees.csv"))
-
-;; create a thread for each operation
-(async/thread (set-type x "double" "Department"))
-(async/thread (set-type y "double" "Department"))
-
-(time (left-join x y ["Employee"] ["Employee"] 4 "output/test.csv" :exception false))
-</code></pre>
+    <ol class="toc"><li><a href="#getting-started">Getting Started</a></li><ol><li><a href="#requirements">Requirements</a></li><li><a href="#dependencies">Dependencies</a></li><li><a href="#development">Development</a></li></ol><li><a href="#beginner-tutorials">Beginner Tutorials</a></li><li><a href="#in-built-dependencies">In Built Dependencies</a></li><li><a href="#help--support">Help & Support</a></li><ol><li><a href="#api-documentation">API Documentation</a></li></ol></ol>
+    <hr /><h2 id="getting-started">Getting Started</h2><p>Please note that the Onyx library is currently being used in Clojask for its distributed platform.</p><p>Currently, Onyx is <strong>supported only on Linux or MacOS</strong> and <strong>currently does not support Windows</strong> for its distributed computing.</p><p>As a result, Clojask is currently <strong>not supported on Windows.</strong></p><p>We hope to be able to provide support soon.</p><h3 id="requirements">Requirements</h3><pre><code>- Clojure
+- Leiningen
+</code></pre><h3 id="dependencies">Dependencies</h3><p>Please include in the project.clj file as one of the dependencies</p><pre><code class="clojure">[clojask "0.1.0-SNAPSHOT"]
+;; The current most recent snapshot
+</code></pre><h3 id="development">Development</h3><p>To start an interactive prompt where you can enter arbitrary code to run in the context of your project:</p><pre><code>lein repl
+</code></pre><p>To run the default <code>:main</code> set in <code>project.clj</code>:</p><pre><code>lein run
+</code></pre><p>To run all tests written in the <code>test</code> namespace:</p><pre><code>lein test
+</code></pre><hr /><h2 id="beginner-tutorials">Beginner Tutorials</h2><br /><p>If you are new to Clojure, we recommend having a quick read of the following tutorials first:</p><ul><li><p><a href="http://kimh.github.io/clojure-by-example/#about">Clojure by Example</a> - useful for beginners pick up the syntax quickly</p></li><li><p><a href="https://clojuredocs.org/">Clojure Docs</a> - a more thorough documentation that explains the built-in functions in Clojure</p></li><li><p><a href="https://www.braveclojure.com/clojure-for-the-brave-and-true/">Clojure for the Brave and True</a> - a book that helps you learn Clojure in an in-depth manner</p></li></ul><hr /><h2 id="in-built-dependencies">In Built Dependencies</h2><p>To make use of the functions in the Clojask library, it is important to ensure your dependencies are installed.</p><p>While using Clojask, the library will automatically set up the following dependencies.</p><pre><code class="clojure">  :dependencies [[clojure-csv "2.0.2"]
+                 [org.clojure/clojure "1.10.1"]
+                 [org.clojure/math.numeric-tower "0.0.4"]
+                 ^{:voom {:repo "git@github.com:onyx-platform/onyx.git" :branch "master"}}
+                 [org.onyxplatform/onyx "0.14.5"]
+                 [techascent/tech.ml.dataset "5.17" :exclusions [[ch.qos.logback/logback-classic][org.slf4j/slf4j-api]]]
+                 [com.google.code.externalsortinginjava/externalsortinginjava "0.6.0"]]
+</code></pre><p>Please note that the above Onyx library is currently <strong>only supported in Linux or MacOS.</strong></p><p>As a result, Clojask is currently <strong>not supported in Windows.</strong></p><hr /><h2 id="help--support">Help &amp; Support</h2><br /><p>In case you would encounter difficulties or have any suggestions for additional examples, please feel free to post it <a href="https://github.com/clojure-finance/clojask/issues">here</a>.</p><hr /><h3 id="api-documentation">API Documentation</h3><p><a href="/clojask-website/posts-output/API/">Check out the documentaion post here</a></p><p>If you more interested in the inner workings of Clojask, please <a href="/clojask-website/pages-output/about">refer back to the abouts section</a></p>
 </div>
-<!--  -->
+<!-- 
+<div id="post-tags">
+    <br/>
+    <b>Tags: </b>
+    
+    <a href="/clojask-website/tags-output/Start/">Start</a>
+    
+</div>
+ -->
 <!-- <br/> -->
 
 
     <!-- 
     <div id="prev-next">
     
-    <a class="prev" href="/clojask-website/posts-output/get-started/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">Get Started</div></a>
+    <div class="prev"></div>
     
     
-    <a class="next" href="/clojask-website/posts-output/API/"><div class="nav-text"">API Docs</div><svg class="icon icon-circle-right"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-right"></use></svg></a>
+    <a class="next" href="/clojask-website/posts-output/examples/"><div class="nav-text"">Examples</div><svg class="icon icon-circle-right"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-right"></use></svg></a>
     
 </div>
 
      -->
 
-<<<<<<< HEAD
-=======
-    
-    <h4>2021 September</h4>
-    <ul>
-        
-        <li>
-            Sep 30 - <a href="/clojask-website/posts-output/get-started/">Get Started</a>
-        </li>
-        
-        <li>
-            Sep 29 - <a href="/clojask-website/posts-output/examples/">Examples</a>
-        </li>
-        
-        <li>
-            Sep 28 - <a href="/clojask-website/posts-output/API/">API Docs</a>
-        </li>
-        
-    </ul>
->>>>>>> dc724f156b12de65db2f975c1fea06ad341ebd42:public/clojask-website/authors-output/clojure-backtesting/index.html
-    
-=======
     
 
 
->>>>>>> dc724f156b12de65db2f975c1fea06ad341ebd42
 </div>
 
             <!-- <hr/> -->
             <br/>
             <div id="footercont">
-<<<<<<< HEAD
-                Copyright &copy; 2021 clojask
-=======
                 Copyright &copy; 2021 clojure-backtesting
->>>>>>> dc724f156b12de65db2f975c1fea06ad341ebd42
                 <br>Powered by <a href="http://cryogenweb.org">Cryogen</a>
             </div>
         </article>
