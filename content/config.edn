@@ -1,5 +1,5 @@
 {:site-title                   "Clojask"
- :author                       "clojure-backtesting"
+ :author                       "clojask"
  :description                  "This site serves as documentation for the dataframe library Clojask written in Clojure."
  :site-url                     "https://clojure-finance.github.io/clojask-website/"
  :post-root                    "posts"

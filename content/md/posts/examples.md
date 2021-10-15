@@ -1,7 +1,7 @@
 {:title "Examples" 
 :date "2021-09-29"
 :layout :post
-:toc true}
+:toc :ul}
 
 #### Multi-threading with core.async
 
