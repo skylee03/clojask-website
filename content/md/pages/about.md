@@ -48,7 +48,7 @@ Number of workers = 4
 - *In the case of Dask (N=80M) the program could not manage to complete the operation in 7 hours
 
 
-### System info
+**System info**
 ```
 'platform': 'Darwin',
 'platform-release': '20.4.0',
