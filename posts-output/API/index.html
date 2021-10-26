@@ -95,13 +95,13 @@ Some operations will not be executed immediately. Dataframe will intelligently p
     <div id="post-meta">
         <h1>API Docs</h1>
         <div class="byline">
-            <!-- <span class="date">28 September 2021</span> -->
+            <!-- <span class="date">September 28, 2021</span> -->
             
         </div>
     </div>
 </div>
 <div>
-    <ul class="toc"><li><a href="#features">Features</a></li><li><a href="#basic-information">Basic Information</a></li><li><a href="#api-documentation">API Documentation</a></li><ul><li><a href="#filter">filter</a></li><li><a href="#set-type">set-type</a></li><li><a href="#set-parser">set-parser</a></li><li><a href="#operate-in-place-modification">operate (In-place modification)</a></li><li><a href="#operate-column-generating">operate (Column generating)</a></li><li><a href="#group-by">group-by</a></li><li><a href="#aggregate">aggregate</a></li><li><a href="#sort">sort</a></li><li><a href="#compute">compute</a></li><li><a href="#inner-join--left-join--right-join">inner-join / left-join / right-join</a></li><li><a href="#reordercol--renamecol">reorderCol / renameCol</a></li><li><a href="#rolling-join-forward">rolling-join-forward</a></li></ul></ul>
+    <ul class="toc"><li><a href="#features">Features</a></li><li><a href="#basic-information">Basic Information</a></li><li><a href="#api-documentation">API Documentation</a></li><ul><li><a href="#filter">filter</a></li><li><a href="#set-type">set-type</a></li><li><a href="#set-parser">set-parser</a></li><li><a href="#operate-in-place-modification">operate (In-place modification)</a></li><li><a href="#operate-column-generating">operate (Column generating)</a></li><li><a href="#group-by">group-by</a></li><li><a href="#aggregate">aggregate</a></li><li><a href="#sort">sort</a></li><li><a href="#compute">compute</a></li><li><a href="#inner-join--left-join--right-join">inner-join / left-join / right-join</a></li><li><a href="#reordercol--renamecol">reorderCol / renameCol</a></li></ul></ul>
     <h3 id="features">Features</h3><ul><li><p><strong>Unlimited size</strong><br />
 Theoretically speaking, it supports dataset larger than memory to infinity!</p></li><li><p><strong>All native types</strong><br />
 All the datatypes used to store data is native Clojure (or Java) types!</p></li><li><p><strong>From file to file</strong><br />
@@ -141,19 +141,7 @@ Some operations will not be executed immediately. Dataframe will intelligently p
 ;; right join x and y
 </code></pre><hr /><h4 id="reordercol--renamecol">reorderCol / renameCol</h4><p>Reorder the columns / rename the column names in the dataframe</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe a</code></td><td>Clojask.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>a columns</code></td><td>Clojure.collection</td><td>The new set of column names</td><td>Should be existing headers in dataframe a if it is <code>reorderCol</code></td></tr></tbody></table><pre><code class="clojure">(.reorderCol y ["Employee" "Department" "EmployeeName" "Salary"])
 (.renameCol y ["Employee" "new-Department" "EmployeeName" "Salary"])
-</code></pre><hr /><h4 id="rolling-join-forward">rolling-join-forward</h4><p>(Probably need to move this to examples instead)</p><p>Perform a rolling join forward on two dataframes by some columns
-| Argument            | Type               | Function                                                     | Remarks                                           |
-| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
-| <code>dataframe b</code>       | Clojask.DataFrame  | The operated object                                          |                                                   |
-| <code>a columns</code>         | Clojure.collection | The keys of a to be aligned                                  | Should be existing headers in dataframe a         |
-| <code>b columns</code>         | Clojure.collection | The keys of b to be aligned                                  | Should be existing headers in dataframe b         |
-| <code>number of workers</code> | int (max 8)        | Number of worker nodes doing the joining                     |                                                   |
-| <code>distination file</code>  | string             | The file path to the distination                             | Will be emptied first                             |</p><p><strong>Example</strong></p><pre><code class="clojure">(def x (dataframe "path/to/a"))
-(def y (dataframe "path/to/b"))
-
-(inner-join x y ["col a 1" "col a 2"] ["col b 1" "col b 2"] ["a-roll" "b-roll"] 8 "path/to/distination" :exception true)
-;; rolling join forward x and y
-</code></pre><hr />
+</code></pre>
 </div>
 <!--  -->
 <!-- <br/> -->
@@ -179,7 +167,7 @@ Some operations will not be executed immediately. Dataframe will intelligently p
             <!-- <hr/> -->
             <br/>
             <div id="footercont">
-                Copyright &copy; 2021 clojask
+                Copyright &copy; 2021 Clojask
                 <br>Powered by <a href="http://cryogenweb.org">Cryogen</a>
             </div>
         </article>
