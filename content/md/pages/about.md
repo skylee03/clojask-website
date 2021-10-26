@@ -28,15 +28,15 @@ Our emphasis is on providing the following attributes
 
 Number of workers = 4
 
-| Operation | Dask (N=1.8M) | Dask (N=3.6M) | Dask (N=80M)* | Clojask (N=1.8M) | Clojask (N=3.6M) | Clojask (N=80M)** |
+| Operation | Dask (N=1.8M) | Dask (N=3.6M) | Dask (N=80M)* | Clojask (N=1.8M) | Clojask (N=3.6M) | Clojask (N=80M) |
 | :---:   | :-: | :-: | :-: | :-: | :-: | :-: |
 | Element-wise operation | 119.3 | 261.3 | N/A | 72.3 | 133.3 | 1836.6 |
 | Row-wise selection | 115.0 | 232.0 | N/A | 67.9 | 145.6 | 1757.5 |
 | Aggregation | 116.0 | 226.7 | N/A | - | - | - |
-| Groupby-aggregate | 116.7 | 229.3 | N/A | 459.4 | 803.1 | N/A |
+| Groupby-aggregate | 116.7 | 229.3 | N/A | 459.4 | 803.1 | 25860.0 |
 | Left join | 114.7 | 248.7 | N/A | 1174.4| 2310.2 | 14007.9 |
-| Inner join | 116.7 | 242.0| N/A | 1138.8 | 4593.3 | |
 | Rolling join | - | - | - | 2812.1 | 3943.1 | |
+| Inner join | 116.7 | 242.0| N/A | 1138.8 | 2768.5 | |
 
 <br>
 <br>
@@ -46,10 +46,9 @@ Number of workers = 4
 - All benchmarks are in the unit of second (s)
 - All benchmarks are inclusive of the time used for importing necssary libraries, loading the dataframe from csv file and ouputting the processed dataframe to one single csv file.
 - *In the case of Dask (N=80M) the program could not manage to complete the operation in 7 hours
-- **In the case of Clojask (N=80M) groupby-aggregate takes more than 7 hours to finish
 
 
-### System info
+**System info**
 ```
 'platform': 'Darwin',
 'platform-release': '20.4.0',
