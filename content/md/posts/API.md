@@ -39,6 +39,53 @@
 ---
 
 
+#### reorder-col / rename-col
+
+Reorder the columns / rename the column names in the dataframe
+
+| Argument            | Type               | Function                                                     | Remarks                                           |
+| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
+| `dataframe`       | Clojask.DataFrame  | The operated object                                          |                                                   |
+| `columns`         | Clojure.collection | The new set of column names                                  | Should be existing headers in dataframe a if it is `reorderCol`         |
+
+```clojure
+(rename-col y ["Employee" "EmployeeName" "new-Department" "Salary"])
+(reorder-col y ["Employee" "new-Department" "EmployeeName" "Salary"])
+```
+
+---
+
+#### select-col
+
+Select columns to keep in the dataframe.
+
+| Argument            | Type               | Function                                                     | Remarks                                           |
+| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
+| `dataframe`       | Clojask.DataFrame  | The operated object                                          |                                                   |
+| `columns`         | Clojure.collection | The set of columns names to keep                                  | Should be existing columns within the dataframe         |
+
+```clojure
+(select-col y ["Employee" "Department"])
+```
+
+---
+
+#### delete-col
+
+Eliminate columns in the dataframe.
+
+| Argument            | Type               | Function                                                     | Remarks                                           |
+| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
+| `dataframe`       | Clojask.DataFrame  | The operated object                                          |                                                   |
+| `columns`         | Clojure.collection | The set of columns names to eliminate                                | Should be existing columns within the dataframe         |
+
+```clojure
+(delete-col y ["EmployeeName" "Salary"])
+```
+
+---
+
+
 #### filter
 
 Filters the data frame by rows
@@ -289,23 +336,6 @@ Inner / left / right join two dataframes by some columns
 (right-join x y ["col a 1" "col a 2"] ["col b 1" "col b 2"] 8 "path/to/distination" :exception true)
 ;; right join x and y
 ```
-
----
-
-#### reorderCol / renameCol
-
-Reorder the columns / rename the column names in the dataframe
-
-| Argument            | Type               | Function                                                     | Remarks                                           |
-| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
-| `dataframe a`       | Clojask.DataFrame  | The operated object                                          |                                                   |
-| `a columns`         | Clojure.collection | The new set of column names                                  | Should be existing headers in dataframe a if it is `reorderCol`         |
-
-```clojure
-(.reorderCol y ["Employee" "Department" "EmployeeName" "Salary"])
-(.renameCol y ["Employee" "new-Department" "EmployeeName" "Salary"])
-```
-
 
 
 
