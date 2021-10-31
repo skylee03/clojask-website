@@ -335,7 +335,7 @@ code, kbd, samp {
   }
   #menucont .menu li.active a, #menucont .menu li.active a:hover {
     font-weight: 600;
-    color: black;
+    color: #FFF;
   }
   #menucont .menu li a {
     width: 100%;
