@@ -6,9 +6,9 @@
         
 <meta name="keywords" content="Start">
 
-<meta name="description" content="Multi-threading with core.async">
+<meta name="description" content="Basic exampleThe simple way:">
 
-<meta property="og:description" content="Multi-threading with core.async">
+<meta property="og:description" content="Basic exampleThe simple way:">
 
 <meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/examples/" />
 <meta property="og:title" content="Examples" />
@@ -60,6 +60,9 @@
                         
                          <!-- custom navbar item -->
                         <li>
+                            <a title="Getting Started" href="/clojask-website/posts-output/get-started/"><div class="menu-item-text">Getting Started</div></a>
+                        </li>
+                        <li>
                             <a title="API Docs" href="/clojask-website/posts-output/API/"><div class="menu-item-text">API Docs</div></a>
                         </li>
                         <li>
@@ -85,14 +88,24 @@
     <div id="post-meta">
         <h1>Examples</h1>
         <div class="byline">
-            <!-- <span class="date">29 September 2021</span> -->
+            <!-- <span class="date">September 29, 2021</span> -->
             
         </div>
     </div>
 </div>
 <div>
-    <ul class="toc"><li><a href="#multi-threading-with-coreasync">Multi-threading with core.async</a></li><li><a href="#rolling-join-forward">rolling-join-forward</a></li></ul>
-    <h4 id="multi-threading-with-coreasync">Multi-threading with core.async</h4><pre><code class="clojure">(def x (dataframe "resources/Employees-large.csv"))
+    <ul class="toc"><li><a href="#basic-example">Basic example</a></li><li><a href="#multi-threading-with-coreasync">Multi-threading with core.async</a></li><li><a href="#rolling-join-forward">rolling-join-forward</a></li></ul>
+    <h4 id="basic-example">Basic example</h4><p>The simple way:</p><pre><code class="clojure">(dataframe df "resources/Employees-large.csv" :have-col true)
+(set-type df "Salary" "double")
+(filter df "Salary" (fn [salary] (&lt;= salary 800)))
+(operate df (fn [salary] (* salary 1.2)) "Salary")
+(compute df 8 "output.csv" :exception true)
+</code></pre><p>Using the <code>-&gt;</code> macro:</p><pre><code class="clojure">(-&gt; (dataframe "resources/Employees-large.csv" :have-col true)
+    (set-type "Salary" "double")
+    (filter "Salary" (fn [salary] (&lt;= salary 800)))
+    (operate (fn [salary] (* salary 1.2)) "Salary")
+    (compute 8 "output.csv" :exception true))
+</code></pre><h4 id="multi-threading-with-coreasync">Multi-threading with core.async</h4><pre><code class="clojure">(def x (dataframe "resources/Employees-large.csv"))
 (def y (dataframe "resources/Employees.csv"))
 
 ;; create a thread for each operation
