@@ -31,7 +31,9 @@ We believe that there are plenty of underlying potentialities in Clojure. Thus, 
 
 ### Table of Contents
 
-- [Part 1: Installation & Pre-requisites](/posts-output/get-started)
-- [Part 2: API documentation](/posts-output/API)
-- [Part 3: Examples](/posts-output/examples)
+- [Part 1: About](/pages-output/about)
+- [Part 2: Installation & Pre-requisites](/posts-output/get-started)
+- [Part 3: API documentation](/posts-output/API)
+- [Part 4: Examples](/posts-output/examples)
+- [Part 5: Archives](/archives)
 
