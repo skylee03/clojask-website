@@ -47,6 +47,7 @@ Number of workers = 4
 - All benchmarks are inclusive of the time used for importing necssary libraries, loading the dataframe from csv file and ouputting the processed dataframe to one single csv file.
 - *In the case of Dask (N=80M) the program could not manage to complete the operation in 7 hours
 
+<br>
 
 **System info**
 ```
@@ -57,6 +58,17 @@ Number of workers = 4
 'processor': 'i386',
 'ram': '8 GB'
 ```
+
+<br>
+
+**Source code**
+
+The benchmarking code for Dask and Clojask could be found here respectively:
+
+* [Dask benchmarking code](https://github.com/clojure-finance/clojask/blob/main/benchmark/dask-benchmark.ipynb)
+* [Clojask benchmaking code](https://github.com/clojure-finance/clojask/blob/main/benchmark/clojure-benchmark.clj)
+
+<br>
 
 ## System of Operations
 Clojask is defined by two key types: incremental and replaceable operations. 
