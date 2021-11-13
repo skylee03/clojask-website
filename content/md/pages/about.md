@@ -4,9 +4,8 @@
  :page-index 0
  :navbar? true}
 
-## <br>
-This is the documentation library for the data frame with parallel computing for larger-than-memory dataset library written in Clojure. The source code can be found on [GitHub](https://github.com/clojure-finance/clojask).
-
+This is the documentation library for the data frame with parallel computing for larger-than-memory dataset library written in Clojure.  
+The [source code](https://github.com/clojure-finance/clojask) can be found on GitHub.
 
 ## Report Bugs 
 

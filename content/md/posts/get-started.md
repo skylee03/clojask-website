@@ -4,7 +4,6 @@
 :toc :ul
 :tags ["Start"]}
 
----
 ## Getting Started
 
 Please note that the Onyx library is currently being used in Clojask for its distributed platform.
