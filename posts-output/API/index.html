@@ -78,6 +78,17 @@ Some operations will not be executed immediately. Dataframe will intelligently p
                         <li>
                             <a title="Examples" href="/clojask-website/posts-output/examples/"><div class="menu-item-text">Examples</div></a>
                         </li>
+<!-- 
+                        <button class="dropdown">Dropdown
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-container">
+                            <a href="#">Link 1</a>
+                            <a href="##">Link 2</a>
+                            <a href="###">Link 3</a>
+                        </div>
+                        </a> -->
+
                         <li ><a title="Archives" href="/clojask-website/archives/"><div class="menu-item-text">Archives</div></a></li>
                         <!-- <li><a title="RSS" href="/clojask-website/feed.xml"><div class="menu-item-text">RSS</div></a></li> -->
                     </ul>
@@ -98,13 +109,13 @@ Some operations will not be executed immediately. Dataframe will intelligently p
     <div id="post-meta">
         <h1>API Docs</h1>
         <div class="byline">
-            <!-- <span class="date">28 September 2021</span> -->
+            <!-- <span class="date">September 28, 2021</span> -->
             
         </div>
     </div>
 </div>
 <div>
-    <ul class="toc"><li><a href="#features">Features</a></li><li><a href="#basic-information">Basic Information</a></li><li><a href="#api-documentation">API Documentation</a></li><ul><li><a href="#reorder-col--rename-col">reorder-col / rename-col</a></li><li><a href="#select-col">select-col</a></li><li><a href="#delete-col">delete-col</a></li><li><a href="#filter">filter</a></li><li><a href="#set-type">set-type</a></li><li><a href="#set-parser">set-parser</a></li><li><a href="#operate-in-place-modification">operate (In-place modification)</a></li><li><a href="#operate-column-generating">operate (Column generating)</a></li><li><a href="#group-by">group-by</a></li><li><a href="#aggregate">aggregate</a></li><li><a href="#sort">sort</a></li><li><a href="#compute">compute</a></li><li><a href="#inner-join--left-join--right-join">inner-join / left-join / right-join</a></li></ul></ul>
+    <ul class="toc"><li><a href="#features">Features</a></li><li><a href="#basic-information">Basic Information</a></li><li><a href="#api-documentation">API Documentation</a></li><ul><li><a href="#reorder-col--rename-col">reorder-col / rename-col</a></li><li><a href="#select-col">select-col</a></li><li><a href="#delete-col">delete-col</a></li><li><a href="#filter">filter</a></li><li><a href="#set-type">set-type</a></li><li><a href="#set-parser">set-parser</a></li><li><a href="#operate-in-place-modification">operate (In-place modification)</a></li><li><a href="#operate-column-generating">operate (Column generating)</a></li><li><a href="#group-by">group-by</a></li><li><a href="#aggregate">aggregate</a></li><li><a href="#aggregation-functions">Aggregation Functions</a></li><ul><li><a href="#how-to-define-group-by-aggregation-functions">How to define group-by aggregation functions?</a></li><li><a href="#how-to-define-simple-aggregation-functions">How to define simple aggregation functions?</a></li></ul><li><a href="#sort">sort</a></li><li><a href="#compute">compute</a></li><li><a href="#inner-join--left-join--right-join">inner-join / left-join / right-join</a></li><li><a href="#rolling-join-forwardrolling-join-backward">rolling-join-forward/rolling-join-backward</a></li></ul></ul>
     <h3 id="features">Features</h3><ul><li><p><strong>Unlimited size</strong><br />
 Theoretically speaking, it supports dataset larger than memory to infinity!</p></li><li><p><strong>All native types</strong><br />
 All the datatypes used to store data is native Clojure (or Java) types!</p></li><li><p><strong>From file to file</strong><br />
@@ -143,9 +154,23 @@ Some operations will not be executed immediately. Dataframe will intelligently p
 </code></pre><p>You can also group by the combination of keys. (Use the above two rules together)</p><pre><code class="clojure">(group-by x [[rem10 "Salary"] "Department"])
 ;; or
 (group-by x [[rem10 "Salary"] ["Department"]])
-</code></pre><h4 id="aggregate">aggregate</h4><p>Aggregate the grouped dataframes with some functions. The aggregation function will be applied to every columns registered in sequence.</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe</code></td><td>Clojask.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>aggregation function</code></td><td>function</td><td>Function to be applied to each column</td><td>Should take a collection as argument. And return one or a collection of predefined type*.</td></tr><tr><td><code>column name(s)</code></td><td>String or collection of String</td><td>Aggregate columns</td><td>Should be existing columns within the dataframe</td></tr><tr><td>[<code>new column</code>]</td><td>String or collection of string</td><td>Resultant column</td><td>Should be new columns not in the dataframe</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">(aggregate x clojask/min ["Employee" "EmployeeName"] ["new" "new2"])
+</code></pre><hr /><h4 id="aggregate">aggregate</h4><p>Aggregate the grouped dataframes with some functions. The aggregation function will be applied to every columns registered in sequence.</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe</code></td><td>Clojask.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>aggregation function</code></td><td>function</td><td>Function to be applied to each column</td><td>Should take a collection as argument. And return one or a collection of predefined type*.</td></tr><tr><td><code>column name(s)</code></td><td>String or collection of String</td><td>Aggregate columns</td><td>Should be existing columns within the dataframe</td></tr><tr><td>[<code>new column</code>]</td><td>String or collection of string</td><td>Resultant column</td><td>Should be new columns not in the dataframe</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">(aggregate x clojask/min ["Employee" "EmployeeName"] ["new" "new2"])
 ;; get the min of the two columns grouped by ...
-</code></pre><hr /><h4 id="sort">sort</h4><p><strong>Immediately</strong> sort the dataframe</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe</code></td><td>Clojask.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>trending list</code></td><td>Collection (seq vector)</td><td>Indicates the sort order</td><td>Example: ["Salary" "+" "Employee" "-"] means that sort the Salary in ascending order, if equal sort the Employee in descending order</td></tr><tr><td><code>output-directory</code></td><td>String</td><td>The output path</td><td> </td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">(sort y ["+" "Salary"] "resources/sort.csv")
+</code></pre><h4 id="aggregation-functions">Aggregation Functions</h4><p>In Clojask, you can aggregate on the whole dataframe, or on the group-by dataframe. We call the first case "simple aggregation" and the second "group-by aggregation". Some given functions for simple aggregation are defined in namespace <code>clojask.api.aggregate</code>, and the given functions for group-by aggregation are defined in namespace <code>clojask.api.gb-aggregate</code>.</p><p>Below are full list of given functions for the two types.</p><p><code>clojask.api.aggregate</code>:</p><p><code>max</code>: Find the max value (use <code>clojure.core/compare</code> as the comparator)</p><p><code>min</code>: Find the min value (use <code>clojure.core/compare</code> as the comparator)</p><p><code>clojask.api.gb-aggregate</code>:</p><p><code>max</code>: Find the max value (use <code>clojure.core/compare</code> as the comparator)</p><p><code>min</code>: Find the min value (use <code>clojure.core/compare</code> as the comparator)</p><p>Besides these given functions, you are also welcomed to define your own.</p><h5 id="how-to-define-group-by-aggregation-functions">How to define group-by aggregation functions?</h5><p>This is the template:</p><pre><code class="clojure">(defn gb-aggre-template
+  [col]  ;; take only one argument which is the aggregation column in the format of vector
+  ;; ... your implementation
+  result    ;; return one variable (could be int / double / string / collection of above)
+  )
+</code></pre><p>Basically, the function should take one argument only, which is the full aggregation column. <em><strong>Here we simply assume this column should be smaller than memory!</strong></em></p><p>You may find many built-in function in Clojure also fulfilling this requirement, for example, <code>count</code>, <code>mean</code>, and countless function constructed from <a href="https://clojuredocs.org/clojure.core/reduce"><code>reduce</code></a>.</p><h5 id="how-to-define-simple-aggregation-functions">How to define simple aggregation functions?</h5><p>This is the template:</p><pre><code class="clojure">(defn aggre-template
+  ;; [new-value old-result]
+  [old-result new-value]
+  ;; old-result: the value of the result for the previous gb-aggre-template
+  ;; new-value: the value for the column on the current row
+  ;; ... your implementation
+  new-result   ;; return the new result, and this will be passed as old-result for the next gb-aggre-template
+  )
+</code></pre><p><strong>Notes:</strong></p><ol><li>The old-result for the first <code>aggre-template</code> is <code>clojask.api.aggregate/start</code>. So your function must be able to deal with cases when the first argument is <code>clojask.api.aggregate/start</code>.</li><li>Your function should be self-sustainable, meaning that the result of <code>aggre-template</code> should be safe as the input for <code>aggre-template</code>.
+<ol><li>To better understand the this template, you may refer to the documentation of <a href="https://clojuredocs.org/clojure.core/reduce"><code>reduce</code></a>, the <code>aggre-func</code> should be able to use in <code>reduce</code>.</li></ol></li></ol><hr /><h4 id="sort">sort</h4><p><strong>Immediately</strong> sort the dataframe</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe</code></td><td>Clojask.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>trending list</code></td><td>Collection (seq vector)</td><td>Indicates the sort order</td><td>Example: ["Salary" "+" "Employee" "-"] means that sort the Salary in ascending order, if equal sort the Employee in descending order</td></tr><tr><td><code>output-directory</code></td><td>String</td><td>The output path</td><td> </td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">(sort y ["+" "Salary"] "resources/sort.csv")
 ;; sort by Salary ascendingly
 </code></pre><hr /><h4 id="compute">compute</h4><p>Compute the result. The pre-defined lazy operations will be executed in pipeline, i.e. the result of the previous operation becomes the argument of the next operation.</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe</code></td><td>Clojask.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>num of workers</code></td><td>int (max 8)</td><td>The number of worker instances (except the input and output nodes)</td><td>If this argument &gt;= 2, will use <a href="http://www.onyxplatform.org/">onyx</a> as the distributed platform</td></tr><tr><td><code>output path</code></td><td>String</td><td>The path of the output csv file</td><td>Could exist or not.</td></tr><tr><td>[<code>exception</code>]</td><td>boolean</td><td>Whether an exception during calculation will cause termination</td><td>Is useful for debugging or detecting empty fields</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">(compute x 8 "../resources/test.csv" :exception true)
 ;; computes all the pre-registered operations
@@ -160,6 +185,11 @@ Some operations will not be executed immediately. Dataframe will intelligently p
 
 (right-join x y ["col a 1" "col a 2"] ["col b 1" "col b 2"] 8 "path/to/distination" :exception true)
 ;; right join x and y
+</code></pre><hr /><h4 id="rolling-join-forwardrolling-join-backward">rolling-join-forward/rolling-join-backward</h4><p>Rolling join two dataframes by columns</p><p><em>Remarks:</em></p><p><em>Join functions are immediate actions, which will be executed at once.</em></p><p><em>Will automatically pipeline the registered operations and filters like <code>compute</code>. You could think of join as first compute the two dataframes then join.</em></p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe a</code></td><td>Clojask.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>dataframe b</code></td><td>Clojask.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>a columns</code></td><td>Clojure.collection</td><td>The keys of a to be aligned</td><td>Should be existing headers in dataframe a</td></tr><tr><td><code>b columns</code></td><td>Clojure.collection</td><td>The keys of b to be aligned</td><td>Should be existing headers in dataframe b</td></tr><tr><td><code>number of workers</code></td><td>int (max 8)</td><td>Number of worker nodes doing the joining</td><td> </td></tr><tr><td><code>distination file</code></td><td>string</td><td>The file path to the distination</td><td>Will be emptied first</td></tr><tr><td>[<code>exception</code>]</td><td>boolean</td><td>Whether an exception during calculation will cause termination</td><td>Is useful for debugging or detecting empty fields</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">(def x (dataframe "path/to/a"))
+(def y (dataframe "path/to/b"))
+
+(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "resources/test.csv" :exception true)
+(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "resources/test.csv" :exception true)
 </code></pre>
 </div>
 <!--  -->
@@ -193,6 +223,8 @@ Some operations will not be executed immediately. Dataframe will intelligently p
 
         <script src="/clojask-website/js/highlight.pack.js" type="application/javascript"></script>
         <script>hljs.initHighlightingOnLoad();</script>
+        <script src="/clojask-website/js.dropdown.js" type="application/javascript"></script> 
+        
 
         
         

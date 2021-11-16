@@ -290,6 +290,11 @@ code, kbd, samp {
   padding: 10px 20px;
   width: 100%;
 }
+#menucont .menu li .menu-button-text {
+  padding: 10px 20px;
+  width: 100%;   
+}
+
 
 @keyframes fadeIn {
   from {
@@ -350,6 +355,7 @@ code, kbd, samp {
     padding: 5px 20px;
   }
 }
+
 body {
   display: flex;
   flex-flow: row nowrap;
