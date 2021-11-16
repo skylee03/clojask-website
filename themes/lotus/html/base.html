@@ -61,6 +61,17 @@
                         <li>
                             <a title="Examples" href="/clojask-website/posts-output/examples/"><div class="menu-item-text">Examples</div></a>
                         </li>
+<!-- 
+                        <button class="dropdown">Dropdown
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-container">
+                            <a href="#">Link 1</a>
+                            <a href="##">Link 2</a>
+                            <a href="###">Link 3</a>
+                        </div>
+                        </a> -->
+
                         <li {% if archives %} class="active" {% endif %}><a title="Archives" href="{{archives-uri}}"><div class="menu-item-text">Archives</div></a></li>
                         <!-- <li><a title="RSS" href="{{rss-uri}}"><div class="menu-item-text">RSS</div></a></li> -->
                     </ul>
@@ -87,6 +98,8 @@
 
         {% script "js/highlight.pack.js" %}
         <script>hljs.initHighlightingOnLoad();</script>
+        {% script "js.dropdown.js" %} 
+        
 
         {% if post.klipse %} {{post.klipse|safe}} {% endif %}
         {% if page.klipse %} {{page.klipse|safe}} {% endif %}

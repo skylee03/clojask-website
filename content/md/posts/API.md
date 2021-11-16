@@ -240,7 +240,7 @@ You can also group by the combination of keys. (Use the above two rules together
 ```
 
 
-
+---
 
 #### aggregate
 
@@ -259,6 +259,63 @@ Aggregate the grouped dataframes with some functions. The aggregation function w
 (aggregate x clojask/min ["Employee" "EmployeeName"] ["new" "new2"])
 ;; get the min of the two columns grouped by ...
 ```
+
+#### Aggregation Functions
+
+In Clojask, you can aggregate on the whole dataframe, or on the group-by dataframe. We call the first case "simple aggregation" and the second "group-by aggregation". Some given functions for simple aggregation are defined in namespace `clojask.api.aggregate`, and the given functions for group-by aggregation are defined in namespace `clojask.api.gb-aggregate`. 
+
+Below are full list of given functions for the two types.
+
+`clojask.api.aggregate`:
+
+`max`: Find the max value (use `clojure.core/compare` as the comparator)
+
+`min`: Find the min value (use `clojure.core/compare` as the comparator)
+
+`clojask.api.gb-aggregate`:
+
+`max`: Find the max value (use `clojure.core/compare` as the comparator)
+
+`min`: Find the min value (use `clojure.core/compare` as the comparator)
+
+Besides these given functions, you are also welcomed to define your own.
+
+##### How to define group-by aggregation functions?
+
+This is the template:
+
+```clojure
+(defn gb-aggre-template
+  [col]  ;; take only one argument which is the aggregation column in the format of vector
+  ;; ... your implementation
+  result    ;; return one variable (could be int / double / string / collection of above)
+  )
+```
+
+Basically, the function should take one argument only, which is the full aggregation column. ***Here we simply assume this column should be smaller than memory!***
+
+You may find many built-in function in Clojure also fulfilling this requirement, for example, `count`, `mean`, and countless function constructed from [`reduce`](https://clojuredocs.org/clojure.core/reduce).
+
+##### How to define simple aggregation functions?
+
+This is the template:
+
+```clojure
+(defn aggre-template
+  ;; [new-value old-result]
+  [old-result new-value]
+  ;; old-result: the value of the result for the previous gb-aggre-template
+  ;; new-value: the value for the column on the current row
+  ;; ... your implementation
+  new-result   ;; return the new result, and this will be passed as old-result for the next gb-aggre-template
+  )
+```
+
+**Notes:**
+
+1. The old-result for the first `aggre-template` is `clojask.api.aggregate/start`. So your function must be able to deal with cases when the first argument is `clojask.api.aggregate/start`.
+2. Your function should be self-sustainable, meaning that the result of `aggre-template` should be safe as the input for `aggre-template`.
+   1. To better understand the this template, you may refer to the documentation of [`reduce`](https://clojuredocs.org/clojure.core/reduce), the `aggre-func` should be able to use in `reduce`.
 
 ---
 
@@ -337,6 +394,37 @@ Inner / left / right join two dataframes by some columns
 ;; right join x and y
 ```
 
+---
+
+#### rolling-join-forward/rolling-join-backward
+
+Rolling join two dataframes by columns
+
+*Remarks:*
+
+*Join functions are immediate actions, which will be executed at once.*
+
+*Will automatically pipeline the registered operations and filters like `compute`. You could think of join as first compute the two dataframes then join.*
+
+| Argument            | Type               | Function                                                     | Remarks                                           |
+| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
+| `dataframe a`       | Clojask.DataFrame  | The operated object                                          |                                                   |
+| `dataframe b`       | Clojask.DataFrame  | The operated object                                          |                                                   |
+| `a columns`         | Clojure.collection | The keys of a to be aligned                                  | Should be existing headers in dataframe a         |
+| `b columns`         | Clojure.collection | The keys of b to be aligned                                  | Should be existing headers in dataframe b         |
+| `number of workers` | int (max 8)        | Number of worker nodes doing the joining                     |                                                   |
+| `distination file`  | string             | The file path to the distination                             | Will be emptied first                             |
+| [`exception`]       | boolean            | Whether an exception during calculation will cause termination | Is useful for debugging or detecting empty fields |
+
+**Example**
+
+```clojure
+(def x (dataframe "path/to/a"))
+(def y (dataframe "path/to/b"))
+
+(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "resources/test.csv" :exception true)
+(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "resources/test.csv" :exception true)
+```
 
 
   

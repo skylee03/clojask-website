@@ -17,7 +17,7 @@ We hope to be able to provide support soon.
 ### Requirements
 - Clojure ([installation](https://clojure.org/guides/getting_started))
 - Leiningen ([installation](https://leiningen.org/))
-- Java 
+- Java (Version 11 or below is supported)
 
 
 ### Running Clojask
