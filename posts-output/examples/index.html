@@ -6,9 +6,9 @@
         
 <meta name="keywords" content="Start">
 
-<meta name="description" content="Basic exampleThe simple way:">
+<meta name="description" content="Basic exampleFirst, import the Clojask library">
 
-<meta property="og:description" content="Basic exampleThe simple way:">
+<meta property="og:description" content="Basic exampleFirst, import the Clojask library">
 
 <meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/examples/" />
 <meta property="og:title" content="Examples" />
@@ -105,18 +105,37 @@
     </div>
 </div>
 <div>
-    <ul class="toc"><li><a href="#basic-example">Basic example</a></li><li><a href="#multi-threading-with-coreasync">Multi-threading with core.async</a></li></ul>
-    <h4 id="basic-example">Basic example</h4><p>The simple way:</p><pre><code class="clojure">(dataframe df "resources/Employees-large.csv" :have-col true)
-(set-type df "Salary" "double")
-(filter df "Salary" (fn [salary] (&lt;= salary 800)))
-(operate df (fn [salary] (* salary 1.2)) "Salary")
-(compute df 8 "output.csv" :exception true)
-</code></pre><p>Using the <code>-&gt;</code> macro:</p><pre><code class="clojure">(-&gt; (dataframe "resources/Employees-large.csv" :have-col true)
-    (set-type "Salary" "double")
-    (filter "Salary" (fn [salary] (&lt;= salary 800)))
-    (operate (fn [salary] (* salary 1.2)) "Salary")
-    (compute 8 "output.csv" :exception true))
-</code></pre><h4 id="multi-threading-with-coreasync">Multi-threading with core.async</h4><pre><code class="clojure">(def x (dataframe "resources/Employees-large.csv"))
+    <ul class="toc"><li><a href="#basic-example">Basic example</a></li><li><a href="#import-csv-file-with-no-column-names-header">Import csv file with no column names header</a></li><li><a href="#multi-threading-with-coreasync">Multi-threading with core.async</a></li></ul>
+    <h4 id="basic-example">Basic example</h4><p>First, import the Clojask library</p><pre><code class="clojure">(:require [clojask.dataframe :as clojask])
+</code></pre><p>The simple way:</p><pre><code class="clojure">(def df (clojask/dataframe "resources/employees.csv"))
+(clojask/print-df df)
+(clojask/set-type df "Salary" "double")
+(clojask/filter df "Salary" (fn [salary] (&lt;= salary 800)))
+(clojask/operate df (fn [salary] (* salary 1.2)) "Salary")
+(clojask/compute df 8 "resources/output.csv" :exception true)
+</code></pre><p>Using the <code>-&gt;</code> macro:</p><pre><code class="clojure">(-&gt; (clojask/dataframe "resources/employees.csv" :have-col true)
+    (clojask/set-type "Salary" "double")
+    (clojask/filter "Salary" (fn [salary] (&lt;= salary 800)))
+    (clojask/operate (fn [salary] (* salary 1.2)) "Salary")
+    (clojask/compute 8 "resources/output.csv" :exception true))
+</code></pre><h4 id="import-csv-file-with-no-column-names-header">Import csv file with no column names header</h4><pre><code class="clojure">(def df (clojask/dataframe "resources/employees.csv" :have-col false))
+(clojask/print-df df)
+
+;; output
+|            Col_1 |            Col_2 |            Col_3 |            Col_4 |            Col_5 |
+|------------------+------------------+------------------+------------------+------------------|
+| java.lang.String | java.lang.String | java.lang.String | java.lang.String | java.lang.String |
+|         Employee |     EmployeeName |       Department |           Salary |       UpdateDate |
+|                1 |            Alice |               11 |              300 |       2020/12/12 |
+|                2 |              Bob |               11 |              600 |       2020/12/01 |
+|                3 |            Carla |               12 |              900 |       2020/12/03 |
+|                4 |           Daniel |               12 |             1000 |       2020/12/05 |
+|                5 |           Evelyn |               13 |              800 |       2020/12/03 |
+|                6 |        Ferdinand |               21 |              700 |       2020/12/05 |
+|                7 |              Amy |               11 |            50000 |       2020/11/26 |
+</code></pre><h4 id="multi-threading-with-coreasync">Multi-threading with core.async</h4><pre><code class="clojure">(:require [clojure.core.async :as async])
+
+(def x (dataframe "resources/Employees-large.csv"))
 (def y (dataframe "resources/Employees.csv"))
 
 ;; create a thread for each operation
