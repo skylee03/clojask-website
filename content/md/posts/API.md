@@ -11,25 +11,25 @@
   Theoretically speaking, it supports dataset larger than memory to infinity!  
 
 - **All native types**  
-  All the datatypes used to store data is native Clojure (or Java) types!  
+  All the datatypes used to store data are native Clojure (or Java) types!  
 
 - **From file to file**  
-  Integrate IO inside the dataframe. No need to write your own read-in and output functions!  
+  IO mechanisms are integrated into the dataframe. No need to write your own read-in and output functions!  
 
 - **Distributed (coming soon)**  
-  Most operations could be distributed to different computers in a clusters. See the principle in [Onyx](http://www.onyxplatform.org/)  <br>
+  Most operations could be distributed to different computers in a clusters. Read about the principle in [Onyx](http://www.onyxplatform.org/).  <br>
 
 - **Lazy operations**  
-  Some operations will not be executed immediately. Dataframe will intelligently pipeline the operations altogether in computation.  
+  Some operations will not be executed immediately. They are stacked in the pipeline which will be optimised for performance when it comes to the final computation step.  
 
 ---
 
 ### Basic Information
 
-- Most operations to the dataframe is performed lazily and all at once with `compute` except `sort ` and `join`. 
-- The dataframe process the data in rows, ie one row in one vector.
-- The input dataframe can be larger than memory in size.
-- By default, all columns have the same type: string. You are allowed to set its type, with our predefined type keywords.
+- Most dataframe manipulation operations are performed lazily (except `sort` and `join`). They will be executed all at once when `compute` is called. 
+- The dataframe traverses the data in rows, with each row represented by a vector.
+- The size of the input dataframe can be larger than the size of available memory in the machine.
+- By default, all columns are assigned with the data type `string` when the dataframe is first imported. You are allowed to change its type using our predefined type keywords.
 
 
 --- 
@@ -46,18 +46,20 @@ Reorder the columns / rename the column names in the dataframe
 | Argument            | Type               | Function                                                     | Remarks                                           |
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
 | `dataframe`       | Clojask.DataFrame  | The operated object                                          |                                                   |
-| `columns`         | Clojure.collection | The new set of column names                                  | Should be existing headers in dataframe a if it is `reorderCol`         |
+| `columns`         | Clojure.collection | The new set of column names                                  | Should be existing set of column names in dataframe if it is `reorder-col`         |
 
 ```clojure
-(rename-col y ["Employee" "EmployeeName" "new-Department" "Salary"])
-(reorder-col y ["Employee" "new-Department" "EmployeeName" "Salary"])
+;; columns: ["Employee" "EmployeeName" "Department" "Salary"]
+(rename-col x ["Employee" "EmployeeName" "new-Department" "Salary"])
+;; columns: ["Employee" "EmployeeName" "new-Department" "Salary"]
+(reorder-col x ["Employee" "new-Department" "EmployeeName" "Salary"])
 ```
 
 ---
 
 #### select-col
 
-Select columns to keep in the dataframe.
+Select columns to keep and get rid of other unselected columns in the dataframe.
 
 | Argument            | Type               | Function                                                     | Remarks                                           |
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
@@ -65,22 +67,24 @@ Select columns to keep in the dataframe.
 | `columns`         | Clojure.collection | The set of columns names to keep                                  | Should be existing columns within the dataframe         |
 
 ```clojure
-(select-col y ["Employee" "Department"])
+;; columns: ["Employee" "EmployeeName" "Department" "Salary"]
+(select-col x ["Employee" "Department"])
 ```
 
 ---
 
 #### delete-col
 
-Eliminate columns in the dataframe.
+Eliminate a set of column(s) in the dataframe.
 
 | Argument            | Type               | Function                                                     | Remarks                                           |
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
 | `dataframe`       | Clojask.DataFrame  | The operated object                                          |                                                   |
-| `columns`         | Clojure.collection | The set of columns names to eliminate                                | Should be existing columns within the dataframe         |
+| `columns`         | Clojure.collection | The set of columns names to eliminate                                | Should be existing column(s) within the dataframe         |
 
 ```clojure
-(delete-col y ["EmployeeName" "Salary"])
+;; columns: ["Employee" "EmployeeName" "Department" "Salary"]
+(delete-col x ["EmployeeName" "Salary"])
 ```
 
 ---
@@ -88,13 +92,13 @@ Eliminate columns in the dataframe.
 
 #### filter
 
-Filters the data frame by rows
+Filter the dataframe by rows.
 
 | Argument    | Type                           | Function                                                    | Remarks                                                      |
 | ----------- | ------------------------------ | ----------------------------------------------------------- | ------------------------------------------------------------ |
 | `dataframe` | Clojask.DataFrame              | The operated object                                         |                                                              |
-| `columns`   | String / collection of strings | The columns the predicate function to apply to              |                                                              |
-| `predicate` | Function                       | The predicate function to determine if a row should be kept | This function should have the same number of arguments with the above columns and in the same order. Only rows that return `true ` will be kept. |
+| `columns`   | String / collection of strings | The columns that the predicate function would apply to              |                                                              |
+| `predicate` | Function                       | The predicate function to determine if a row should be kept | This function should have the same number of arguments with the above columns and in the same order. Only rows that return `true` will be kept. |
 
 **Example**
 
@@ -109,19 +113,19 @@ Filters the data frame by rows
 
 #### set-type
 
-Set the type of a column. So when using the value of that column, it would be in that type.
+Set the data type of a column. As a result, the value will be parsed as the assigned data type when it is used in any subsequent operations.
 
 | Argument    | Type              | Function            | Remarks                                                      |
 | ----------- | ----------------- | ------------------- | ------------------------------------------------------------ |
 | `dataframe` | Clojask.DataFrame | The operated object |                                                              |
-| `type`      | String            | Type of the column  | The native support types are: int, double, string, date. Note that by default all the column types are string. If you need special parsing function, see `add-parser`. |
-| `column`    | String            | Target columns      | Should be existing columns within the dataframe              |
+| `column`    | String            | Target columns      | Should be existing columns within the dataframe.              |
+| `type`      | String            | Type of the column  | The natively supported types are: int, double, string, date. Note that by default all the column types are string. If you need a special parsing function, see `add-parser`. |
 
 **Example**
 
 ```clojure
-(set-type x "double" "Salary")
-;; makes the column Salary doubles
+;; set data type of the column "Salary" to be double
+(set-type x "Salary" "double")
 ```
 
 --- 
@@ -133,14 +137,14 @@ A more flexible way to set type.
 | Argument    | Type              | Function                                                     | Remarks                                                      |
 | ----------- | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `dataframe` | Clojask.DataFrame | The operated object                                          |                                                              |
-| `parser `   | function          | The parser function that will parse a string to other types (or even string) | The function should take only one argument which is a string, and the parsed type should be serializable. |
 | `column`    | String            | Target columns                                               | Should be existing columns within the dataframe              |
+| `parser `   | function          | The parser function that will parse a string to other types (or even string) | The function should take only one argument which is a string, and the parsed type should be serializable. |
 
 **Example**
 
 ```clojure
-(set-parser x Double/parseDouble "Salary")
-;; parse all the values in Salary with this function
+;; parse all the values in "Salary" with this function
+(set-parser x "Salary" #(Double/parseDouble %))
 ```
 
 ---
@@ -152,15 +156,16 @@ A more flexible way to set type.
 | Argument      | Type              | Function                      | Remarks                                                      |
 | ------------- | ----------------- | ----------------------------- | ------------------------------------------------------------ |
 | `dataframe`   | Clojask.DataFrame | The operated object           |                                                              |
-| `operation`   | function          | Function to be applied lazily | The function should take only one argument which is the value of the below column |
-| `column name` | Keyword           | Target columns                | Should be existing columns within the dataframe              |
+| `operation`   | function          | Function to be applied lazily | The function should take only one argument which is the value of the below column. |
+| `column name` | Keyword           | Target columns                | Should be existing columns within the dataframe.              |
 
 **Example**
 
 ```clojure
-(set-type x "double" "Salary")
+;; set data type as double
+(set-type x "Salary" "double")
+;; take the negative of the column "Salary"
 (operate x - "Salary")
-;; takes the negative of column Salary
 ```
 
 ---
@@ -172,9 +177,9 @@ Calculate the result and store in a new column
 | Argument         | Type                           | Function                      | Remarks                                                      |
 | ---------------- | ------------------------------ | ----------------------------- | ------------------------------------------------------------ |
 | `dataframe`      | Clojask.DataFrame              | The operated object           |                                                              |
-| `operation`      | function                       | Function to be applied lazily | Argument number should be complied with the column names below, ie *if operation functions takes two arguments, the length of column names should also be 2, and in the same order to be passed to the function* |
-| `column name(s)` | String or collection of String | Target columns                | Should be existing columns within the dataframe              |
-| `new column`     | String                         | Resultant column              | Should be new column other than the dataframe                |
+| `operation`      | function                       | Function to be applied lazily | Argument number should align with the number of column names below, ie *if operation functions takes two arguments, the length of column names should also be two, and in the same order that is passed to the function*. |
+| `column name(s)` | String or collection of String | Target columns                | Should be existing columns within the dataframe.              |
+| `new column`     | String                         | Resultant column              | Should be new column(s) other than those existing in the dataframe.                |
 
 **Example**
 
@@ -187,18 +192,19 @@ Calculate the result and store in a new column
 
 #### group-by
 
-Group by the dataframe with some columns (always use together with `aggregate`), or the result by applying the function to the column
+Group the dataframe by some specific columns (always used together with `aggregate`), or group the dataframe by function output(s)
 
 | Argument       | Type                | Function                                | Remarks                                      |
 | -------------- | ------------------- | --------------------------------------- | -------------------------------------------- |
 | `dataframe`    | Clojask.DataFrame   | The operated object                     |                                              |
-| `groupby-keys` | String / Collection | Group by columns (functions of columns) | Find the specification [here](#groupby-keys) |
+| `groupby-keys` | String / Collection | Group by columns (functions of columns) | Find the specification [here](#groupby-keys). |
 
 **Example**
 
 ```clojure
+;; group by one or more columns
+(group-by x ["Department"])
 (group-by x ["Department" "DepartmentName"])
-;; group by both columns
 ```
 
 
@@ -244,7 +250,7 @@ You can also group by the combination of keys. (Use the above two rules together
 
 #### aggregate
 
-Aggregate the grouped dataframes with some functions. The aggregation function will be applied to every columns registered in sequence.
+Aggregate the dataframe(s) by applying some functions. The aggregation function will be applied to every column registered in sequence.
 
 | Argument               | Type                           | Function                              | Remarks                                                      |
 | ---------------------- | ------------------------------ | ------------------------------------- | ------------------------------------------------------------ |
@@ -256,21 +262,24 @@ Aggregate the grouped dataframes with some functions. The aggregation function w
 **Example**
 
 ```clojure
-(aggregate x clojask/min ["Employee" "EmployeeName"] ["new" "new2"])
-;; get the min of the two columns grouped by ...
+;; get the min of the selected column(s)
+(aggregate x clojask/max ["Salary"] ["Salary-min"])
+(aggregate x clojask/min ["Employee" "EmployeeName"] ["Employee-min" "EmployeeName-min"])
 ```
 
 #### Aggregation Functions
 
-In Clojask, you can aggregate on the whole dataframe, or on the group-by dataframe. We call the first case "simple aggregation" and the second "group-by aggregation". Some given functions for simple aggregation are defined in namespace `clojask.api.aggregate`, and the given functions for group-by aggregation are defined in namespace `clojask.api.gb-aggregate`. 
+In Clojask, you can aggregate the whole dataframe or aggregate the grouped by dataframe(s). The former could be known as "simple aggregation", and the latter as "group-by aggregation". Some given functions for simple aggregation are defined in the namespace `clojask.api.aggregate`, and the given functions for group-by aggregation are defined in the namespace `clojask.api.gb-aggregate`. 
 
-Below are full list of given functions for the two types.
+Below is the full list of given functions for the two types of aggregation.
 
 `clojask.api.aggregate`:
 
 `max`: Find the max value (use `clojure.core/compare` as the comparator)
 
 `min`: Find the min value (use `clojure.core/compare` as the comparator)
+<br>
+*Note that the default behaviour for `clojask/min` is that `null` could be returned as a minimal value.
 
 `clojask.api.gb-aggregate`:
 
@@ -278,7 +287,7 @@ Below are full list of given functions for the two types.
 
 `min`: Find the min value (use `clojure.core/compare` as the comparator)
 
-Besides these given functions, you are also welcomed to define your own.
+In addition to these given functions, you are also welcomed to define your own aggregation function.
 
 ##### How to define group-by aggregation functions?
 
@@ -326,21 +335,21 @@ This is the template:
 | Argument           | Type                    | Function                 | Remarks                                                      |
 | ------------------ | ----------------------- | ------------------------ | ------------------------------------------------------------ |
 | `dataframe`        | Clojask.DataFrame       | The operated object      |                                                              |
-| `trending list`    | Collection (seq vector) | Indicates the sort order | Example: ["Salary" "+" "Employee" "-"] means that sort the Salary in ascending order, if equal sort the Employee in descending order |
+| `trending list`    | Collection (seq vector) | Indicates the sort order | Example: ["Salary" "+" "Employee" "-"] means that sort the Salary in ascending order, if equal sort then by Employee in descending order |
 | `output-directory` | String                  | The output path          |                                                              |
 
 **Example**
 
 ```clojure
-(sort y ["+" "Salary"] "resources/sort.csv")
-;; sort by Salary ascendingly
+;; sort by "Salary" in ascending order
+(sort x ["+" "Salary"] "path/output.csv")
 ```
 
 ---  
 
 #### compute
 
-Compute the result. The pre-defined lazy operations will be executed in pipeline, i.e. the result of the previous operation becomes the argument of the next operation.
+Compute the result. The pre-defined lazy operations will be executed in the pipeline, i.e. the result of the previous operation becomes the argument of the next operation.
 
 | Argument         | Type              | Function                                                     | Remarks                                                      |
 | ---------------- | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -352,21 +361,21 @@ Compute the result. The pre-defined lazy operations will be executed in pipeline
 **Example**
 
 ```clojure
-(compute x 8 "../resources/test.csv" :exception true)
-;; computes all the pre-registered operations
+;; compute all pre-registered operations
+(compute x 8 "path/output.csv" :exception true)
 ```
   
 ---
 
 #### inner-join / left-join / right-join
 
-Inner / left / right join two dataframes by some columns
+Inner / left / right join two dataframes on specific columns
 
 *Remarks:*
 
-*Join functions are immediate actions, which will be executed at once.*
+*Join functions are immediate actions that will be executed once they are being called.*
 
-*Will automatically pipeline the registered operations and filters like `compute`. You could think of join as first compute the two dataframes then join.*
+*The registered operations and filters (like `compute`) will be automatically pipelined. You could think of `join` as as an operation that first computes the two dataframes then joins them together.*
 
 | Argument            | Type               | Function                                                     | Remarks                                           |
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
@@ -384,13 +393,13 @@ Inner / left / right join two dataframes by some columns
 (def x (dataframe "path/to/a"))
 (def y (dataframe "path/to/b"))
 
-(inner-join x y ["col a 1" "col a 2"] ["col b 1" "col b 2"] 8 "path/to/distination" :exception true)
+(inner-join x y ["col_a1" "col_a2"] ["col_b1" "col_b2"] 8 "path/to/distination" :exception true)
 ;; inner join x and y
 
-(left-join x y ["col a 1" "col a 2"] ["col b 1" "col b 2"] 8 "path/to/distination" :exception true)
+(left-join x y ["col_a1" "col_a2"] ["col_b1" "col_b2"] 8 "path/to/distination" :exception true)
 ;; left join x and y
 
-(right-join x y ["col a 1" "col a 2"] ["col b 1" "col b 2"] 8 "path/to/distination" :exception true)
+(right-join x y ["col_a1" "col_a2"] ["col_b1" "col_b2"] 8 "path/to/distination" :exception true)
 ;; right join x and y
 ```
 
@@ -398,13 +407,13 @@ Inner / left / right join two dataframes by some columns
 
 #### rolling-join-forward/rolling-join-backward
 
-Rolling join two dataframes by columns
+Rolling join two dataframes on columns
 
 *Remarks:*
 
-*Join functions are immediate actions, which will be executed at once.*
+*Join functions are immediate actions that will be executed once they are being called.*
 
-*Will automatically pipeline the registered operations and filters like `compute`. You could think of join as first compute the two dataframes then join.*
+*The registered operations and filters (like `compute`) will be automatically pipelined. You could think of `join` as as an operation that first computes the two dataframes then joins them together.*
 
 | Argument            | Type               | Function                                                     | Remarks                                           |
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
@@ -422,8 +431,8 @@ Rolling join two dataframes by columns
 (def x (dataframe "path/to/a"))
 (def y (dataframe "path/to/b"))
 
-(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "resources/test.csv" :exception true)
-(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "resources/test.csv" :exception true)
+(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "path/output.csv" :exception true)
+(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "path/output.csv" :exception true)
 ```
 
 
