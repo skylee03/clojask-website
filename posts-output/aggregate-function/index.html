@@ -2,16 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Clojask: Examples</title>
+        <title>Clojask: Aggregation Functions</title>
         
 <meta name="keywords" content="Start">
 
-<meta name="description" content="Examples have been moved to a GitHub Repository for ease of useBasic examples of operations performed in Clojask are included below:">
+<meta name="description" content="Aggregation FunctionsIn Clojask, you can aggregate the whole dataframe or aggregate the grouped by dataframe(s). The former could be known as &quot;simple aggregation&quot;, and the latter as &quot;group-by aggregation&quot;. Some given functions for simple aggregation are defined in the namespace clojask.api.aggregate, and the given functions for group-by aggregation are defined in the namespace clojask.api.gb-aggregate.">
 
-<meta property="og:description" content="Examples have been moved to a GitHub Repository for ease of useBasic examples of operations performed in Clojask are included below:">
+<meta property="og:description" content="Aggregation FunctionsIn Clojask, you can aggregate the whole dataframe or aggregate the grouped by dataframe(s). The former could be known as &quot;simple aggregation&quot;, and the latter as &quot;group-by aggregation&quot;. Some given functions for simple aggregation are defined in the namespace clojask.api.aggregate, and the given functions for group-by aggregation are defined in the namespace clojask.api.gb-aggregate.">
 
-<meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/examples/" />
-<meta property="og:title" content="Examples" />
+<meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/aggregate-function/" />
+<meta property="og:title" content="Aggregation Functions" />
 <meta property="og:type" content="article" />
 
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -97,16 +97,31 @@
 <div id="post">
     <div class="post-header">
     <div id="post-meta">
-        <h1>Examples</h1>
+        <h1>Aggregation Functions</h1>
         <div class="byline">
-            <!-- <span class="date">September 29, 2021</span> -->
+            <!-- <span class="date">September 28, 2021</span> -->
             
         </div>
     </div>
 </div>
 <div>
     
-    <p>Examples have been moved to a <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a> for ease of use</p><p>Basic examples of operations performed in Clojask are included below:</p><ul><li><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj">Basic Tutorial</a></li><li><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi-threading.clj">Multi-Threading</a></li><li><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj">Timezone</a></li></ul><h2 id="coming-soon">Coming Soon</h2><p><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj">Ordinary Join</a></p><p><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj">Rolling-Join</a></p>
+    <h4 id="aggregation-functions">Aggregation Functions</h4><p>In Clojask, you can aggregate the whole dataframe or aggregate the grouped by dataframe(s). The former could be known as "simple aggregation", and the latter as "group-by aggregation". Some given functions for simple aggregation are defined in the namespace <code>clojask.api.aggregate</code>, and the given functions for group-by aggregation are defined in the namespace <code>clojask.api.gb-aggregate</code>.</p><p>Below is the full list of given functions for the two types of aggregation.</p><p><code>clojask.api.aggregate</code>:</p><p><code>max</code>: Find the max value (use <code>clojure.core/compare</code> as the comparator)</p><p><code>min</code>: Find the min value (use <code>clojure.core/compare</code> as the comparator)
+<br />
+*Note that the default behaviour for <code>clojask/min</code> is that <code>null</code> could be returned as a minimal value.</p><p><code>clojask.api.gb-aggregate</code>:</p><p><code>max</code>: Find the max value (use <code>clojure.core/compare</code> as the comparator)</p><p><code>min</code>: Find the min value (use <code>clojure.core/compare</code> as the comparator)</p><p>In addition to these given functions, you are also welcomed to define your own aggregation function.</p><h5 id="how-to-define-group-by-aggregation-functions">How to define group-by aggregation functions?</h5><p>This is the template:</p><pre><code class="clojure">(defn gb-aggre-template
+  [col]  ;; take only one argument which is the aggregation column in the format of vector
+  ;; ... your implementation
+  result    ;; return one variable (could be int / double / string / collection of above)
+  )
+</code></pre><p>Basically, the function should take one argument only, which is the full aggregation column. <em><strong>Here we simply assume this column should be smaller than memory!</strong></em></p><p>You may find many built-in function in Clojure also fulfilling this requirement, for example, <code>count</code>, <code>mean</code>, and countless function constructed from <a href="https://clojuredocs.org/clojure.core/reduce"><code>reduce</code></a>.</p><h5 id="how-to-define-simple-aggregation-functions">How to define simple aggregation functions?</h5><p>This is the template:</p><pre><code class="clojure">(defn aggre-template
+  ;; [new-value old-result]
+  [old-result new-value]
+  ;; old-result: the value of the result for the previous gb-aggre-template
+  ;; new-value: the value for the column on the current row
+  ;; ... your implementation
+  new-result   ;; return the new result, and this will be passed as old-result for the next gb-aggre-template
+  )
+</code></pre><p><strong>Notes:</strong></p><ol><li>The old-result for the first <code>aggre-template</code> is <code>clojask.api.aggregate/start</code>. So your function must be able to deal with cases when the first argument is <code>clojask.api.aggregate/start</code>.</li><li>Your function should be self-sustainable, meaning that the result of <code>aggre-template</code> should be safe as the input for <code>aggre-template</code>.</li></ol><p>To better understand the this template, you may refer to the documentation of <a href="https://clojuredocs.org/clojure.core/reduce"><code>reduce</code></a>, the <code>aggre-func</code> should be able to use in <code>reduce</code>.</p><hr />
 </div>
 <!--  -->
 <!-- <br/> -->
@@ -115,10 +130,10 @@
     <!-- 
     <div id="prev-next">
     
-    <a class="prev" href="/clojask-website/posts-output/get-started/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">Get Started</div></a>
+    <a class="prev" href="/clojask-website/posts-output/API/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">API Docs</div></a>
     
     
-    <a class="next" href="/clojask-website/posts-output/API/"><div class="nav-text"">API Docs</div><svg class="icon icon-circle-right"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-right"></use></svg></a>
+    <div class="next"></div>
     
 </div>
 
