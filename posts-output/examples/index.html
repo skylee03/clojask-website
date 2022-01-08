@@ -6,9 +6,9 @@
         
 <meta name="keywords" content="Start">
 
-<meta name="description" content="Examples have been moved to a GitHub Repository for ease of useBasic examples of operations performed in Clojask are included below:">
+<meta name="description" content="Examples and their corresponding source files have been moved to a GitHub Repository for ease of useAll of the following operations can be executed on the files provided on the Clojask Examples GitHub Repository">
 
-<meta property="og:description" content="Examples have been moved to a GitHub Repository for ease of useBasic examples of operations performed in Clojask are included below:">
+<meta property="og:description" content="Examples and their corresponding source files have been moved to a GitHub Repository for ease of useAll of the following operations can be executed on the files provided on the Clojask Examples GitHub Repository">
 
 <meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/examples/" />
 <meta property="og:title" content="Examples" />
@@ -65,9 +65,10 @@
                         <li>
                             <a title="API Docs" href="/clojask-website/posts-output/API/"><div class="menu-item-text">API Docs</div></a>
                         </li>
-                        <li>
+                        <li >
                             <a title="Examples" href="/clojask-website/posts-output/examples/"><div class="menu-item-text">Examples</div></a>
                         </li>
+                        
 <!-- 
                         <button class="dropdown">Dropdown
                             <i class="fa fa-caret-down"></i>
@@ -105,8 +106,51 @@
     </div>
 </div>
 <div>
-    
-    <p>Examples have been moved to a <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a> for ease of use</p><p>Basic examples of operations performed in Clojask are included below:</p><ul><li><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj">Basic Tutorial</a></li><li><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi-threading.clj">Multi-Threading</a></li><li><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj">Timezone</a></li></ul><h2 id="coming-soon">Coming Soon</h2><p><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj">Ordinary Join</a></p><p><a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj">Rolling-Join</a></p>
+    <ol class="toc"><li><a href="#basic-tutorial">Basic Tutorial</a></li><li><a href="#multi-threading">Multi-Threading</a></li><li><a href="#timezone">Timezone</a></li><li><a href="#ordinary-join">Ordinary Join</a></li><li><a href="#coming-soon">Coming Soon</a></li></ol>
+    <p>Examples and their corresponding source files have been moved to a <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a> for ease of use</p><p>All of the following operations can be executed on the files provided on the Clojask Examples <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a></p><hr /><h4 id="basic-tutorial">Basic Tutorial</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj">example</a> of basic data manipulation operations performed through Clojask</p><pre><code class="clojure">(def df (clojask/dataframe "resources/employees.csv"))
+(clojask/print-df df)
+(clojask/set-type df "Salary" "double")
+(clojask/filter df "Salary" (fn [salary] (&lt;= salary 800)))
+(clojask/operate df (fn [salary] (* salary 1.2)) "Salary")
+(clojask/compute df 8 "resources/output.csv" :exception true)
+
+;; Using the `-&gt;` macro:
+(-&gt; (clojask/dataframe "resources/employees.csv")
+    (clojask/set-type "Salary" "double")
+    (clojask/filter "Salary" (fn [salary] (&lt;= salary 800)))
+    (clojask/operate (fn [salary] (* salary 1.2)) "Salary")
+    (clojask/compute 8 "resources/output.csv" :exception true))
+
+;; import csv files with no column name header
+(def df (clojask/dataframe "resources/employees.csv" :have-col false))
+(clojask/print-df df)
+</code></pre><hr /><h4 id="multi-threading">Multi-Threading</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi_threading.clj">example</a> of multi threading various operations on the Dataframe</p><pre><code class="clojure">(def x (clojask/dataframe "resources/employees.csv"))
+(def y (clojask/dataframe "resources/employees-workleave.csv"))
+
+;; create a thread for each operation
+(async/thread (clojask/set-type x "Salary" "double"))
+(async/thread (clojask/set-type y "WorkLeave" "double"))
+
+(clojask/left-join x y ["Employee"] ["Employee"] 4 "resources/output.csv" :exception false)
+</code></pre><hr /><h4 id="timezone">Timezone</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj">example</a> on handling various timezone data in the Clojask Dataframe</p><pre><code class="clojure">(defn timezone-parser
+  "the input is a datetime string with timezone identifier as suffix"
+  [time-string]
+  )
+
+(defn timezone-formatter
+  "the input is a vector, the first element is a date object, the second is the timezone string"
+  [time-vec]
+  )
+
+(def main
+  []
+  (def df (clojask/dataframe "sales.csv"))
+  )
+</code></pre><hr /><h4 id="ordinary-join">Ordinary Join</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj">example</a> of a basic join operation on Clojask Dataframes</p><pre><code class="clojure">(def x (clojask/dataframe "resources/employees.csv"))
+    (def y (clojask/dataframe "resources/employees-workleave.csv"))
+
+(clojask/left-join x y ["Employee"] ["Employee"] 8 "resources/output.csv" :exception false)
+</code></pre><hr /><h4 id="coming-soon">Coming Soon</h4><ul><li>Rolling Join</li></ul>
 </div>
 <!--  -->
 <!-- <br/> -->
@@ -132,7 +176,7 @@
             <!-- <hr/> -->
             <br/>
             <div id="footercont">
-                Copyright &copy; 2021 Clojask
+                Copyright &copy; 2022 Clojask
                 <br>Powered by <a href="http://cryogenweb.org">Cryogen</a>
             </div>
         </article>
