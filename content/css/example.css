@@ -1,3 +1,7 @@
 a {
     text-decoration-style: dashed;
 }
+
+thead {
+    text-align:left;
+}
