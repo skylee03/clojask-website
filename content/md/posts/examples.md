@@ -1,17 +1,18 @@
 {:title "Examples" 
 :date "2021-09-29"
 :layout :post
-:toc :ul}
-
-#### Basic example
-
-First, import the Clojask library
-```clojure
-(:require [clojask.dataframe :as clojask])
-```
+:toc true}
 
 
-The simple way:
+Examples and their corresponding source files have been moved to a [GitHub Repository](https://github.com/clojure-finance/clojask-examples) for ease of use
+
+All of the following operations can be executed on the files provided on the Clojask Examples [GitHub Repository](https://github.com/clojure-finance/clojask-examples)  
+
+---  
+
+#### Basic Tutorial
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj) of basic data manipulation operations performed through Clojask  
+
 ```clojure
 (def df (clojask/dataframe "resources/employees.csv"))
 ;; check input dataframe
@@ -26,46 +27,69 @@ The simple way:
 (print-df output-df)
 ```
 
-Using the `->` macro:
-```clojure
-(-> (clojask/dataframe "resources/employees.csv" :have-col true)
+;; Using the `->` macro:
+(-> (clojask/dataframe "resources/employees.csv")
     (clojask/set-type "Salary" "double")
     (clojask/filter "Salary" (fn [salary] (<= salary 800)))
     (clojask/operate (fn [salary] (* salary 1.2)) "Salary")
     (clojask/compute 8 "resources/output.csv" :exception true))
-```
 
-#### Import csv file with no column names header
-
-```clojure
+;; import csv files with no column name header
 (def df (clojask/dataframe "resources/employees.csv" :have-col false))
 (clojask/print-df df)
-
-;; output
-|            Col_1 |            Col_2 |            Col_3 |            Col_4 |            Col_5 |
-|------------------+------------------+------------------+------------------+------------------|
-| java.lang.String | java.lang.String | java.lang.String | java.lang.String | java.lang.String |
-|         Employee |     EmployeeName |       Department |           Salary |       UpdateDate |
-|                1 |            Alice |               11 |              300 |       2020/12/12 |
-|                2 |              Bob |               11 |              600 |       2020/12/01 |
-|                3 |            Carla |               12 |              900 |       2020/12/03 |
-|                4 |           Daniel |               12 |             1000 |       2020/12/05 |
-|                5 |           Evelyn |               13 |              800 |       2020/12/03 |
-|                6 |        Ferdinand |               21 |              700 |       2020/12/05 |
-|                7 |              Amy |               11 |            50000 |       2020/11/26 |
 ```
 
-#### Multi-threading with core.async
+---  
+
+#### Multi-Threading
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi_threading.clj) of multi threading various operations on the Dataframe 
 
 ```clojure
-(:require [clojure.core.async :as async])
-
-(def x (dataframe "resources/Employees-large.csv"))
-(def y (dataframe "resources/Employees.csv"))
+(def x (clojask/dataframe "resources/employees.csv"))
+(def y (clojask/dataframe "resources/employees-workleave.csv"))
 
 ;; create a thread for each operation
-(async/thread (set-type x "double" "Department"))
-(async/thread (set-type y "double" "Department"))
+(async/thread (clojask/set-type x "Salary" "double"))
+(async/thread (clojask/set-type y "WorkLeave" "double"))
 
-(time (left-join x y ["Employee"] ["Employee"] 4 "output/test.csv" :exception false))
+(clojask/left-join x y ["Employee"] ["Employee"] 4 "resources/output.csv" :exception false)
 ```
+
+---  
+
+#### Timezone
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj) on handling various timezone data in the Clojask Dataframe 
+
+```clojure
+(defn timezone-parser
+  "the input is a datetime string with timezone identifier as suffix"
+  [time-string]
+  )
+
+(defn timezone-formatter
+  "the input is a vector, the first element is a date object, the second is the timezone string"
+  [time-vec]
+  )
+
+(def main
+  []
+  (def df (clojask/dataframe "sales.csv"))
+  )
+```
+
+---  
+
+#### Ordinary Join
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj) of a basic join operation on Clojask Dataframes
+
+```clojure
+(def x (clojask/dataframe "resources/employees.csv"))
+    (def y (clojask/dataframe "resources/employees-workleave.csv"))
+
+(clojask/left-join x y ["Employee"] ["Employee"] 8 "resources/output.csv" :exception false)
+```
+
+---  
+
+#### Coming Soon
+- Rolling Join

@@ -7,6 +7,25 @@
 This is the documentation library for the data frame with parallel computing for larger-than-memory dataset library written in Clojure.  
 The [source code](https://github.com/clojure-finance/clojask) can be found on GitHub.
 
+### Features 
+
+- **Unlimited size**  
+  Theoretically speaking, it supports dataset larger than memory to infinity!  
+
+- **All native types**  
+  All the datatypes used to store data are native Clojure (or Java) types!  
+
+- **From file to file**  
+  IO mechanisms are integrated into the dataframe. No need to write your own read-in and output functions!  
+
+- **Distributed (coming soon)**  
+  Most operations could be distributed to different computers in a clusters. Read about the principle in [Onyx](http://www.onyxplatform.org/).  <br>
+
+- **Lazy operations**  
+  Some operations will not be executed immediately. They are stacked in the pipeline which will be optimised for performance when it comes to the final computation step.  
+
+
+
 ## Report Bugs 
 
 Clojask is currently under active development.  
@@ -27,15 +46,84 @@ Our emphasis is on providing the following attributes
 
 Number of workers = 4
 
-| Operation | Dask (N=1.8M) | Dask (N=3.6M) | Dask (N=80M)* | Clojask (N=1.8M) | Clojask (N=3.6M) | Clojask (N=80M) |
-| :---:   | :-: | :-: | :-: | :-: | :-: | :-: |
-| Element-wise operation | 119.3 | 261.3 | N/A | 72.3 | 133.3 | 1836.6 |
-| Row-wise selection | 115.0 | 232.0 | N/A | 67.9 | 145.6 | 1757.5 |
-| Aggregation | 116.0 | 226.7 | N/A | 58.6 | 112.1 | 1236.9 |
-| Groupby-aggregate | 116.7 | 229.3 | N/A | 459.4 | 803.1 | 25860.0 |
-| Left join | 114.7 | 248.7 | N/A | 1174.4| 2310.2 | 14007.9 |
-| Inner join | 116.7 | 242.0| N/A | 1138.8 | 2768.5 | 21609.3 |
-| Rolling join | - | - | - | 2812.1 | 3943.1 | > 28800 |
+<table id = "box" class = "table1">
+    <thead class = "thead1">
+    <tr>
+        <th>Operation</th>
+        <th>Dask (N=1.8M)</th>
+        <th>Dask (N=3.6M)</th>
+        <th>Dask (N=80M)*</th>
+        <th>Clojask (N=1.8M)</th>
+        <th>Clojask (N=3.6M)</th>
+        <th>Clojask (N=80M)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Element-wise operation</td>
+        <td>119.3</td>
+        <td>261.3</td>
+        <td>N/A</td>
+        <td>72.3</td>
+        <td>133.3</td>
+        <td>1836.6</td>
+    </tr>
+    <tr>
+        <td>Row-wise selection</td>
+        <td>115.0</td>
+        <td>232.0</td>
+        <td>N/A</td>
+        <td>67.9</td>
+        <td>145.6</td>
+        <td>1757.5</td>
+    </tr>
+    <tr>
+        <td>Aggregation</td>
+        <td>116.0</td>
+        <td>226.7</td>
+        <td>N/A</td>
+        <td>58.6</td>
+        <td>112.1</td>
+        <td>1236.9</td>
+    </tr>
+    <tr>
+        <td>Groupby-aggregate</td>
+        <td>116.7</td>
+        <td>229.3</td>
+        <td>N/A</td>
+        <td>459.4</td>
+        <td>803.1</td>
+        <td>25860.0</td>
+    </tr>
+    <tr>
+        <td>Left join</td>
+        <td>114.7</td>
+        <td>248.7</td>
+        <td>N/A</td>
+        <td>1174.4</td>
+        <td>2310.2</td>
+        <td>14007.9</td>
+    </tr>
+    <tr>
+        <td>Inner join</td>
+        <td>116.7</td>
+        <td>242.0</td>
+        <td>N/A</td>
+        <td>1138.8</td>
+        <td>2768.5</td>
+        <td>21609.3</td>
+    </tr>
+    <tr>
+        <td>Rolling join</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>2812.1</td>
+        <td>3943.1</td>
+        <td>&gt; 28800</td>
+    </tr>
+    </tbody>
+</table>
 
 <br>
 <br>
