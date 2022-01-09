@@ -33,6 +33,25 @@ Defines the dataframe and returns `Clojask.DataFrame`
 ```
 ---  
 
+#### get-col-names
+
+Get the column names of the dataframe
+
+| Argument            | Type               | Function                                                     | Remarks                                           |
+| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
+| `dataframe`       | Clojask.DataFrame  | The operated object                                          |                                                   |
+
+<br>
+
+**Return**
+
+`get-col-names` returns a clojure.lang.PersistentVector
+
+```clojure
+(get-col-names x)
+;; columns: ["Employee" "EmployeeName" "Department" "Salary"]
+```
+
 #### reorder-col / rename-col
 
 Reorder the columns / rename the column names in the dataframe
@@ -345,6 +364,7 @@ Compute the result. The pre-defined lazy operations will be executed in pipeline
 | [`exclude`]      | String / Collection of strings | Chooses columns to be excluded for the operation                          | Can only specify either of select and exclude                |
 
 **Return**
+
 `compute` returns a Clojask.DataFrame
 
 **Example**
