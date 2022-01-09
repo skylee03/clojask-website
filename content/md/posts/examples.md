@@ -14,11 +14,16 @@ First, import the Clojask library
 The simple way:
 ```clojure
 (def df (clojask/dataframe "resources/employees.csv"))
+;; check input dataframe
 (clojask/print-df df)
+
 (clojask/set-type df "Salary" "double")
 (clojask/filter df "Salary" (fn [salary] (<= salary 800)))
 (clojask/operate df (fn [salary] (* salary 1.2)) "Salary")
-(clojask/compute df 8 "resources/output.csv" :exception true)
+(def output-df (clojask/compute df 8 "resources/output.csv" :exception true))
+
+;; check otuput dataframe
+(print-df output-df)
 ```
 
 Using the `->` macro:

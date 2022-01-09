@@ -279,7 +279,7 @@ Below is the full list of given functions for the two types of aggregation.
 
 `min`: Find the min value (use `clojure.core/compare` as the comparator)
 <br>
-*Note that the default behaviour for `clojask/min` is that `null` could be returned as a minimal value.
+*Note that the default behaviour for `clojask/min` is that `nil` could be returned as a minimal value.
 
 `clojask.api.gb-aggregate`:
 
