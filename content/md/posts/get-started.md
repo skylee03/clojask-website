@@ -19,13 +19,18 @@ We hope to be able to provide support soon.
 - Leiningen ([installation](https://leiningen.org/))
 - Java (Version 11 or below is supported)
 
+### Installation
 
-### Running Clojask
+Insert this line into your `project.clj` if using Leiningen.
 
-Please include in the project.clj file as one of the dependencies
-``` clojure
-[clojask "0.1.0-SNAPSHOT"]
-;; The current snapshot
+```clojure
+[com.github.clojure-finance/clojask "1.1.0"]
+```
+
+Insert this line into your `deps.edn` if using CLI.
+
+```clojure
+com.github.clojure-finance/clojask {:mvn/version "1.1.0"}
 ```
 
 ### Development
