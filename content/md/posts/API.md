@@ -307,8 +307,10 @@ A `Clojask.JoinedDataFrame`
 Unlike `Clojask.DataFrame`, it only supports three operations:
   - `print-df`
   - `get-col-names`
-  - `compute`  
+  - `compute`
+  
 This means you cannot further apply complicated operations to a joined dataframe. An alternative is to first compute the result, then read it in as a new dataframe.
+
 ---
 
 #### rolling-join-forward/rolling-join-backward
