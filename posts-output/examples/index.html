@@ -106,7 +106,7 @@
     </div>
 </div>
 <div>
-    <ol class="toc"><li><a href="#basic-tutorial">Basic Tutorial</a></li><li><a href="#timezone">Timezone</a></li><li><a href="#ordinary-join">Ordinary Join</a></li><li><a href="#coming-soon">Coming Soon</a></li></ol>
+    <ol class="toc"><li><a href="#basic-tutorial">Basic Tutorial</a></li><li><a href="#multi-threading">Multi-Threading</a></li><li><a href="#timezone">Timezone</a></li><li><a href="#ordinary-join">Ordinary Join</a></li><li><a href="#coming-soon">Coming Soon</a></li></ol>
     <p>Examples and their corresponding source files have been moved to a <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a> for ease of use</p><p>All of the following operations can be executed on the files provided on the Clojask Examples <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a></p><hr /><h4 id="basic-tutorial">Basic Tutorial</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj">example</a> of basic data manipulation operations performed through Clojask</p><pre><code class="clojure">(def df (clojask/dataframe "resources/employees.csv"))
 ;; check input dataframe
 (clojask/print-df df)
@@ -118,21 +118,18 @@
 
 ;; check otuput dataframe
 (print-df output-df)
-</code></pre><p>;; Using the <code>-&gt;</code> macro:
+
+;; Using the `-&gt;` macro:
 (-&gt; (clojask/dataframe "resources/employees.csv")
-(clojask/set-type "Salary" "double")
-(clojask/filter "Salary" (fn [salary] (&lt;= salary 800)))
-(clojask/operate (fn [salary] (* salary 1.2)) "Salary")
-(clojask/compute 8 "resources/output.csv" :exception true))</p><p>;; import csv files with no column name header
+    (clojask/set-type "Salary" "double")
+    (clojask/filter "Salary" (fn [salary] (&lt;= salary 800)))
+    (clojask/operate (fn [salary] (* salary 1.2)) "Salary")
+    (clojask/compute 8 "resources/output.csv" :exception true))
+
+;; import csv files with no column name header
 (def df (clojask/dataframe "resources/employees.csv" :have-col false))
-(clojask/print-df df)</p><pre><code>
----  
-
-#### Multi-Threading
-An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi_threading.clj) of multi threading various operations on the Dataframe 
-
-```clojure
-(def x (clojask/dataframe "resources/employees.csv"))
+(clojask/print-df df)
+</code></pre><hr /><h4 id="multi-threading">Multi-Threading</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi_threading.clj">example</a> of multi threading various operations on the Dataframe</p><pre><code class="clojure">(def x (clojask/dataframe "resources/employees.csv"))
 (def y (clojask/dataframe "resources/employees-workleave.csv"))
 
 ;; create a thread for each operation
@@ -155,7 +152,7 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
   (def df (clojask/dataframe "sales.csv"))
   )
 </code></pre><hr /><h4 id="ordinary-join">Ordinary Join</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj">example</a> of a basic join operation on Clojask Dataframes</p><pre><code class="clojure">(def x (clojask/dataframe "resources/employees.csv"))
-    (def y (clojask/dataframe "resources/employees-workleave.csv"))
+(def y (clojask/dataframe "resources/employees-workleave.csv"))
 
 (clojask/left-join x y ["Employee"] ["Employee"] 8 "resources/output.csv" :exception false)
 </code></pre><hr /><h4 id="coming-soon">Coming Soon</h4><ul><li>Rolling Join</li></ul>
