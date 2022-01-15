@@ -10,7 +10,8 @@
    [cryogen-core.plugins :refer [load-plugins]]
    [cryogen-core.compiler :refer [compile-assets-timed]]
    [cryogen-core.config :refer [resolve-config]]
-   [cryogen-core.io :refer [path]]))
+   [cryogen-core.io :refer [path]]
+   [net.cgrand.enlive-html :as html]))
 
 (cryogen-core.compiler/compile-assets-timed
  {:update-article-fn

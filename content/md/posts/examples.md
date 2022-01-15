@@ -25,7 +25,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 
 ;; check otuput dataframe
 (print-df output-df)
-```
 
 ;; Using the `->` macro:
 (-> (clojask/dataframe "resources/employees.csv")
@@ -84,7 +83,7 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 
 ```clojure
 (def x (clojask/dataframe "resources/employees.csv"))
-    (def y (clojask/dataframe "resources/employees-workleave.csv"))
+(def y (clojask/dataframe "resources/employees-workleave.csv"))
 
 (clojask/left-join x y ["Employee"] ["Employee"] 8 "resources/output.csv" :exception false)
 ```

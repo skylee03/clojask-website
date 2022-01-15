@@ -16,10 +16,6 @@
 
 --- 
 
-## API Documentation
-
----
-
 #### dataframe 
 Defines the dataframe and returns `Clojask.DataFrame` 
 
@@ -187,7 +183,7 @@ Group the dataframe by some specific columns (always used together with `aggrega
 (group-by x ["Department" "DepartmentName"])
 ```
 
-<p name="groupby-keys">Group-by Keys Specification</p>
+**<p id="groupby-keys">Group-by Keys Specification</p>**
 
 - Take one argument
 - Return type: int / double / string
@@ -273,8 +269,6 @@ Inner / left / right join two dataframes on specific columns
 
 *Remarks:*
 
-*Join functions are immediate actions that will be executed once they are being called.*
-
 *The registered operations and filters (like `compute`) will be automatically pipelined. You could think of `join` as as an operation that first computes the two dataframes then joins them together.*
 
 *Only `compute` will be able to be performed after joing functions*
@@ -308,13 +302,13 @@ Inner / left / right join two dataframes on specific columns
 
 **Return**
 
-A Clojask.JoinedDataFrame
+A `Clojask.JoinedDataFrame`
 
-- Unlike Clojask.DataFrame, it only supports three operations:
+Unlike `Clojask.DataFrame`, it only supports three operations:
   - `print-df`
   - `get-col-names`
   - `compute`
-- This means you cannot further apply complicated operations to a joined dataframe. An alternative is to first compute the result, then read it in as a new dataframe.
+This means you cannot further apply complicated operations to a joined dataframe. An alternative is to first compute the result, then read it in as a new dataframe.
 ---
 
 #### rolling-join-forward/rolling-join-backward
