@@ -36,7 +36,7 @@ Provides a preview of the resulting data (column headings, datatype, and data) b
 | Argument            | Type               | Function                                                     | Remarks                                           |
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
 | `dataframe`         | Clojask.DataFrame  | The operated object                                          |                                                   |
-| `sameple size`      | Integer            | Specify the sample size taken from the beginning of the dataframe | Optional default 1000 elements | 
+| `sameple size`      | Integer            | Specify the sample size taken from the beginning of the dataframe | Optional, default 1000 elements | 
 | `return size`       | Integer            | Specify the returning size of the dataframe elements         | Optional, default 10 elements |
 
 ```clojure 
