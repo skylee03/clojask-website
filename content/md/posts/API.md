@@ -12,6 +12,7 @@
 - The dataframe traverses the data in rows, with each row represented by a vector.
 - The size of the input dataframe can be larger than the size of available memory in the machine.
 - By default, all columns are assigned with the data type `string` when the dataframe is first imported. You are allowed to change its type using our predefined type keywords.
+- **[ ]** surrounding the argument indicates an optional operation 
 
 
 --- 
@@ -36,8 +37,8 @@ Provides a preview of the resulting data (column headings, datatype, and data) b
 | Argument            | Type               | Function                                                     | Remarks                                           |
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
 | `dataframe`         | Clojask.DataFrame  | The operated object                                          |                                                   |
-| `sameple size`      | Integer            | Specify the sample size taken from the beginning of the dataframe | Optional, default 1000 elements | 
-| `return size`       | Integer            | Specify the returning size of the dataframe elements         | Optional, default 10 elements |
+| `[sample size]`      | Integer            | Specify the sample size taken from the beginning of the dataframe | Default of 1000 elements | 
+| `[return size]`       | Integer            | Specify the returning size of the dataframe elements         | Default of 10 elements |
 
 ```clojure 
 (print-df x 1000 10)
