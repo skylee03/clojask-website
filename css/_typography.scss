@@ -128,6 +128,7 @@ h3 {
 
 table{
     text-align:left;
+    vertical-align: text-top;
     table-layout: auto;
     width: 100%;
     @media (max-width: $tablet-breakpoint){
@@ -163,6 +164,7 @@ th, td {
     padding: 5px;
     border-bottom: 4px;
     text-align: left;
+    vertical-align: text-top;
 }
 
 tr:hover {background-color:#eeeeee;}
