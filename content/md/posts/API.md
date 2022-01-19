@@ -25,8 +25,8 @@ Defines the dataframe and returns `Clojask.DataFrame`
 | `input-directory`   | String             | Directory of DataFrame file                                  |                                                   |
 
 ```clojure
-;; defines df as a dataframe from dataframe.csv file
 (def x (dataframe "resources/dataframe.csv"))
+;; defines df as a dataframe from dataframe.csv file
 ```
 ---  
 
@@ -41,7 +41,7 @@ Provides a preview of the resulting data (column headings, datatype, and data) b
 
 ```clojure 
 (print-df x 1000 10)
-;; 
+;; prints 10 rows of data based on 1000 sample data entries with the current operations 
 ```
 
 --- 
