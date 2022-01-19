@@ -6,7 +6,7 @@
 
 
 
-### Basic Information
+#### Basic Information
 
 - Most dataframe manipulation operations are performed lazily (except `sort` and `join`). They will be executed all at once when `compute` is called. 
 - The dataframe traverses the data in rows, with each row represented by a vector.
@@ -19,15 +19,32 @@
 #### dataframe 
 Defines the dataframe and returns `Clojask.DataFrame` 
 
+
 | Argument            | Type               | Function                                                     | Remarks                                           |
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
-| `input-directory`        | String  | Directory of DataFrame file                                          |                                                   |
+| `input-directory`   | String             | Directory of DataFrame file                                  |                                                   |
 
 ```clojure
 ;; defines df as a dataframe from dataframe.csv file
-(def df (dataframe "resources/dataframe.csv"))
+(def x (dataframe "resources/dataframe.csv"))
 ```
 ---  
+
+#### print-df
+Provides a preview of the resulting data (column headings, datatype, and data) by performing a sample based compute on the current dataframe manipulation operations to be performed by `compute`
+
+| Argument            | Type               | Function                                                     | Remarks                                           |
+| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
+| `dataframe`         | Clojask.DataFrame  | The operated object                                          |                                                   |
+| `sameple size`      | Integer            | Specify the sample size taken from the beginning of the dataframe | Optional default 1000 elements | 
+| `return size`       | Integer            | Specify the returning size of the dataframe elements         | Optional, default 10 elements |
+
+```clojure 
+(print-df x [1000 10])
+;; 
+```
+
+--- 
 
 #### get-col-names
 
@@ -47,6 +64,8 @@ Get the column names of the dataframe
 (get-col-names x)
 ;; columns: ["Employee" "EmployeeName" "Department" "Salary"]
 ```
+--- 
+
 
 #### reorder-col / rename-col
 

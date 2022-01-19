@@ -40,8 +40,21 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 
 ---  
 
+#### Ordinary Join
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj) of a basic join operation on Clojask 
+
+```clojure
+(def x (clojask/dataframe "resources/employees.csv"))
+(def y (clojask/dataframe "resources/employees-workleave.csv"))
+
+(compute (clojask/left-join x y ["Employee"] ["Employee"] 8) "resources/output.csv" :exception false)
+```
+
+---  
+
+
 #### Multi-Threading
-An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi_threading.clj) of multi threading various operations on the Dataframe 
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi_threading.clj) of multi threading various operations on the Clojask 
 
 ```clojure
 (def x (clojask/dataframe "resources/employees.csv"))
@@ -51,13 +64,13 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 (async/thread (clojask/set-type x "Salary" "double"))
 (async/thread (clojask/set-type y "WorkLeave" "double"))
 
-(clojask/left-join x y ["Employee"] ["Employee"] 4 "resources/output.csv" :exception false)
+(compute (clojask/left-join x y ["Employee"] ["Employee"]) 8 "resources/output.csv" :exception false)
 ```
 
----  
+<!-- ---  
 
 #### Timezone
-An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj) on handling various timezone data in the Clojask Dataframe 
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj) on handling various timezone data in the Clojask 
 
 ```clojure
 (defn timezone-parser
@@ -74,21 +87,20 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
   []
   (def df (clojask/dataframe "sales.csv"))
   )
-```
+``` -->
 
 ---  
 
-#### Ordinary Join
-An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj) of a basic join operation on Clojask Dataframes
+#### Rolling Join
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj) on performing rolling joins in the Clojask 
 
 ```clojure
 (def x (clojask/dataframe "resources/employees.csv"))
 (def y (clojask/dataframe "resources/employees-workleave.csv"))
 
-(clojask/left-join x y ["Employee"] ["Employee"] 8 "resources/output.csv" :exception false)
+(clojask/compute (clojask/rolling-join-forward x y ["Employee"] ["Employee"] "UpdateDate" "UpdateDate") 8 "resources/output.csv" :exception false)
 ```
 
----  
 
 #### Coming Soon
-- Rolling Join
+- Timezone
