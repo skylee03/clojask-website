@@ -40,7 +40,7 @@ Provides a preview of the resulting data (column headings, datatype, and data) b
 | `return size`       | Integer            | Specify the returning size of the dataframe elements         | Optional, default 10 elements |
 
 ```clojure 
-(print-df x [1000 10])
+(print-df x 1000 10)
 ;; 
 ```
 
