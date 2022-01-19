@@ -126,6 +126,74 @@ h3 {
   }
 }
 
+table{
+    text-align:left;
+    table-layout: auto;
+    width: 100%;
+    @media (max-width: $tablet-breakpoint){
+        display: block;
+        overflow-x:auto;
+        white-space: nowrap;
+    }
+    @media (max-width: $mobile-breakpoint){
+        display: block;
+        overflow-x:auto;
+        white-space: nowrap;
+    }
+}
+
+
+thead th:nth-child(1) {
+    width: 15%;
+}
+  
+thead th:nth-child(2) {
+    width: 17.5%;
+}
+
+thead th:nth-child(3) {
+    width: 20%;
+}
+
+thead th:nth-child(4) {
+    width: 47.5%;
+}
+
+th, td {
+    padding: 5px;
+    border-bottom: 4px;
+    text-align: left;
+}
+
+tr:hover {background-color:#eeeeee;}
+
+table.table1{
+    text-align:center;
+    width:100%;
+    table-layout:auto; 
+}
+
+thead.table1{
+    width:auto;
+    text-align:left;
+}
+
+#box thead th:nth-child(1) {
+    width: 14.3%;
+}
+  
+#box thead th:nth-child(2) {
+    width: 14.3%;
+}
+
+#box thead th:nth-child(3) {
+    width: 14.3%;
+}
+
+#box thead th:nth-child(4) {
+    width: 14.3%;
+}
+
 h4, h5, h6 {
   font-size: 1.125em;
   line-height: 1.11111111;
