@@ -10,52 +10,46 @@ All of the following operations can be executed on the files provided on the Clo
 
 ---  
 
-#### Basic Tutorial
-An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj) of basic data manipulation operations performed through Clojask  
 
+#### Basic Tutorial
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj) of basic data manipulation operations performed through Clojask
 ```clojure
 (def df (clojask/dataframe "resources/employees.csv"))
-;; check input dataframe
 (clojask/print-df df)
-
 (clojask/set-type df "Salary" "double")
 (clojask/filter df "Salary" (fn [salary] (<= salary 800)))
 (clojask/operate df (fn [salary] (* salary 1.2)) "Salary")
-(def output-df (clojask/compute df 8 "resources/output.csv" :exception true))
-
-;; check otuput dataframe
-(print-df output-df)
+(clojask/compute df 8 "resources/output.csv" :exception true)
 
 ;; Using the `->` macro:
 (-> (clojask/dataframe "resources/employees.csv")
-    (clojask/set-type "Salary" "double")
-    (clojask/filter "Salary" (fn [salary] (<= salary 800)))
-    (clojask/operate (fn [salary] (* salary 1.2)) "Salary")
-    (clojask/compute 8 "resources/output.csv" :exception true))
+(clojask/set-type "Salary" "double")
+(clojask/filter "Salary" (fn [salary] (<= salary 800)))
+(clojask/operate (fn [salary] (* salary 1.2)) "Salary")
+(clojask/compute 8 "resources/output.csv" :exception true))
 
 ;; import csv files with no column name header
 (def df (clojask/dataframe "resources/employees.csv" :have-col false))
 (clojask/print-df df)
+
 ```
 
----  
 
+---
 #### Ordinary Join
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj) of a basic join operation on Clojask 
-
 ```clojure
-(def x (clojask/dataframe "resources/employees.csv"))
+(clojask/dataframe "resources/employees.csv"))
 (def y (clojask/dataframe "resources/employees-workleave.csv"))
 
 (compute (clojask/left-join x y ["Employee"] ["Employee"] 8) "resources/output.csv" :exception false)
+
 ```
 
----  
 
-
+---
 #### Multi-Threading
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi_threading.clj) of multi threading various operations on the Clojask 
-
 ```clojure
 (def x (clojask/dataframe "resources/employees.csv"))
 (def y (clojask/dataframe "resources/employees-workleave.csv"))
@@ -65,42 +59,25 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 (async/thread (clojask/set-type y "WorkLeave" "double"))
 
 (compute (clojask/left-join x y ["Employee"] ["Employee"]) 8 "resources/output.csv" :exception false)
+
 ```
 
-<!-- ---  
 
-#### Timezone
-An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj) on handling various timezone data in the Clojask 
-
-```clojure
-(defn timezone-parser
-  "the input is a datetime string with timezone identifier as suffix"
-  [time-string]
-  )
-
-(defn timezone-formatter
-  "the input is a vector, the first element is a date object, the second is the timezone string"
-  [time-vec]
-  )
-
-(def main
-  []
-  (def df (clojask/dataframe "sales.csv"))
-  )
-``` -->
-
----  
-
+---
 #### Rolling Join
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj) on performing rolling joins in the Clojask 
-
 ```clojure
-(def x (clojask/dataframe "resources/employees.csv"))
+(clojask/dataframe "resources/employees.csv"))
 (def y (clojask/dataframe "resources/employees-workleave.csv"))
 
+(clojask/set-type x "UpdateDate" "datetime")
+(clojask/set-type y "UpdateDate" "datetime"))
+
 (clojask/compute (clojask/rolling-join-forward x y ["Employee"] ["Employee"] "UpdateDate" "UpdateDate") 8 "resources/output.csv" :exception false)
+
 ```
 
 
+---
 #### Coming Soon
 - Timezone
