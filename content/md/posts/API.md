@@ -15,7 +15,7 @@
 - **[ ]** surrounding the argument indicates an optional operation 
 
 
---- 
+---
 
 #### dataframe 
 Defines the dataframe and returns `Clojask.DataFrame` 
@@ -29,7 +29,7 @@ Defines the dataframe and returns `Clojask.DataFrame`
 (def x (dataframe "resources/dataframe.csv"))
 ;; defines df as a dataframe from dataframe.csv file
 ```
----  
+---
 
 #### print-df
 Provides a preview of the resulting data (column headings, datatype, and data) by performing a sample based compute on the current dataframe manipulation operations to be performed by `compute`
@@ -45,7 +45,7 @@ Provides a preview of the resulting data (column headings, datatype, and data) b
 ;; prints 10 rows of data based on 1000 sample data entries with the current operations 
 ```
 
---- 
+---
 
 #### get-col-names
 
@@ -65,7 +65,7 @@ Get the column names of the dataframe
 (get-col-names x)
 ;; columns: ["Employee" "EmployeeName" "Department" "Salary"]
 ```
---- 
+---
 
 
 #### reorder-col / rename-col
@@ -105,7 +105,7 @@ Filter the dataframe by rows.
 ;; keeps only people from computer science department with salary not larger than 800
 ```
 
---- 
+---
 
 #### set-type
 
@@ -124,7 +124,7 @@ Set the data type of a column. As a result, the value will be parsed as the assi
 (set-type x "Salary" "double")
 ```
 
---- 
+---
 
 #### set-parser
 
@@ -237,7 +237,7 @@ You can also group by the combination of keys. (Use the above two rules together
 (group-by x [[rem10 "Salary"] ["Department"]])
 ```
 
----  
+---
 
 #### aggregate
 
@@ -262,7 +262,7 @@ Custom functions can be made for aggregation. Please refer to [Aggregation Funct
 
 The keys used in specifying the aggregate operation are identical to the [group-by](#group-by) function 
 
----  
+---
 
 #### sort
 
@@ -294,12 +294,13 @@ Inner / left / right join two dataframes on specific columns
 *Only `compute` will be able to be performed after joing functions*
 
 
-| Argument      | Type                | Function                    | Remarks                                      |
-| ------------- | ------------------- | --------------------------- | -------------------------------------------- |
-| `dataframe a` | Clojask.DataFrame   | The operated object         |                                              |
-| `dataframe b` | Clojask.DataFrame   | The operated object         |                                              |
-| `a join keys` | String / Collection | The keys of a to be aligned | Find the specification [here](#groupby-keys) |
-| `b join keys` | String / Collection | The keys of b to be aligned | Find the specification [here](#groupby-keys) |  
+| Argument          | Type                  | Function                                 | Remarks                                                      |
+| ----------------- | --------------------- | ---------------------------------------- | ------------------------------------------------------------ |
+| `dataframe a`     | Clojask.DataFrame     | The operated object                      |                                                              |
+| `dataframe b`     | Clojask.DataFrame     | The operated object                      |                                                              |
+| `a join keys`     | String / Collection   | The keys of a to be aligned              | Find the specification [here](#groupby-keys)                 |
+| `b join keys`     | String / Collection   | The keys of b to be aligned              | Find the specification [here](#groupby-keys)                 |
+| [`column prefix`] | Collection of strings | Add to the front of the two column names | For example, ["a" "b"], and the resultant dataframe will have headers "a_xxx" and "b_xxx" respectively |
 
 **Example**
 
@@ -328,30 +329,27 @@ Unlike `Clojask.DataFrame`, it only supports three operations:
   - `print-df`
   - `get-col-names`
   - `compute`
-  
+
 This means you cannot further apply complicated operations to a joined dataframe. An alternative is to first compute the result, then read it in as a new dataframe.
 
 ---
 
-#### rolling-join-forward/rolling-join-backward
+#### rolling-join-forward / rolling-join-backward
 
-Rolling join two dataframes on columns
+Rolling join two dataframes on columns. Forward will find the largest of the smaller in b while backward, while backward find the smallest of the larger in b.
 
-*Remarks:*
+*You can refer to [here](https://www.r-bloggers.com/2016/06/understanding-data-table-rolling-joins/) for more details about rolling joins.*
 
-*Join functions are immediate actions that will be executed once they are being called.*
-
-*The registered operations and filters (like `compute`) will be automatically pipelined. You could think of `join` as as an operation that first computes the two dataframes then joins them together.*
-
-| Argument            | Type               | Function                                                     | Remarks                                           |
-| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
-| `dataframe a`       | Clojask.DataFrame  | The operated object                                          |                                                   |
-| `dataframe b`       | Clojask.DataFrame  | The operated object                                          |                                                   |
-| `a columns`         | Clojure.collection | The keys of a to be aligned                                  | Should be existing headers in dataframe a         |
-| `b columns`         | Clojure.collection | The keys of b to be aligned                                  | Should be existing headers in dataframe b         |
-| `number of workers` | int (max 8)        | Number of worker nodes doing the joining                     |                                                   |
-| `distination file`  | string             | The file path to the distination                             | Will be emptied first                             |
-| [`exception`]       | boolean            | Whether an exception during calculation will cause termination | Is useful for debugging or detecting empty fields |
+| Argument          | Type                     | Function                                                     | Remarks                                                      |
+| ----------------- | ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `dataframe a`     | Clojask.DataFrame        | The operated object                                          |                                                              |
+| `dataframe b`     | Clojask.DataFrame        | The operated object                                          |                                                              |
+| `a join keys`     | String / Collection      | The column names of a to be aligned                          | Find the specification [here](#groupby-keys)                 |
+| `b join keys`     | String / Collection      | The column names of b to be aligned                          | Find the specification [here](#groupby-keys)                 |
+| `a roll key`      | String                   | The column name of a to be aligned                           | Will be compared with `b roll key` using function `compare`  |
+| `b roll key`      | String                   | The column name of b to be aligned                           | Will be compared with `a roll key` using function `compare`  |
+| [`column prefix`] | Collection of strings    | Add to the front of the two column names                     | For example, ["a" "b"], and the resultant dataframe will have headers "a_xxx" and "b_xxx" respectively |
+| [`limit`]         | Function (two arguments) | Another a condition checking before actually joining the two rows | For example, sometimes we want to discard the join when the time gap between two rows are too large. So we can let this compare function return false to stop joining. |
 
 **Example**
 
@@ -359,25 +357,40 @@ Rolling join two dataframes on columns
 (def x (dataframe "path/to/a"))
 (def y (dataframe "path/to/b"))
 
-(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "path/output.csv" :exception true)
-(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" 8 "path/output.csv" :exception true)
+(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary")
+(rolling-join-forward x y ["Employee"] ["Employee"] "Salary" "Salary" :limit (fn [a b] (if (> (- a b) 10) false true)))
+;; if the salary of a - b exceeds 10, we will not join the two rows
 ```
 
----  
+**Return** (Same as inner-join)
+
+A `Clojask.JoinedDataFrame`
+
+Unlike `Clojask.DataFrame`, it only supports three operations:
+
+  - `print-df`
+  - `get-col-names`
+  - `compute`
+
+This means you cannot further apply complicated operations to a joined dataframe. An alternative is to first compute the result, then read it in as a new dataframe.
+
+---
 
 
 #### compute
 
 Compute the result. The pre-defined lazy operations will be executed in pipeline, ie the result of the previous operation becomes the argument of the next operation.
 
-| Argument         | Type                           | Function                                                     | Remarks                                                      |
-| ---------------- | ------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `dataframe`      | Clojask.DataFrame              | The operated object                                          |                                                              |
-| `num of workers` | int (max 8)                    | The number of worker instances (except the input and output nodes) | Uses [onyx](http://www.onyxplatform.org/) as the distributed platform |
-| `output path`    | String                         | The path of the output csv file                              | Could exist or not.                                          |
-| [`exception`]    | boolean                        | Whether an exception during calculation will cause termination | Is useful for debugging or detecting empty fields            |
-| [`select`]       | String / Collection of strings | Chooses columns to select for the operation | Can only specify either of select and exclude                |
-| [`exclude`]      | String / Collection of strings | Chooses columns to be excluded for the operation                          | Can only specify either of select and exclude                |
+| Argument         | Type                                        | Function                                                     | Remarks                                                      |
+| ---------------- | ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `dataframe`      | Clojask.DataFrame / Clojask.JoinedDataFrame | The operated object                                          |                                                              |
+| `num of workers` | int (max 8)                                 | The number of worker instances (except the input and output nodes) | Uses [onyx](http://www.onyxplatform.org/) as the distributed platform |
+| `output path`    | String                                      | The path of the output csv file                              | Could exist or not.                                          |
+| [`exception`]    | boolean                                     | Whether an exception during calculation will cause termination | Is useful for debugging or detecting empty fields            |
+| [`select`]       | String / Collection of strings              | Chooses columns to select for the operation                  | Can only specify either of select and exclude                |
+| [`exclude`]      | String / Collection of strings              | Chooses columns to be excluded for the operation             | Can only specify either of select and exclude                |
+| [`header`]       | Collection of strings                       | The header names in the output file that appears in the first row | Will replace the default column names                        |
+| [`melt`]         | Function (one argument)                     | Reorganize each resultant row                                | Should take each row as a collection and return a collection of collections (This API is used in the `extensions.reshpae.melt`) |
 
 **Return**
 
@@ -397,6 +410,10 @@ Compute the result. The pre-defined lazy operations will be executed in pipeline
 
 (compute x 8 "../resources/test.csv" :exclude ["col b" "col a"])
 ;; select all columns except column b and column a, other columns are in order
-```
 
+(compute x 8 "../resources/test.csv" :melt (fn [row] (map concat (repeat (take 2 x)) (take-last 2 x))))
+;; each result row becomes two rows
+;; [a b c d] => [[a b c]
+;;							 [a b d]]
+```
 
