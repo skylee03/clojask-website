@@ -207,8 +207,8 @@ This means additional incremental operations are appllied on top of exisiting op
 
 ## Clojask Logic Flow Diagram 
 (Click to view a closeup of image)
-<a href="https://raw.githubusercontent.com/clojure-finance/clojask/main/doc/diagram.jpg" target="_blank" >
-<img src="https://raw.githubusercontent.com/clojure-finance/clojask/main/doc/diagram.jpg" alt="some image" />
+<a href="https://raw.githubusercontent.com/clojure-finance/clojask/main/docs/diagram.jpg" target="_blank" >
+<img src="https://raw.githubusercontent.com/clojure-finance/clojask/main/docs/diagram.jpg" alt="Clojask logic" />
 </a>
 <!-- /img/diagram.png -->
 

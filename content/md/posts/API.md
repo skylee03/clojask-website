@@ -14,6 +14,9 @@
 - By default, all columns are assigned with the data type `string` when the dataframe is first imported. You are allowed to change its type using our predefined type keywords.
 - **[ ]** surrounding the argument indicates an optional operation 
 
+<a href="https://raw.githubusercontent.com/clojure-finance/clojask/main/docs/clojask_functions.png" target="_blank" >
+<img src="https://raw.githubusercontent.com/clojure-finance/clojask/main/docs/clojask_functions.png" alt="Clojask function flow" />
+</a>
 
 ---
 

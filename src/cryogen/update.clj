@@ -5,21 +5,20 @@
 
 (def ordinary_join "#### Ordinary Join\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj) of a basic join operation on Clojask ")
 
-(def multi_threading "#### Multi-Threading\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi_threading.clj) of multi threading various operations on the Clojask ")
+(def multi_threading "#### Multi-Threading\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/multi_threading.clj) of multi threading various operations on Clojask ")
 
-(def rolling_join "#### Rolling Join\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj) on performing rolling joins in the Clojask ")
+(def rolling_join "#### Rolling Join\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj) on performing rolling joins in Clojask ")
+
+(def enhanced_reshape "#### Enhanced Reshape\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/enhanced_reshape.clj) on performing melt and cast operations in Clojask ")
 
 (def ending_message "#### Coming Soon\n- Timezone")
 
-(defn grab_data [input]
+(defn grab_data
+  [input]
   (str/split
-   (str/join "\n" (map str/trim
-                       (str/split
-                        (str/join ""
-                                  (drop-last
-                                   (slurp (str "https://raw.githubusercontent.com/clojure-finance/clojask-examples/main/src/clojask_examples/" input))))
-                        #"\n")))
-   #"(?=[(])"))
+    (str/join ""
+      (drop-last
+        (slurp (str "https://raw.githubusercontent.com/clojure-finance/clojask-examples/main/src/clojask_examples/" input)))) #"(?=[(])"))
 
 ;; (defn parse [text remove-num]
 ;;   (->> text
@@ -27,17 +26,22 @@
 ;;        (str/join)
 ;;        (spit "test.md")))
 
-(defn parse [text remove-num]
-  (str "\n```clojure\n"
+(defn parse [text]
+  (apply str "\n```clojure\n"
        (->> text
-            (drop remove-num)
             (str/join))
        "\n```\n\n"))
 
-(defn option [text]
-  (cond (str/includes? text "requires")
-        (parse text 4)
-        :else (parse text 3)))
+;; Old parsing setting 
+;; (defn option
+;;   [text]
+;;   (cond (str/includes? text "requires")
+;;         (parse text 4)
+;;         :else (parse text 3)))
+
+(defn option
+  [text]
+  (parse (apply str (rest (str/split (str/join "" text) #";; Content Below")))))
 
 (defn -main []
   (spit "content/md/posts/examples.md"
@@ -55,5 +59,10 @@
              rolling_join
              (option (grab_data "rolling_join.clj"))
              "\n---\n"
-             ending_message)))
+             enhanced_reshape
+             (option (grab_data "enhanced_reshape.clj"))
+             "\n---\n"
+             ending_message))
+  (println "All done"))
+
 
