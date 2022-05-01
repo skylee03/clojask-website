@@ -256,12 +256,13 @@ Aggregate the dataframe(s) by applying some functions. The aggregation function 
 **Example**
 
 ```clojure
-;; get the min of the selected column(s)
-(aggregate x clojask/max ["Salary"] ["Salary-min"])
-(aggregate x clojask/min ["Employee" "EmployeeName"] ["Employee-min" "EmployeeName-min"])
+(require '[clojask.api.gb-aggregate :as gb-agg])
+;; get the max/min of the selected column(s)
+(aggregate x gb-agg/max ["Salary"] ["Salary-max"])
+(aggregate x gb-agg/min ["Employee" "EmployeeName"] ["Employee-min" "EmployeeName-min"])
 ```
 
-Custom functions can be made for aggregation. Please refer to [Aggregation Function](/posts-output/aggregate-function) for additional details  
+Custom functions can be made for aggregation. Please refer to [Aggregation Function API](/posts-output/aggregate-function) for additional details  
 
 The keys used in specifying the aggregate operation are identical to the [group-by](#group-by) function 
 
