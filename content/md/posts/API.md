@@ -6,12 +6,15 @@
 
 
 
+See also [extensions](https://clojure-finance.github.io/clojask-website/posts-output/extensions/).
+
 #### Basic Information
 
 - Most dataframe manipulation operations are performed lazily (except `sort` and `join`). They will be executed all at once when `compute` is called. 
 - The dataframe traverses the data in rows, with each row represented by a vector.
 - The size of the input dataframe can be larger than the size of available memory in the machine.
-- By default, all columns are assigned with the data type `string` when the dataframe is first imported. You are allowed to change its type using our predefined type keywords.
+- By default, all columns are assigned with the data type `string` when the dataframe is initialized. You are allowed to change its type using our predefined type keywords.
+- Functions with no `return` parameter specified by default returns the same input dataframe.
 - **[ ]** surrounding the argument indicates an optional operation 
 
 <a href="https://raw.githubusercontent.com/clojure-finance/clojask/main/docs/clojask_functions.png" target="_blank" >
@@ -58,8 +61,6 @@ Get the column names of the dataframe
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
 | `dataframe`       | Clojask.DataFrame  | The operated object                                          |                                                   |
 
-<br>
-
 **Return**
 
 `get-col-names` returns a clojure.lang.PersistentVector
@@ -71,7 +72,7 @@ Get the column names of the dataframe
 ---
 
 
-#### reorder-col / rename-col
+#### rename-col
 
 Reorder the columns / rename the column names in the dataframe
 
@@ -208,10 +209,16 @@ Group the dataframe by some specific columns (always used together with `aggrega
 
 **<p id="groupby-keys">Group-by Keys Specification</p>**
 
+**Group-by Functions Specification**
+
 - Take one argument
 - Return type: int / double / string
 
+**Pair group-by functions with group-by keys**
+
 One general rule is to put the group-by function and its corresponding column name together.
+
+**Examples**
 
 ```clojure
 (defn rem10
@@ -286,7 +293,7 @@ The keys used in specifying the aggregate operation are identical to the [group-
 
 ---
 
-#### inner-join / left-join / right-join
+#### inner-join / left-join / right-join / outer-join
 
 Inner / left / right join two dataframes on specific columns
 
@@ -375,7 +382,7 @@ Unlike `Clojask.DataFrame`, it only supports three operations:
   - `get-col-names`
   - `compute`
 
-This means you cannot further apply complicated operations to a joined dataframe. An alternative is to first compute the result, then read it in as a new dataframe.
+This means you cannot further apply complicated operations to a joined dataframe. If you need so, an alternative is to first `compute`, then read the result in as a new dataframe.
 
 ---
 
@@ -392,12 +399,12 @@ Compute the result. The pre-defined lazy operations will be executed in pipeline
 | [`exception`]    | boolean                                     | Whether an exception during calculation will cause termination | Is useful for debugging or detecting empty fields            |
 | [`select`]       | String / Collection of strings              | Chooses columns to select for the operation                  | Can only specify either of select and exclude                |
 | [`exclude`]      | String / Collection of strings              | Chooses columns to be excluded for the operation             | Can only specify either of select and exclude                |
-| [`header`]       | Collection of strings                       | The header names in the output file that appears in the first row | Will replace the default column names                        |
+| [`header`]       | Collection of strings                       | The header names in the output file that appears in the first row | Will replace the default column names. Should be equal to the number of columns. |
 | [`melt`]         | Function (one argument)                     | Reorganize each resultant row                                | Should take each row as a collection and return a collection of collections (This API is used in the `extensions.reshpae.melt`) |
 
 **Return**
 
-`compute` returns a Clojask.DataFrame
+A `Clojask.DataFrame`, which is the resultant dataframe.
 
 **Example**
 
