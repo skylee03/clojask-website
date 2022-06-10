@@ -28,6 +28,10 @@ According to the recent [Stack Overflow developer survey](https://insights.stack
 
 We believe that there are plenty of underlying potentialities in Clojure. Thus, we would like to make an effort in developing resources for this community. 
 
+Here is a demo video for a basic introduction to Clojask and its applications.  
+<iframe width="640" height="400" 
+src="https://www.youtube.com/embed/Jl-Pbu16Xk8">
+</iframe> 
 
 ### Table of Contents
 
