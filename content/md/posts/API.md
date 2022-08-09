@@ -24,16 +24,24 @@ See also [extensions](https://clojure-finance.github.io/clojask-website/posts-ou
 ---
 
 #### dataframe 
-Defines the dataframe and returns `Clojask.DataFrame` 
+Defines the dataframe and returns `clojask.dataframe.DataFrame` 
 
 
-| Argument            | Type               | Function                                                     | Remarks                                           |
-| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
-| `input-directory`   | String             | Directory of DataFrame file                                  |                                                   |
+| Argument                                        | Type                       | Function                                              | Remarks                                                      |
+| ----------------------------------------------- | -------------------------- | ----------------------------------------------------- | ------------------------------------------------------------ |
+| `input-directory`<br />or<br />`input-function` | String<br /><br />Function | Path of dataset file<br /><br />Source of the dataset | If `input-directory`, the output format is automatically set to correspond to the input format (can be modified by `:output` option during `compute`) and (coming soon) progress indication is available during `compute`.<br />If `input-function` comes from `(fn [] (clojask-io.input.read-file ... :size true :output true))`, the above functions are also supported.<br />If `input-function` is user-defined, the above functions are not available.<br />**How to define input-function?**<br />The `input-function` should be a function that returns **lazy** sequence of vectors that represents each row. "Lazy" here is necessary if the dataset is larger than memory. |
+| [`if-header`]                                   | Boolean                    | If the dataset has column names as the first row      | If `false`, the default column names will be $Col\_i$, where $1\leq i\leq number \space of \space columns$. |
 
 ```clojure
-(def x (dataframe "resources/dataframe.csv"))
 ;; defines df as a dataframe from dataframe.csv file
+(def df (dataframe "resources/Employee.csv"))
+
+;; define df to be a dataframe with customized seperator
+(require '[clojask-io.input :as input])
+(def df (dataframe (fn [] (input/read-file "resources/Employees.csv" :sep "," :output true :stat true))))
+
+;; define df with a lazy sequence
+(def df (dataframe (fn [] (map vector (take 1000 (iterate inc 1)) (take 1000 (repeat 1)))) :if-header false))
 ```
 ---
 
@@ -275,7 +283,7 @@ The keys used in specifying the aggregate operation are identical to the [group-
 
 ---
 
-#### sort
+#### sort (<red>Deprecated</red>)
 
 **Immediately** sort the dataframe
 
@@ -396,11 +404,12 @@ Compute the result. The pre-defined lazy operations will be executed in pipeline
 | ---------------- | ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `dataframe`      | Clojask.DataFrame / Clojask.JoinedDataFrame | The operated object                                          |                                                              |
 | `num of workers` | int (max 8)                                 | The number of worker instances (except the input and output nodes) | Uses [onyx](http://www.onyxplatform.org/) as the distributed platform |
-| `output path`    | String                                      | The path of the output csv file                              | Could exist or not.                                          |
-| [`exception`]    | boolean                                     | Whether an exception during calculation will cause termination | Is useful for debugging or detecting empty fields            |
+| `output path`    | String                                      | The path of the output csv file                              | If the path already exists, will overwrite the file.         |
+| [`exception`]    | Boolean                                     | Whether an exception during calculation will cause termination | By default `false`. Is useful for debugging or detecting empty fields |
+| [`order`]        | Boolean                                     | If enforce the order of rows in the output to be the same as input | By default `false`. If set to `true`, will sacrifice the performance by about 10% - 30%. |
 | [`select`]       | String / Collection of strings              | Chooses columns to select for the operation                  | Can only specify either of select and exclude                |
 | [`exclude`]      | String / Collection of strings              | Chooses columns to be excluded for the operation             | Can only specify either of select and exclude                |
-| [`header`]       | Collection of strings                       | The header names in the output file that appears in the first row | Will replace the default column names. Should be equal to the number of columns. |
+| [`header`]       | Collection of strings                       | The column names in the output file that appears in the first row | Will replace the default column names. Should be equal to the number of columns. |
 | [`melt`]         | Function (one argument)                     | Reorganize each resultant row                                | Should take each row as a collection and return a collection of collections (This API is used in the `extensions.reshpae.melt`) |
 
 **Return**
