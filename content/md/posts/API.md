@@ -29,7 +29,7 @@ Defines the dataframe and returns `clojask.dataframe.DataFrame`
 
 | Argument                                        | Type                       | Function                                              | Remarks                                                      |
 | ----------------------------------------------- | -------------------------- | ----------------------------------------------------- | ------------------------------------------------------------ |
-| `input-directory`<br />or<br />`input-function` | String<br /><br />Function | Path of dataset file<br /><br />Source of the dataset | If `input-directory`, the output format is automatically set to correspond to the input format (can be modified by `:output` option during `compute`) and (coming soon) progress indication is available during `compute`.<br />If `input-function` comes from `(fn [] (clojask-io.input.read-file ... :size true :output true))`, the above functions are also supported.<br />If `input-function` is user-defined, the above functions are not available.<br />**How to define input-function?**<br />The `input-function` should be a function that returns **lazy** sequence of vectors that represents each row. "Lazy" here is necessary if the dataset is larger than memory. |
+| `input-directory`<br />or<br />`input-function` | String<br /><br />Function | Path of dataset file<br /><br />Source of the dataset | If `input-directory`, the output format is automatically set to correspond to the input format (can be modified by `:output` option during `compute`) and (coming soon) progress indication is available during `compute`.<br />If `input-function` comes from `(fn [] (clojask-io.input.read-file ... :size true :output true))`, the above functions are also supported.<br />If `input-function` is user-defined, the above functions are not available, but you can still change the output format by `:output` option of `compute` later<br />**How to define input-function?**<br />The `input-function` should be a function that returns **lazy** sequence of vectors that represents each row. "Lazy" here is necessary if the dataset is larger than memory. |
 | [`if-header`]                                   | Boolean                    | If the dataset has column names as the first row      | If `false`, the default column names will be $Col\_i$, where $1\leq i\leq number \space of \space columns$. |
 
 ```clojure
@@ -400,17 +400,18 @@ This means you cannot further apply complicated operations to a joined dataframe
 
 Compute the result. The pre-defined lazy operations will be executed in pipeline, ie the result of the previous operation becomes the argument of the next operation.
 
-| Argument         | Type                                        | Function                                                     | Remarks                                                      |
-| ---------------- | ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `dataframe`      | Clojask.DataFrame / Clojask.JoinedDataFrame | The operated object                                          |                                                              |
-| `num of workers` | int (max 8)                                 | The number of worker instances (except the input and output nodes) | Uses [onyx](http://www.onyxplatform.org/) as the distributed platform |
-| `output path`    | String                                      | The path of the output csv file                              | If the path already exists, will overwrite the file.         |
-| [`exception`]    | Boolean                                     | Whether an exception during calculation will cause termination | By default `false`. Is useful for debugging or detecting empty fields |
-| [`order`]        | Boolean                                     | If enforce the order of rows in the output to be the same as input | By default `false`. If set to `true`, will sacrifice the performance by about 10% - 30%. |
-| [`select`]       | String / Collection of strings              | Chooses columns to select for the operation                  | Can only specify either of select and exclude                |
-| [`exclude`]      | String / Collection of strings              | Chooses columns to be excluded for the operation             | Can only specify either of select and exclude                |
-| [`header`]       | Collection of strings                       | The column names in the output file that appears in the first row | Will replace the default column names. Should be equal to the number of columns. |
-| [`melt`]         | Function (one argument)                     | Reorganize each resultant row                                | Should take each row as a collection and return a collection of collections (This API is used in the `extensions.reshpae.melt`) |
+| Argument            | Type                                        | Function                                                     | Remarks                                                      |
+| ------------------- | ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `dataframe`         | Clojask.DataFrame / Clojask.JoinedDataFrame | The operated object                                          |                                                              |
+| `num of workers`    | int (max 8)                                 | The number of worker instances (except the input and output nodes) | Uses [onyx](http://www.onyxplatform.org/) as the distributed platform |
+| `output path`       | String                                      | The path of the output csv file                              | If the path already exists, will overwrite the file.         |
+| [`exception`]       | Boolean                                     | Whether an exception during calculation will cause termination | By default `false`. Is useful for debugging or detecting empty fields |
+| [`order`]           | Boolean                                     | If enforce the order of rows in the output to be the same as input | By default `false`. If set to `true`, will sacrifice the performance. |
+| [`output-function`] | Function                                    | Specify how to output a row vector to the output file        | Takes two arguments.<br />`writer` java.io.BufferedWriter<br />`row-vec` clojure.lang.PersistentVector |
+| [`select`]          | String / Collection of strings              | Chooses columns to select for the operation                  | Can only specify either of select and exclude                |
+| [`exclude`]         | String / Collection of strings              | Chooses columns to be excluded for the operation             | Can only specify either of select and exclude                |
+| [`header`]          | Collection of strings                       | The column names in the output file that appears in the first row | Will replace the default column names. Should be equal to the number of columns. |
+| [`melt`]            | Function (one argument)                     | Reorganize each resultant row                                | Should take each row as a collection and return a collection of collections (This API is used in the `extensions.reshpae.melt`) |
 
 **Return**
 
@@ -419,19 +420,22 @@ A `Clojask.DataFrame`, which is the resultant dataframe.
 **Example**
 
 ```clojure
-(compute x 8 "../resources/test.csv" :exception true)
+(compute x 8 "output.csv" :exception true)
 ;; computes all the pre-registered operations
 
-(compute x 8 "../resources/test.csv" :select "col a")
+(compute x 8 "output.csv" :select "col a")
 ;; only select column a
 
-(compute x 8 "../resources/test.csv" :select ["col b" "col a"])
+(compute x 8 "output.csv" :select ["col b" "col a"])
 ;; select two columns, column b and column a in order
 
-(compute x 8 "../resources/test.csv" :exclude ["col b" "col a"])
+(compute x 8 "output.csv" :exclude ["col b" "col a"])
 ;; select all columns except column b and column a, other columns are in order
 
-(compute x 8 "../resources/test.csv" :melt (fn [row] (map concat (repeat (take 2 x)) (take-last 2 x))))
+(compute x 3 "output.csv" :output (fn [wtr row] (.write wtr (str (str/join ", " row) "\n"))))
+;; seperate each value in the row with ", "; seperate each row by "\n"
+
+(compute x 8 "output.csv" :melt (fn [row] (map concat (repeat (take 2 x)) (take-last 2 x))))
 ;; each result row becomes two rows
 ;; [a b c d] => [[a b c]
 ;;							 [a b d]]

@@ -4,35 +4,11 @@
  :page-index 0
  :navbar? true}
 
-This is the documentation library for the data frame with parallel computing for larger-than-memory dataset library written in Clojure.  
+This page is about the general architecture of Clojask - a parallel data processing framework in Clojure. 
 The [source code](https://github.com/clojure-finance/clojask) can be found on GitHub.
 
-### Features 
-
-- **Unlimited size**  
-  Theoretically speaking, it supports dataset larger than memory to infinity!  
-
-- **All native types**  
-  All the datatypes used to store data are native Clojure (or Java) types!  
-
-- **From file to file**  
-  IO mechanisms are integrated into the dataframe. No need to write your own read-in and output functions!  
-
-- **Distributed (coming soon)**  
-  Most operations could be distributed to different computers in a clusters. Read about the principle in [Onyx](http://www.onyxplatform.org/).  <br>
-
-- **Lazy operations**  
-  Some operations will not be executed immediately. They are stacked in the pipeline which will be optimised for performance when it comes to the final computation step.  
-
-
-
-## Report Bugs 
-
-Clojask is currently under active development.  
-If you find any bugs or errors, we would appreciate if you could help [report](https://github.com/clojure-finance/clojask/issues) these issues so that we could repair them accordingly.
-
-
 ## Overview 
+
 Clojask is an library for parallel computing datasets on Clojure
 
 Our emphasis is on providing the following attributes
@@ -41,6 +17,8 @@ Our emphasis is on providing the following attributes
 - Provide ability to quickly process larger-than-memory datasets
 - Utilise features of Clojure in the form of lazy sequences, macros, etc [link to the about page]
 - Provide flexibility on single/cluster machine operations (Currently in the works)
+
+<br>
 
 ## Benchmarks
 
@@ -212,4 +190,4 @@ This means additional incremental operations are appllied on top of exisiting op
 </a>
 <!-- /img/diagram.png -->
 
---- 
+---

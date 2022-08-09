@@ -4,40 +4,54 @@
  :navbar? true
  :home? true}
 
-## INTRODUCTION
-
 Welcome to the Clojask Library! This is an open-source library for parallel computing of larger-than-memory datasets developed at HKU Business School.
 
- 
-### WHY WE BUILT THIS DATA ANALYTICS TOOL
-
-Clojure is a functional programming language that allows developers to work with high-level mathematical abstractions. Its fundamental features of immutability and laziness renders it the ideal candidate tool for financial modeling as well as distributed computation (work in progress). 
-
-Here are some of the best things about Clojure:
-
-- Clojure is a **JVM-based language**. This means that you're granted full access to Java's myriad of libraries.
-
-- Clojure is designed for **concurrency**. You can save your efforts spent on performance tuning and efficiency, and focus on writing the core functionalities.
-
-- **Lazy data structures** are built-in in Clojure. It enables you to easily load datasets that larger than the memory size of your computer.
-
-Additionally, Clojask is able to perform group-by functions with lazily, 
-
-According to the recent [Stack Overflow developer survey](https://insights.stackoverflow.com/survey/2019), 4 out of 5 of the top paying languages are functional programming languages (Clojure, F#, Scala and Elixir). Functional programming languages have also been gaining popularity in the financial industry, for example Jane Street has been using [OCaml](https://blog.janestreet.com/why-ocaml/) as their primary development language, and many investment banks have made heavy use of Scala.
-
-
-We believe that there are plenty of underlying potentialities in Clojure. Thus, we would like to make an effort in developing resources for this community. 
-
-Here is a demo video for a basic introduction to Clojask and its applications.  
-<iframe width="640" height="400" 
-src="https://www.youtube.com/embed/Jl-Pbu16Xk8">
-</iframe> 
-
-### Table of Contents
+## Website Navigation
 
 - [Part 1: About](/pages-output/about)
-- [Part 2: Installation & Pre-requisites](/posts-output/get-started)
-- [Part 3: API documentation](/posts-output/API)
+- [Part 2: Get Started](/posts-output/get-started)
+- [Part 3: API Documentation](/posts-output/API)
 - [Part 4: Examples](/posts-output/examples)
 - [Part 5: Archives](/archives)
 
+## Features
+
+- **Unlimited size**
+
+  It supports datasets larger than memory!
+
+- **Various Operations**
+
+  Although Clojask is designed for larger-than-memory datasets, like NoSQLs, it does not sacrifice common operations on relational dataframes, such as [group by](https://clojure-finance.github.io/clojask-website/posts-output/API/#group-by), [aggregate](https://clojure-finance.github.io/clojask-website/posts-output/API/#aggregate), [join](https://clojure-finance.github.io/clojask-website/posts-output/API/#inner-join--left-join--right-join).
+
+- **Fast**
+
+  Faster than Dask in most operations, and the larger the dataframe is, the bigger the advantage. Please find the benchmarks [here](https://clojure-finance.github.io/clojask-website/pages-output/about/#benchmarks).
+
+- **All native types**
+
+  All the datatypes used to store data is native Clojure (or Java) types!
+
+- **From file to file**
+
+  Integrate IO inside the dataframe. No need to write your own read-in and output functions!
+
+- **Parallel**
+
+  Most operations could be executed into multiple threads or even machines. See the principle in [Onyx](http://www.onyxplatform.org/).
+
+- **Lazy operations**
+
+  Most operations will not be executed immediately. Dataframe will intelligently pipeline the operations altogether in computation.
+
+## Demo Video
+
+Here is a demo video for a basic introduction to Clojask and some of its applications, including inner join and group-by aggregation.  
+
+<iframe width="640" height="400" 
+src="https://www.youtube.com/embed/Jl-Pbu16Xk8">
+</iframe> 
+## Report Bugs 
+
+Clojask is currently under active development.  
+If you find any bugs or errors, we would appreciate if you could help [report](https://github.com/clojure-finance/clojask/issues) these issues so that we could repair them accordingly.
