@@ -407,7 +407,7 @@ Compute the result. The pre-defined lazy operations will be executed in pipeline
 | `output path`       | String                                      | The path of the output csv file                              | If the path already exists, will overwrite the file.         |
 | [`exception`]       | Boolean                                     | Whether an exception during calculation will cause termination | By default `false`. Is useful for debugging or detecting empty fields |
 | [`order`]           | Boolean                                     | If enforce the order of rows in the output to be the same as input | By default `false`. If set to `true`, will sacrifice the performance. |
-| [`output-function`] | Function                                    | Specify how to output a row vector to the output file        | Takes two arguments.<br />`writer` java.io.BufferedWriter<br />`row-vec` clojure.lang.PersistentVector |
+| [`output-function`] | Function                                    | Specify how to output a row vector to the output file        | Takes two arguments.<br />`writer` java.io.BufferedWriter<br />`rows` clojure.lang.PersistentVector (rows) of clojure.lang.PersistentVector (each row) |
 | [`select`]          | String / Collection of strings              | Chooses columns to select for the operation                  | Can only specify either of select and exclude                |
 | [`exclude`]         | String / Collection of strings              | Chooses columns to be excluded for the operation             | Can only specify either of select and exclude                |
 | [`header`]          | Collection of strings                       | The column names in the output file that appears in the first row | Will replace the default column names. Should be equal to the number of columns. |
@@ -432,7 +432,7 @@ A `Clojask.DataFrame`, which is the resultant dataframe.
 (compute x 8 "output.csv" :exclude ["col b" "col a"])
 ;; select all columns except column b and column a, other columns are in order
 
-(compute x 3 "output.csv" :output (fn [wtr row] (.write wtr (str (str/join ", " row) "\n"))))
+(compute x 3 "output.csv" :output (fn [wtr rows] (doseq [row rows] (.write wtr (str (str/join ", " row) "\n")))))
 ;; seperate each value in the row with ", "; seperate each row by "\n"
 
 (compute x 8 "output.csv" :melt (fn [row] (map concat (repeat (take 2 x)) (take-last 2 x))))
