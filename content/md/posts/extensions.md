@@ -7,28 +7,19 @@
 
 Like many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the namespace of `clojask.extensions`. 
 
+---
 
-#### Principle Foundation
+#### `cbind`
 
-When defining a clojask.DataFrame using `dataframe` function, one can input a function instead of the path of the source file. This function should produce a sequence. If this sequence is lazy, the theoretical length of the sequence can be infinite. Otherwise, it must have a finite length that is smaller than the memory size.
+Joins some dataset files into a new dataframe by columns.
 
-```
-(def x (dataframe #(["col1,col2" "1,2" "3,4"])))
-```
+*The separator of each file is determined by its file format. The list of default seperator for each file can be find in [clojask-io.input](https://github.com/clojure-finance/clojask-io/blob/main/src/clojask_io/input.clj#L54). If it does not fit your needs, please try to modify the source code of `cbind` and change the `:sep` option of each `read-file` function.*
 
-Based on this API, we can define the `cbind` and `rbind` function for two csv files.
-
---- 
-
-#### `cbind-csv`
-
-Joins some csv files into a new dataframe by columns.
-
-| Argument   | Type   | Function                        | Remarks                                                   |
-| ---------- | ------ | ------------------------------- | --------------------------------------------------------- |
-| path-a     | String | The path of the first csv file  | Can be absolute or relative path                          |
-| path-b     | String | The path of the second csv file | Can be absolute or relative path                          |
-| [path-c's] | String | Target columns                  | Can be absolute or relative path; the number is not fixed |
+| Argument   | Type   | Function                            | Remarks                                                   |
+| ---------- | ------ | ----------------------------------- | --------------------------------------------------------- |
+| path-a     | String | The path of the first dataset file  | Can be absolute or relative path                          |
+| path-b     | String | The path of the second dataset file | Can be absolute or relative path                          |
+| [path-c's] | String | The path of the rest dataset files  | Can be absolute or relative path; the number is not fixed |
 
 **Example**
 
@@ -59,19 +50,24 @@ Joins some csv files into a new dataframe by columns.
 ;; 2010-01-23,1,18.9,2010-01-24,102,2,9
 ;; 2010-01-23,2,48.9,2010-01-25,101,2,9
 ;; 2010-01-26,1,19.1,2010-01-26,101,1,10
+
+;; can further be
+(def x (cbind "path/to/a" "path/to/b" "path/to/c" "path/to/d"))
 ```
 
---- 
+---
 
-#### `rbind-csv`
+#### `rbind`
 
-Joins some csv files into a new dataframe by rows.
+Joins some dataset files into a new dataframe by rows.
 
-| Argument   | Type   | Function                        | Remarks                                                   |
-| ---------- | ------ | ------------------------------- | --------------------------------------------------------- |
-| path-a     | String | The path of the first csv file  | Can be absolute or relative path                          |
-| path-b     | String | The path of the second csv file | Can be absolute or relative path                          |
-| [path-c's] | String | Target columns                  | Can be absolute or relative path; the number is not fixed |
+*The separator of each file is determined by its file format. The list of default seperator for each file can be find in [clojask-io.input](https://github.com/clojure-finance/clojask-io/blob/main/src/clojask_io/input.clj#L54). If it does not fit your needs, please try to modify the source code of `cbind` and change the `:sep` option of each `read-file` function.*
+
+| Argument   | Type   | Function                            | Remarks                                                   |
+| ---------- | ------ | ----------------------------------- | --------------------------------------------------------- |
+| path-a     | String | The path of the first dataset file  | Can be absolute or relative path                          |
+| path-b     | String | The path of the second dataset file | Can be absolute or relative path                          |
+| [path-c's] | String | The path of the rest dataset files  | Can be absolute or relative path; the number is not fixed |
 
 **Example**
 
@@ -111,8 +107,5 @@ Joins some csv files into a new dataframe by rows.
 |       2010-01-25 |              101 |                2 |
 ```
 
-**It is also true to create more binding functions for other file types.**
-
---- 
-
+---
 
