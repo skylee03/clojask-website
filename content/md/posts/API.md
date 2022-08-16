@@ -6,7 +6,7 @@
 
 
 
-See also [extensions](https://clojure-finance.github.io/clojask-website/posts-output/extensions/).
+See also [extensions](https://clojure-finance.github.io/clojask-website/posts-output/extensions/) for more native Clojask functions.
 
 #### Basic Information
 
@@ -46,17 +46,36 @@ Defines the dataframe and returns `clojask.dataframe.DataFrame`
 ---
 
 #### print-df
-Provides a preview of the resulting data (column headings, datatype, and data) by performing a sample based compute on the current dataframe manipulation operations to be performed by `compute`
 
-| Argument            | Type               | Function                                                     | Remarks                                           |
-| ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
-| `dataframe`         | Clojask.DataFrame  | The operated object                                          |                                                   |
-| `[sample size]`      | Integer            | Specify the sample size taken from the beginning of the dataframe | Default of 1000 elements | 
-| `[return size]`       | Integer            | Specify the returning size of the dataframe elements         | Default of 10 elements |
+Provides a preview of the resulting data (column headings, datatype, and data) by performing a sample based compute on the current dataframe manipulation operations to be performed by `compute`. **Print the result to the nice-formatted table.**
+
+| Argument        | Type              | Function                                                     | Remarks                  |
+| --------------- | ----------------- | ------------------------------------------------------------ | ------------------------ |
+| `dataframe`     | Clojask.DataFrame | The operated object                                          |                          |
+| `[sample size]` | Integer           | Specify the sample size taken from the beginning of the dataframe | Default of 1000 elements |
+| `[return size]` | Integer           | Specify the returning size of the dataframe elements         | Default of 10 elements   |
 
 ```clojure 
 (print-df x 1000 10)
 ;; prints 10 rows of data based on 1000 sample data entries with the current operations 
+```
+
+---
+
+#### preview
+
+Provides a preview of the resulting data (column headings, datatype, and data) by performing a sample based compute on the current dataframe manipulation operations to be performed by `compute`. **Return the result as a vector of maps.**
+
+| Argument       | Type              | Function                                                     | Remarks                                                      |
+| -------------- | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `dataframe`    | Clojask.DataFrame | The operated object                                          |                                                              |
+| `sample size`  | Integer           | Specify the sample size taken from the beginning of the dataframe | Default of 1000 elements                                     |
+| `return size`  | Integer           | Specify the returning size of the dataframe elements         | Default of 10 elements                                       |
+| [`formatting`] | Boolean           | Whether to format the results to string using the *formatters* defined by `set-type` and `set-formatter` | By default, false, i.e. values are kept as their last data type before formatting |
+
+```clojure 
+(preview x 1000 10)
+;; [{"Employee" "1" "EmployeeName" "Alice" "Department" "11" "Salary" "300"} {...} ...]
 ```
 
 ---
@@ -140,7 +159,7 @@ Set the data type of a column. As a result, the value will be parsed as the assi
 
 #### set-parser
 
-A more flexible way to set type.
+A more flexible way to set type by specifying the customized parser.
 
 | Argument    | Type              | Function                                                     | Remarks                                                      |
 | ----------- | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -156,6 +175,25 @@ A more flexible way to set type.
 ```
 
 ---
+
+#### set-formatter
+
+A more flexible way to set type by specifying the customized formatter.
+
+| Argument    | Type              | Function                                                     | Remarks                                                      |
+| ----------- | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `dataframe` | Clojask.DataFrame | The operated object                                          |                                                              |
+| `column`    | String            | Target columns                                               | Should be existing columns within the dataframe              |
+| `formatter` | function          | The formatter function that will format a data type (can be checked from the `print-df` function) to string for outputting | The function should take only one argument which is a string, and the parsed type should be serializable. |
+
+**Example**
+
+```clojure
+;; parse all the values in "Salary" with this function
+(set-parser x "Salary" #(Double/parseDouble %))
+```
+
+#### 
 
 #### operate (In-place modification)
 

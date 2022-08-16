@@ -3,11 +3,13 @@
 :layout :post
 :toc true}
 
-### clojask.extensions
+## clojask.extensions
 
-Like many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the namespace of `clojask.extensions`. 
+Like many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the directory of `clojask.extensions`. 
 
 ---
+
+### ns: clojask.extensions.bind
 
 #### `cbind`
 
@@ -109,3 +111,80 @@ Joins some dataset files into a new dataframe by rows.
 
 ---
 
+### ns: clojask.extensions.reshape
+
+Contains functions that can reshape a clojask dataframe from wide to long or from long to wide.
+
+#### API Foundation
+
+When defining a clojask.DataFrame using `dataframe` function, you can specify the option `:melt`, which should be a function that will be applied to each resultant row vector in the end. The default is vector, which will not affect the results. However, if `:melt` is set to
+
+```clojure
+(fn [x]
+  (repeat 2 x))
+```
+
+, then each row will be output twice.
+
+#### `melt`
+
+Reshape the dataframe from wide to long. **(Instant operation)**
+
+| Argument       | Type              | Function                                  | Remarks                                                      |
+| -------------- | ----------------- | ----------------------------------------- | ------------------------------------------------------------ |
+| dataframe      | clojask.DataFrame | Specify the dataframe                     |                                                              |
+| output-path    | String            | The path of the output                    | Can be absolute or relative path with respect to the `project.clj` file. |
+| id             | vector of strings | The fixed portion of the columns          | These columns must have a perfect correlation.               |
+| measurement    | vector of strings | The measurement columns                   | In the result, the measurement names will become one column and the values will become another. |
+| [measure_name] | String            | The name of the measurement in the result | By default "measure"                                         |
+| [value_name]   | String            | The name of the value in the result       | By default "value"                                           |
+
+**Example**
+
+```clojure
+;; x
+;; family_id,age_mother,dob_child1,dob_child2,dob_child3
+;; 1,30,1998-11-26,2000-01-29,
+;; 2,27,1996-06-22,,
+;; 3,26,2002-07-11,2004-04-05,2007-09-02
+;; 4,32,2004-10-10,2009-08-27,2012-07-21
+;; 5,29,2000-12-05,2005-02-28,
+(melt x "path/to/output" ["family_id" "age_mother"] ["dob_child1" "dob_child2" "dob_child3"])
+```
+
+#### `dcast`
+
+Reshape the dataframe from long to wide. Reversible to `melt`. **(Instant operation)**
+
+| Argument     | Type                                 | Function                                    | Remarks                                                      |
+| ------------ | ------------------------------------ | ------------------------------------------- | ------------------------------------------------------------ |
+| dataframe    | clojask.DataFrame                    | Specify the dataframe                       |                                                              |
+| output-path  | String                               | The path of the output                      | Can be absolute or relative path with respect to the `project.clj` file. |
+| id           | vector of strings                    | The fixed portion of the columns            | These columns must have a perfect correlation.               |
+| measure-name | String                               | The name of the measurement                 | By default "measure"                                         |
+| value-name   | String                               | The name of the value                       | By default "value"                                           |
+| values       | vector of string/int/double/datetime | The value choices of the measurement column | The order matters as in the result file.                     |
+| [vals-name]  | vector of string                     | The name of the value columns               | By default, same as `values`                                 |
+
+**Example**
+
+``` clojure
+;; x
+;; family_id,age_mother,measure,value
+;; 1,30,dob_child1,1998-11-26
+;; 1,30,dob_child2,2000-01-29
+;; 1,30,dob_child3,
+;; 2,27,dob_child1,1996-06-22
+;; 2,27,dob_child2,
+;; 2,27,dob_child3,
+;; 3,26,dob_child1,2002-07-11
+;; 3,26,dob_child2,2004-04-05
+;; 3,26,dob_child3,2007-09-02
+;; 4,32,dob_child1,2004-10-10
+;; 4,32,dob_child2,2009-08-27
+;; 4,32,dob_child3,2012-07-21
+;; 5,29,dob_child1,2000-12-05
+;; 5,29,dob_child2,2005-02-28
+;; 5,29,dob_child3,
+(dcast x "resources/test.csv" ["family_id" "age_mother"] "measure" "value" ["dob_child1" "dob_child2" "dob_child3"])
+```
