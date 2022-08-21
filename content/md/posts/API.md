@@ -101,12 +101,13 @@ Get the column names of the dataframe
 
 #### rename-col
 
-Reorder the columns / rename the column names in the dataframe
+Rename the column names in the dataframe
 
 | Argument            | Type               | Function                                                     | Remarks                                           |
 | ------------------- | ------------------ | ------------------------------------------------------------ | ------------------------------------------------- |
 | `dataframe`       | Clojask.DataFrame  | The operated object                                          |                                                   |
-| `columns`         | Clojure.collection | The new set of column names                                  | Should be existing set of column names in dataframe if it is `reorder-col`         |
+| `old column` | String | The old column name                              | Should be an existing column name in dataframe      |
+| `new column` | String | The new column name | Should be a unique column name from the existing ones |
 
 ```clojure
 ;; columns: ["Employee" "EmployeeName" "Department" "Salary"]
@@ -310,7 +311,11 @@ Aggregate the dataframe(s) by applying some functions. The aggregation function 
 
 ```clojure
 (require '[clojask.api.gb-aggregate :as gb-agg])
-;; get the max/min of the selected column(s)
+(require '[clojask.api.aggregate :as agg])
+;; aggregate without group, apply aggregation to the whole dataframe
+(aggregate x agg/max "Salary")
+(group-by x "Department")
+;; get the max/min of the selected column(s) of each group
 (aggregate x gb-agg/max ["Salary"] ["Salary-max"])
 (aggregate x gb-agg/min ["Employee" "EmployeeName"] ["Employee-min" "EmployeeName-min"])
 ```
