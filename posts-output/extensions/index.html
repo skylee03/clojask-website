@@ -6,9 +6,9 @@
         
 <meta name="keywords" content="Start">
 
-<meta name="description" content="clojask.extensionsLike many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the namespace of clojask.extensions.">
+<meta name="description" content="clojask.extensionsLike many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the directory of clojask.extensions.">
 
-<meta property="og:description" content="clojask.extensionsLike many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the namespace of clojask.extensions.">
+<meta property="og:description" content="clojask.extensionsLike many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the directory of clojask.extensions.">
 
 <meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/extensions/" />
 <meta property="og:title" content="Extensions" />
@@ -109,9 +109,8 @@
     </div>
 </div>
 <div>
-    <ol class="toc"><li><a href="#clojaskextensions">clojask.extensions</a></li><ol><li><a href="#principle-foundation">Principle Foundation</a></li><li><a href="#cbind-csv"><code>cbind-csv</code></a></li><li><a href="#rbind-csv"><code>rbind-csv</code></a></li></ol></ol>
-    <h3 id="clojaskextensions">clojask.extensions</h3><p>Like many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the namespace of <code>clojask.extensions</code>.</p><h4 id="principle-foundation">Principle Foundation</h4><p>When defining a clojask.DataFrame using <code>dataframe</code> function, one can input a function instead of the path of the source file. This function should produce a sequence. If this sequence is lazy, the theoretical length of the sequence can be infinite. Otherwise, it must have a finite length that is smaller than the memory size.</p><pre><code>(def x (dataframe #(["col1,col2" "1,2" "3,4"])))
-</code></pre><p>Based on this API, we can define the <code>cbind</code> and <code>rbind</code> function for two csv files.</p><hr /><h4 id="cbind-csv"><code>cbind-csv</code></h4><p>Joins some csv files into a new dataframe by columns.</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td>path-a</td><td>String</td><td>The path of the first csv file</td><td>Can be absolute or relative path</td></tr><tr><td>path-b</td><td>String</td><td>The path of the second csv file</td><td>Can be absolute or relative path</td></tr><tr><td>[path-c's]</td><td>String</td><td>Target columns</td><td>Can be absolute or relative path; the number is not fixed</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; file a
+    <ol class="toc"><li><a href="#clojaskextensions">clojask.extensions</a></li><ol><li><a href="#ns-clojaskextensionsbind">ns: clojask.extensions.bind</a></li><ol><li><a href="#cbind"><code>cbind</code></a></li><li><a href="#rbind"><code>rbind</code></a></li></ol><li><a href="#ns-clojaskextensionsreshape">ns: clojask.extensions.reshape</a></li><ol><li><a href="#api-foundation">API Foundation</a></li><li><a href="#melt"><code>melt</code></a></li><li><a href="#dcast"><code>dcast</code></a></li></ol></ol></ol>
+    <h2 id="clojaskextensions">clojask.extensions</h2><p>Like many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the directory of <code>clojask.extensions</code>.</p><hr /><h3 id="ns-clojaskextensionsbind">ns: clojask.extensions.bind</h3><h4 id="cbind"><code>cbind</code></h4><p>Joins some dataset files into a new dataframe by columns.</p><p><em>The separator of each file is determined by its file format. The list of default seperator for each file can be find in <a href="https://github.com/clojure-finance/clojask-io/blob/main/src/clojask_io/input.clj#L54">clojask-io.input</a>. If it does not fit your needs, please try to modify the source code of <code>cbind</code> and change the <code>:sep</code> option of each <code>read-file</code> function.</em></p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td>path-a</td><td>String</td><td>The path of the first dataset file</td><td>Can be absolute or relative path</td></tr><tr><td>path-b</td><td>String</td><td>The path of the second dataset file</td><td>Can be absolute or relative path</td></tr><tr><td>[path-c's]</td><td>String</td><td>The path of the rest dataset files</td><td>Can be absolute or relative path; the number is not fixed</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; file a
 ;; date,item,price
 ;; 2010-01-20,1,18.3
 ;; 2010-01-20,2,38.3
@@ -137,7 +136,10 @@
 ;; 2010-01-23,1,18.9,2010-01-24,102,2,9
 ;; 2010-01-23,2,48.9,2010-01-25,101,2,9
 ;; 2010-01-26,1,19.1,2010-01-26,101,1,10
-</code></pre><hr /><h4 id="rbind-csv"><code>rbind-csv</code></h4><p>Joins some csv files into a new dataframe by rows.</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td>path-a</td><td>String</td><td>The path of the first csv file</td><td>Can be absolute or relative path</td></tr><tr><td>path-b</td><td>String</td><td>The path of the second csv file</td><td>Can be absolute or relative path</td></tr><tr><td>[path-c's]</td><td>String</td><td>Target columns</td><td>Can be absolute or relative path; the number is not fixed</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; file a
+
+;; can further be
+(def x (cbind "path/to/a" "path/to/b" "path/to/c" "path/to/d"))
+</code></pre><hr /><h4 id="rbind"><code>rbind</code></h4><p>Joins some dataset files into a new dataframe by rows.</p><p><em>The separator of each file is determined by its file format. The list of default seperator for each file can be find in <a href="https://github.com/clojure-finance/clojask-io/blob/main/src/clojask_io/input.clj#L54">clojask-io.input</a>. If it does not fit your needs, please try to modify the source code of <code>cbind</code> and change the <code>:sep</code> option of each <code>read-file</code> function.</em></p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td>path-a</td><td>String</td><td>The path of the first dataset file</td><td>Can be absolute or relative path</td></tr><tr><td>path-b</td><td>String</td><td>The path of the second dataset file</td><td>Can be absolute or relative path</td></tr><tr><td>[path-c's]</td><td>String</td><td>The path of the rest dataset files</td><td>Can be absolute or relative path; the number is not fixed</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; file a
 ;; date,item,price
 ;; 2010-01-20,1,18.3
 ;; 2010-01-20,2,38.3
@@ -170,7 +172,35 @@
 |       2010-01-22 |              102 |                1 |
 |       2010-01-24 |              102 |                2 |
 |       2010-01-25 |              101 |                2 |
-</code></pre><p><strong>It is also true to create more binding functions for other file types.</strong></p><hr />
+</code></pre><hr /><h3 id="ns-clojaskextensionsreshape">ns: clojask.extensions.reshape</h3><p>Contains functions that can reshape a clojask dataframe from wide to long or from long to wide.</p><h4 id="api-foundation">API Foundation</h4><p>When defining a clojask.DataFrame using <code>dataframe</code> function, you can specify the option <code>:melt</code>, which should be a function that will be applied to each resultant row vector in the end. The default is vector, which will not affect the results. However, if <code>:melt</code> is set to</p><pre><code class="clojure">(fn [x]
+  (repeat 2 x))
+</code></pre><p>, then each row will be output twice.</p><h4 id="melt"><code>melt</code></h4><p>Reshape the dataframe from wide to long. <strong>(Instant operation)</strong></p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td>dataframe</td><td>clojask.DataFrame</td><td>Specify the dataframe</td><td> </td></tr><tr><td>output-path</td><td>String</td><td>The path of the output</td><td>Can be absolute or relative path with respect to the <code>project.clj</code> file.</td></tr><tr><td>id</td><td>vector of strings</td><td>The fixed portion of the columns</td><td>These columns must have a perfect correlation.</td></tr><tr><td>measurement</td><td>vector of strings</td><td>The measurement columns</td><td>In the result, the measurement names will become one column and the values will become another.</td></tr><tr><td>[measure_name]</td><td>String</td><td>The name of the measurement in the result</td><td>By default "measure"</td></tr><tr><td>[value_name]</td><td>String</td><td>The name of the value in the result</td><td>By default "value"</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; x
+;; family_id,age_mother,dob_child1,dob_child2,dob_child3
+;; 1,30,1998-11-26,2000-01-29,
+;; 2,27,1996-06-22,,
+;; 3,26,2002-07-11,2004-04-05,2007-09-02
+;; 4,32,2004-10-10,2009-08-27,2012-07-21
+;; 5,29,2000-12-05,2005-02-28,
+(melt x "path/to/output" ["family_id" "age_mother"] ["dob_child1" "dob_child2" "dob_child3"])
+</code></pre><h4 id="dcast"><code>dcast</code></h4><p>Reshape the dataframe from long to wide. Reversible to <code>melt</code>. <strong>(Instant operation)</strong></p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td>dataframe</td><td>clojask.DataFrame</td><td>Specify the dataframe</td><td> </td></tr><tr><td>output-path</td><td>String</td><td>The path of the output</td><td>Can be absolute or relative path with respect to the <code>project.clj</code> file.</td></tr><tr><td>id</td><td>vector of strings</td><td>The fixed portion of the columns</td><td>These columns must have a perfect correlation.</td></tr><tr><td>measure-name</td><td>String</td><td>The name of the measurement</td><td>By default "measure"</td></tr><tr><td>value-name</td><td>String</td><td>The name of the value</td><td>By default "value"</td></tr><tr><td>values</td><td>vector of string/int/double/datetime</td><td>The value choices of the measurement column</td><td>The order matters as in the result file.</td></tr><tr><td>[vals-name]</td><td>vector of string</td><td>The name of the value columns</td><td>By default, same as <code>values</code></td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; x
+;; family_id,age_mother,measure,value
+;; 1,30,dob_child1,1998-11-26
+;; 1,30,dob_child2,2000-01-29
+;; 1,30,dob_child3,
+;; 2,27,dob_child1,1996-06-22
+;; 2,27,dob_child2,
+;; 2,27,dob_child3,
+;; 3,26,dob_child1,2002-07-11
+;; 3,26,dob_child2,2004-04-05
+;; 3,26,dob_child3,2007-09-02
+;; 4,32,dob_child1,2004-10-10
+;; 4,32,dob_child2,2009-08-27
+;; 4,32,dob_child3,2012-07-21
+;; 5,29,dob_child1,2000-12-05
+;; 5,29,dob_child2,2005-02-28
+;; 5,29,dob_child3,
+(dcast x "resources/test.csv" ["family_id" "age_mother"] "measure" "value" ["dob_child1" "dob_child2" "dob_child3"])
+</code></pre>
 </div>
 <!--  -->
 <!-- <br/> -->
