@@ -479,6 +479,6 @@ A `Clojask.DataFrame`, which is the resultant dataframe.
 (compute x 8 "output.csv" :melt (fn [row] (map concat (repeat (take 2 x)) (take-last 2 x))))
 ;; each result row becomes two rows
 ;; [a b c d] => [[a b c]
-;;							 [a b d]]
+;;				 [a b d]]
 ```
 

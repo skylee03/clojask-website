@@ -15,34 +15,32 @@ Welcome to the Clojask Library! This is an open-source library for parallel comp
 - [Part 5: Archives](/archives)
 
 ## Features
-
-- **Unlimited size**
-
+- **Unlimited size**  
   It supports datasets larger than memory!
+<ul></ul>
 
-- **Various Operations**
+- **Various Operations**  
+  Although Clojask is designed for larger-than-memory datasets, like NoSQLs, it does not sacrifice common operations on relational dataframes, such as [group by](https://clojure-finance.github.io/clojask-website/posts-output/API/#group-by), [aggregate](https://clojure-finance.github.io/clojask-website/posts-output/API/#aggregate), [join](https://clojure-finance.github.io/clojask-website/posts-output/API/#inner-join--left-join--right-join).  
+<ul></ul>
 
-  Although Clojask is designed for larger-than-memory datasets, like NoSQLs, it does not sacrifice common operations on relational dataframes, such as [group by](https://clojure-finance.github.io/clojask-website/posts-output/API/#group-by), [aggregate](https://clojure-finance.github.io/clojask-website/posts-output/API/#aggregate), [join](https://clojure-finance.github.io/clojask-website/posts-output/API/#inner-join--left-join--right-join).
+- **Lazy operations**  
+  Most operations will not be executed immediately. Dataframe will intelligently pipeline the operations altogether in computation. 
+<ul></ul>
 
-- **Fast**
-
+- **Fast**  
   Faster than Dask in most operations, and the larger the dataframe is, the bigger the advantage. Please find the benchmarks [here](https://clojure-finance.github.io/clojask-website/pages-output/about/#benchmarks).
+<ul></ul>
 
-- **All native types**
-
+- **All native types**  
   All the datatypes used to store data is native Clojure (or Java) types!
+<ul></ul>
 
-- **From file to file**
-
+- **From file to file**  
   Integrate IO inside the dataframe. No need to write your own read-in and output functions!
+<ul></ul>
 
-- **Parallel**
-
+- **Parallel**  
   Most operations could be executed into multiple threads or even machines. See the principle in [Onyx](http://www.onyxplatform.org/).
-
-- **Lazy operations**
-
-  Most operations will not be executed immediately. Dataframe will intelligently pipeline the operations altogether in computation.
 
 ## Demo Video
 
@@ -51,6 +49,7 @@ Here is a demo video for a basic introduction to Clojask and some of its applica
 <iframe width="640" height="400" 
 src="https://www.youtube.com/embed/Jl-Pbu16Xk8">
 </iframe> 
+
 ## Report Bugs 
 
 Clojask is currently under active development.  
