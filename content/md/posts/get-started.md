@@ -8,7 +8,7 @@
 
 Please note that the Onyx library is currently being used in Clojask for its distributed platform.
 
-Clojask is currently **not supported on Windows.**  
+Subsequently, Clojask is currently **not supported on Windows.**  
 
 Currently, Onyx is **supported only on Linux or MacOS** and **currently does not support Windows** for its distributed computing. 
 
@@ -24,13 +24,13 @@ We hope to be able to provide support soon.
 Insert this line into your `project.clj` if using Leiningen.
 
 ```clojure
-[com.github.clojure-finance/clojask "1.1.0"]
+[com.github.clojure-finance/clojask "1.2.3"]
 ```
 
 Insert this line into your `deps.edn` if using CLI.
 
 ```clojure
-com.github.clojure-finance/clojask {:mvn/version "1.1.0"}
+com.github.clojure-finance/clojask {:mvn/version "1.2.3"}
 ```
 
 ### Development

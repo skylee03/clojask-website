@@ -18,7 +18,6 @@ Our emphasis is on providing the following attributes
 - Utilise features of Clojure in the form of lazy sequences, macros, etc [link to the about page]
 - Provide flexibility on single/cluster machine operations (Currently in the works)
 
-<br>
 
 ## Benchmarks
 
@@ -104,7 +103,6 @@ Number of workers = 4
 </table>
 
 <br>
-<br>
 
 **Remarks:**
 - N = Number of lines in csv file
@@ -124,16 +122,12 @@ Number of workers = 4
 'ram': '8 GB'
 ```
 
-<br>
-
 **Source code**
 
 The benchmarking code for Dask and Clojask could be found here respectively:
 
 * [Dask benchmarking code](https://github.com/clojure-finance/clojask/blob/main/benchmark/dask-benchmark.ipynb)
 * [Clojask benchmaking code](https://github.com/clojure-finance/clojask/blob/main/benchmark/clojure-benchmark.clj)
-
-<br>
 
 ## System of Operations
 Clojask is defined by two key types: incremental and replaceable operations. 
