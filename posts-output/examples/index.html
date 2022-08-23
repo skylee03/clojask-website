@@ -110,8 +110,7 @@
 </div>
 <div>
     <ol class="toc"><li><a href="#basic-tutorial">Basic Tutorial</a></li><li><a href="#ordinary-join">Ordinary Join</a></li><li><a href="#outer-join">Outer Join</a></li><li><a href="#rolling-join">Rolling Join</a></li><li><a href="#enhanced-reshape">Enhanced Reshape</a></li><li><a href="#timezone">Timezone</a></li><li><a href="#coming-soon">Coming Soon</a></li></ol>
-    <p>Examples and their corresponding source files have been moved to a <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a> for ease of use</p><p>All of the following operations can be executed on the files provided on the Clojask Examples <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a></p><hr /><h4 id="basic-tutorial">Basic Tutorial</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj">example</a> of basic data manipulation operations performed through Clojask</p><pre><code class="clojure"> 
-(defn main
+    <p>Examples and their corresponding source files have been moved to a <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a> for ease of use</p><p>All of the following operations can be executed on the files provided on the Clojask Examples <a href="https://github.com/clojure-finance/clojask-examples">GitHub Repository</a></p><hr /><h4 id="basic-tutorial">Basic Tutorial</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj">example</a> of basic data manipulation operations performed through Clojask</p><pre><code class="clojure">(defn main
   []
   ;; The simple way
   (def df (ck/dataframe "resources/employees.csv"))
@@ -136,8 +135,7 @@
       (ck/set-type "Weight(kg)" "double")
       (ck/filter "Weight(kg)" (fn [weight] (&lt;= weight 5)))
       (ck/compute 8 "outputs/basic4.tsv"))
-</code></pre><hr /><h4 id="ordinary-join">Ordinary Join</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj">example</a> of a basic join operation on Clojask</p><pre><code class="clojure">
-(defn main
+</code></pre><hr /><h4 id="ordinary-join">Ordinary Join</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj">example</a> of a basic join operation on Clojask</p><pre><code class="clojure">(defn main
   []
   (def x (ck/dataframe "resources/employees.csv"))
   (def y (ck/dataframe "resources/employees-workleave.csv"))
@@ -148,8 +146,7 @@
   (ck/compute z 8 "outputs/inner-join.csv" :select ["1_Employee" "1_Salary" "2_WorkLeave"])
   (ck/compute (ck/left-join x y ["Employee"] ["Employee"]) 8 "outputs/left-join.csv" :exception false)
   (ck/compute (ck/right-join x y ["Employee"] ["Employee"]) 8 "outputs/right-join.csv" :exception false)
-</code></pre><hr /><h4 id="outer-join">Outer Join</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/development/src/clojask_examples/outer_join.clj">example</a> of an outer join operation on Clojask</p><pre><code class="clojure">
-(defn main
+</code></pre><hr /><h4 id="outer-join">Outer Join</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/development/src/clojask_examples/outer_join.clj">example</a> of an outer join operation on Clojask</p><pre><code class="clojure">(defn main
   []
   (def x (ck/dataframe "resources/employees.csv"))
   (def y (ck/dataframe "resources/employees-workleave.csv"))
@@ -158,8 +155,7 @@
   (def z (ck/outer-join x y ["Employee"] ["Employee"]))
   (ck/print-df z)
   (ck/compute z 8 "outputs/outer-join.csv" :exclude ["2_Employee" "2_EmployeeName"])
-</code></pre><hr /><h4 id="rolling-join">Rolling Join</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj">example</a> on performing rolling joins in Clojask</p><pre><code class="clojure">
-(defn main
+</code></pre><hr /><h4 id="rolling-join">Rolling Join</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj">example</a> on performing rolling joins in Clojask</p><pre><code class="clojure">(defn main
     []
     (def x (ck/dataframe "resources/employees.csv"))
     (def y (ck/dataframe "resources/employees-workleave.csv"))
@@ -168,9 +164,8 @@
     (ck/set-type y "UpdateDate" "date:YYYY/mm/dd")
 
     (ck/compute (ck/rolling-join-forward x y ["Employee"] ["Employee"] "UpdateDate" "UpdateDate") 8 "outputs/rolling.csv" :exception false)
-    
-</code></pre><hr /><h4 id="enhanced-reshape">Enhanced Reshape</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/enhanced_reshape.clj">example</a> on performing melt and cast operations in Clojask</p><pre><code class="clojure">
-;; find more explicit explanation here
+
+</code></pre><hr /><h4 id="enhanced-reshape">Enhanced Reshape</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/enhanced_reshape.clj">example</a> on performing melt and cast operations in Clojask</p><pre><code class="clojure">;; find more explicit explanation here
 ;; https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html#enhanced-new-functionality
 (defn main
   []
@@ -201,8 +196,7 @@
   ;; you can rename the column names of res here
   ;; skipped
   (ck/compute res 8 "outputs/dcast_result.csv" :exclude ["dob_family_id" "dob_age_mother"])
-</code></pre><hr /><h4 id="timezone">Timezone</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj">example</a> on running timezone operations on clojask</p><pre><code class="clojure">
-(defn main
+</code></pre><hr /><h4 id="timezone">Timezone</h4><p>An <a href="https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj">example</a> on running timezone operations on clojask</p><pre><code class="clojure">(defn main
   []
   (def df (ck/dataframe "resources/sales.csv"))
   (ck/operate df get-utc-time "datetime" "utc-time")
@@ -213,7 +207,6 @@
   (ck/set-type df "sold" "int")
   (ck/aggregate df #(reduce + %) "sold")
   (ck/compute df 8 "outputs/timezone2.csv")
-  
 </code></pre><hr /><h4 id="coming-soon">Coming Soon</h4><ul><li>foverlaps</li></ul>
 </div>
 <!--  -->
