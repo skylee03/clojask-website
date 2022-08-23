@@ -14,7 +14,6 @@ All of the following operations can be executed on the files provided on the Clo
 #### Basic Tutorial
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj) of basic data manipulation operations performed through Clojask
 ```clojure
- 
 (defn main
   []
   ;; The simple way
@@ -47,7 +46,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 #### Ordinary Join
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj) of a basic join operation on Clojask 
 ```clojure
-
 (defn main
   []
   (def x (ck/dataframe "resources/employees.csv"))
@@ -66,7 +64,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 #### Outer Join
 An [example](https://github.com/clojure-finance/clojask-examples/blob/development/src/clojask_examples/outer_join.clj) of an outer join operation on Clojask 
 ```clojure
-
 (defn main
   []
   (def x (ck/dataframe "resources/employees.csv"))
@@ -83,7 +80,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/developmen
 #### Rolling Join
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj) on performing rolling joins in Clojask 
 ```clojure
-
 (defn main
     []
     (def x (ck/dataframe "resources/employees.csv"))
@@ -93,7 +89,7 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
     (ck/set-type y "UpdateDate" "date:YYYY/mm/dd")
 
     (ck/compute (ck/rolling-join-forward x y ["Employee"] ["Employee"] "UpdateDate" "UpdateDate") 8 "outputs/rolling.csv" :exception false)
-    
+
 ```
 
 
@@ -101,7 +97,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 #### Enhanced Reshape
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/enhanced_reshape.clj) on performing melt and cast operations in Clojask 
 ```clojure
-
 ;; find more explicit explanation here
 ;; https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html#enhanced-new-functionality
 (defn main
@@ -140,7 +135,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 #### Timezone
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj) on running timezone operations on clojask
 ```clojure
-
 (defn main
   []
   (def df (ck/dataframe "resources/sales.csv"))
@@ -152,7 +146,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
   (ck/set-type df "sold" "int")
   (ck/aggregate df #(reduce + %) "sold")
   (ck/compute df 8 "outputs/timezone2.csv")
-  
 ```
 
 
