@@ -13,6 +13,7 @@ Welcome to the Clojask Library! This is an open-source library for parallel comp
 - [Part 3: API Documentation](/posts-output/API)
 - [Part 4: Examples](/posts-output/examples)
 - [Part 5: Archives](/archives)
+- [Part 6: Extensions](/posts-output/extensions)
 
 ## Features
 - **Unlimited size**  
