@@ -140,14 +140,14 @@ The benchmarking code for Dask and Clojask could be found here respectively:
 | Cluster support* | ❌                 | ✅                 |  
 
 *\*We are aiming to provide support for clusters soon*
-<br>
+  
 
 **Spark**
 
 | Functions           | Clojask            | Spark               |
 | ------------------- | ------------------- | ------------------ | 
 | Construct operations' DAG | ❌ | ✅ |
-| Join, filter, aggregate, etc | ✅ | ❌ |
+| Join, filter, aggregate, etc | ✅ | ✅ |
 | Cache intermediate results between stages in memory | ❌ | ✅ |
 | Minimum memory usage | ✅ | ❌ |
 
