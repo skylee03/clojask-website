@@ -201,9 +201,13 @@ This means additional incremental operations are appllied on top of exisiting op
 
 ## Clojask Library Ecosystem 
 (Click to view a closeup of image)
-<a href="https://raw.githubusercontent.com/clojure-finance/clojask/main/docs/diagram.jpg" target="_blank" >
-<img src="https://raw.githubusercontent.com/clojure-finance/clojask/main/docs/diagram.jpg" alt="Clojask logic" />
+
+<!-- ![Clojask operations](/img/clojask_ecosystem.png) -->
+
+<a href="https://raw.githubusercontent.com/clojure-finance/clojask-website/main/content/img/clojask_ecosystem.png" target="_blank" >
+<img src="https://raw.githubusercontent.com/clojure-finance/clojask-website/main/content/img/clojask_ecosystem.png" alt="Clojask ecosystem" />
 </a>
+
 ---  
 
 ## Clojask Logic Flow Diagram 
