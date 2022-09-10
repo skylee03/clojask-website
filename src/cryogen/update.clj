@@ -5,7 +5,7 @@
 
 (def ordinary_join "#### Ordinary Join\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj) of a basic join operation on Clojask ")
 
-(def outer_join  "#### Outer Join\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/development/src/clojask_examples/outer_join.clj) of an outer join operation on Clojask ")
+(def outer_join  "#### Outer Join\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/outer_join.clj) of an outer join operation on Clojask ")
 
 (def rolling_join "#### Rolling Join\nAn [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj) on performing rolling joins in Clojask ")
 
@@ -22,7 +22,7 @@
   (str/split
    (str/join ""
              (drop-last
-              (slurp (str "https://raw.githubusercontent.com/clojure-finance/clojask-examples/development/src/clojask_examples/" input)))) #"(?=[(])"))
+              (slurp (str "https://raw.githubusercontent.com/clojure-finance/clojask-examples/main/src/clojask_examples/" input)))) #"(?=[(])"))
 
 ;; (defn parse [text remove-num]
 ;;   (->> text

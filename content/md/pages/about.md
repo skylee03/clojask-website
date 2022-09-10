@@ -129,7 +129,29 @@ The benchmarking code for Dask and Clojask could be found here respectively:
 * [Dask benchmarking code](https://github.com/clojure-finance/clojask/blob/main/benchmark/dask-benchmark.ipynb)
 * [Clojask benchmaking code](https://github.com/clojure-finance/clojask/blob/main/benchmark/clojure-benchmark.clj)
 
-## System of Operations
+## Comparison/Advantages with other larger than memory systems
+**Hadoop MapReduce**
+
+| Functions                      | Clojask             | Hadoop MapReduce   |  
+| ------------------------------ | ------------------- | ------------------ |   
+| Larger-than-memory source file | ✅                 | ❌                 |  
+| Write intermediate results to tmp files | ✅                 | ❌                 |  
+| MapReduce paradigm | ✅                 | ❌                 |  
+| Cluster support* | ❌                 | ✅                 |  
+
+*\*We are aiming to provide support for clusters soon*
+  
+
+**Spark**
+
+| Functions           | Clojask            | Spark               |
+| ------------------- | ------------------- | ------------------ | 
+| Construct operations' DAG | ❌ | ✅ |
+| Join, filter, aggregate, etc | ✅ | ✅ |
+| Cache intermediate results between stages in memory | ❌ | ✅ |
+| Minimum memory usage | ✅ | ❌ |
+
+## System of operations
 Clojask is defined by two key types: incremental and replaceable operations. 
 
 ### Replaceable operations 
@@ -176,6 +198,17 @@ Incremental operations are able to build on top of one another and build up **in
 ```
 
 This means additional incremental operations are appllied on top of exisiting operations
+
+## Clojask Library Ecosystem 
+(Click to view a closeup of image)
+
+<!-- ![Clojask operations](/img/clojask_ecosystem.png) -->
+
+<a href="https://raw.githubusercontent.com/clojure-finance/clojask-website/main/content/img/clojask_ecosystem.png" target="_blank" >
+<img src="https://raw.githubusercontent.com/clojure-finance/clojask-website/main/content/img/clojask_ecosystem.png" alt="Clojask ecosystem" />
+</a>
+
+---  
 
 ## Clojask Logic Flow Diagram 
 (Click to view a closeup of image)

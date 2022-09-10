@@ -14,32 +14,31 @@ All of the following operations can be executed on the files provided on the Clo
 #### Basic Tutorial
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/basic_tutorial.clj) of basic data manipulation operations performed through Clojask
 ```clojure
- 
 (defn main
-  []
-  ;; The simple way
-  (def df (ck/dataframe "resources/employees.csv"))
-  (ck/print-df df)
-  (ck/set-type df "Salary" "double")
-  (ck/filter df "Salary" (fn [salary] (<= salary 800)))
-  (ck/operate df (fn [salary] (* salary 1.2)) "Salary")
-  (ck/compute df 8 "outputs/basic.csv")
+[]
+;; The simple way
+(def df (ck/dataframe "resources/employees.csv"))
+(ck/print-df df)
+(ck/set-type df "Salary" "double")
+(ck/filter df "Salary" (fn [salary] (<= salary 800)))
+(ck/operate df (fn [salary] (* salary 1.2)) "Salary")
+(ck/compute df 8 "outputs/basic.csv")
 
-  ;; make outputs and input have the same order
-  (ck/compute df 8 "outputs/basic2.csv" :order true)
+;; make outputs and input have the same order
+(ck/compute df 8 "outputs/basic2.csv" :order true)
 
-  ;; Using the `->` macro:
-  ;; tsv dataset
-  (-> (ck/dataframe "resources/cats.tsv")
-      (ck/set-type "Weight(kg)" "double")
-      (ck/filter "Weight(kg)" (fn [weight] (<= weight 5)))
-      (ck/compute 8 "outputs/basic3.csv"))
+;; Using the `->` macro:
+;; tsv dataset
+(-> (ck/dataframe "resources/cats.tsv")
+    (ck/set-type "Weight(kg)" "double")
+    (ck/filter "Weight(kg)" (fn [weight] (<= weight 5)))
+    (ck/compute 8 "outputs/basic3.csv"))
 
-  ;; or use the clojask-io plugin
-  (-> (ck/dataframe (read-file "resources/cats.tsv" :sep "\t" :stat true :output true))
-      (ck/set-type "Weight(kg)" "double")
-      (ck/filter "Weight(kg)" (fn [weight] (<= weight 5)))
-      (ck/compute 8 "outputs/basic4.tsv"))
+;; or use the clojask-io plugin
+(-> (ck/dataframe (read-file "resources/cats.tsv" :sep "\t" :stat true :output true))
+    (ck/set-type "Weight(kg)" "double")
+    (ck/filter "Weight(kg)" (fn [weight] (<= weight 5)))
+    (ck/compute 8 "outputs/basic4.tsv")))
 ```
 
 
@@ -47,7 +46,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 #### Ordinary Join
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/ordinary_join.clj) of a basic join operation on Clojask 
 ```clojure
-
 (defn main
   []
   (def x (ck/dataframe "resources/employees.csv"))
@@ -58,15 +56,14 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
   (ck/print-df z)
   (ck/compute z 8 "outputs/inner-join.csv" :select ["1_Employee" "1_Salary" "2_WorkLeave"])
   (ck/compute (ck/left-join x y ["Employee"] ["Employee"]) 8 "outputs/left-join.csv" :exception false)
-  (ck/compute (ck/right-join x y ["Employee"] ["Employee"]) 8 "outputs/right-join.csv" :exception false)
+  (ck/compute (ck/right-join x y ["Employee"] ["Employee"]) 8 "outputs/right-join.csv" :exception false))
 ```
 
 
 ---
 #### Outer Join
-An [example](https://github.com/clojure-finance/clojask-examples/blob/development/src/clojask_examples/outer_join.clj) of an outer join operation on Clojask 
+An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/outer_join.clj) of an outer join operation on Clojask 
 ```clojure
-
 (defn main
   []
   (def x (ck/dataframe "resources/employees.csv"))
@@ -75,7 +72,7 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/developmen
   (ck/set-type y "Employee" "int")
   (def z (ck/outer-join x y ["Employee"] ["Employee"]))
   (ck/print-df z)
-  (ck/compute z 8 "outputs/outer-join.csv" :exclude ["2_Employee" "2_EmployeeName"])
+  (ck/compute z 8 "outputs/outer-join.csv" :exclude ["2_Employee" "2_EmployeeName"]))
 ```
 
 
@@ -83,7 +80,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/developmen
 #### Rolling Join
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/rolling_join.clj) on performing rolling joins in Clojask 
 ```clojure
-
 (defn main
     []
     (def x (ck/dataframe "resources/employees.csv"))
@@ -92,8 +88,7 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
     (ck/set-type x "UpdateDate" "date:YYYY/mm/dd")
     (ck/set-type y "UpdateDate" "date:YYYY/mm/dd")
 
-    (ck/compute (ck/rolling-join-forward x y ["Employee"] ["Employee"] "UpdateDate" "UpdateDate") 8 "outputs/rolling.csv" :exception false)
-    
+    (ck/compute (ck/rolling-join-forward x y ["Employee"] ["Employee"] "UpdateDate" "UpdateDate") 8 "outputs/rolling.csv" :exception false))
 ```
 
 
@@ -101,7 +96,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 #### Enhanced Reshape
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/enhanced_reshape.clj) on performing melt and cast operations in Clojask 
 ```clojure
-
 ;; find more explicit explanation here
 ;; https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html#enhanced-new-functionality
 (defn main
@@ -132,7 +126,7 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
   (def res (ck/inner-join dob gender ["family_id" "age_mother"] ["family_id" "age_mother"] :col-prefix ["dob" "gender"]))
   ;; you can rename the column names of res here
   ;; skipped
-  (ck/compute res 8 "outputs/dcast_result.csv" :exclude ["dob_family_id" "dob_age_mother"])
+  (ck/compute res 8 "outputs/dcast_result.csv" :exclude ["dob_family_id" "dob_age_mother"]))
 ```
 
 
@@ -140,7 +134,6 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
 #### Timezone
 An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/timezone.clj) on running timezone operations on clojask
 ```clojure
-
 (defn main
   []
   (def df (ck/dataframe "resources/sales.csv"))
@@ -151,8 +144,7 @@ An [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/c
   (ck/compute df 8 "outputs/timezone1.csv")
   (ck/set-type df "sold" "int")
   (ck/aggregate df #(reduce + %) "sold")
-  (ck/compute df 8 "outputs/timezone2.csv")
-  
+  (ck/compute df 8 "outputs/timezone2.csv"))
 ```
 
 
