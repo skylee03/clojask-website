@@ -192,7 +192,7 @@ A more flexible way to set type by specifying the customized formatter.
 (set-parser x "Salary" #(Double/parseDouble %))
 ```
 
-#### 
+---
 
 #### operate (In-place modification)
 
@@ -223,7 +223,7 @@ Calculate the result and store in a new column
 | ---------------- | ------------------------------ | ----------------------------- | ------------------------------------------------------------ |
 | `dataframe`      | Clojask.DataFrame              | The operated object           |                                                              |
 | `operation`      | function                       | Function that is to be applied lazily | Argument number should align with the number of column names below, ie *if operation functions takes two arguments, the length of column names should also be two, and in the same order that is passed to the function*. |
-| `column name(s)` | String or collection of Strings | Target columns                | Should be existing columns within the dataframe.              |
+| `column name(s)` | String or collection of Strings | Target columns                | Should be existing columns within the dataframe. Values of these columns are in original formats based on the parsers / types. |
 | `new column`     | String                         | Resultant column              | Should be new column(s) other than those existing in the dataframe.                |
 
 **Example**
@@ -444,8 +444,8 @@ Compute the result. The pre-defined lazy operations will be executed in pipeline
 | Argument            | Type                                        | Function                                                     | Remarks                                                      |
 | ------------------- | ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `dataframe`         | Clojask.DataFrame / Clojask.JoinedDataFrame | The operated object                                          |                                                              |
-| `num of workers`    | int (max 8)                                 | The number of worker instances (except the input and output nodes) | Uses [onyx](http://www.onyxplatform.org/) as the distributed platform |
-| `output path`       | String                                      | The path of the output csv file                              | If the path already exists, will overwrite the file.         |
+| `num of workers`    | Positive int                                | The number of worker instances (except the input and output nodes) | Uses [onyx](http://www.onyxplatform.org/) as the distributed platform |
+| `output path`       | String / `nil`                              | The path of the output csv file                              | If the path already exists, will overwrite the file. <br>**If `nil` and without `output-function`, will store the result in memory as a vector. The return of the function will be this vector.** |
 | [`exception`]       | Boolean                                     | Whether an exception during calculation will cause termination | By default `false`. Is useful for debugging or detecting empty fields |
 | [`order`]           | Boolean                                     | If enforce the order of rows in the output to be the same as input | By default `false`. If set to `true`, will sacrifice the performance. |
 | [`output-function`] | Function                                    | Specify how to output a row vector to the output file        | Takes two arguments.<br />`writer` java.io.BufferedWriter<br />`rows` clojure.lang.PersistentVector (rows) of clojure.lang.PersistentVector (each row) |
@@ -461,17 +461,20 @@ A `Clojask.DataFrame`, which is the resultant dataframe.
 **Example**
 
 ```clojure
-(compute x 8 "output.csv" :exception true)
-;; computes all the pre-registered operations
+(compute x 8 "output.csv")
+;; Computes all the pre-registered operations, ignore the exceptions in the operation pipeline
+
+(def result (compute x 8 nil))
+;; Return the result as vector of vectors directly
 
 (compute x 8 "output.csv" :select "col a")
-;; only select column a
+;; Only select column a
 
 (compute x 8 "output.csv" :select ["col b" "col a"])
-;; select two columns, column b and column a in order
+;; Select two columns, column b and column a in order
 
 (compute x 8 "output.csv" :exclude ["col b" "col a"])
-;; select all columns except column b and column a, other columns are in order
+;; Select all columns except column b and column a, other columns are in the original order
 
 (compute x 3 "output.csv" :output (fn [wtr rows] (doseq [row rows] (.write wtr (str (str/join ", " row) "\n")))))
 ;; seperate each value in the row with ", "; seperate each row by "\n"
