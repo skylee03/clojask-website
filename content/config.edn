@@ -15,8 +15,8 @@
  :recent-posts                 3
  :post-date-format             "yyyy-MM-dd"
  :archive-group-format         "yyyy MMMM"
-;;  :sass-src                     []
-;;  :sass-path                    "sass"
+ :sass-src                     []
+ :sass-path                    "sass"
  :theme                        "lotus"
  :resources                    ["img"]
  :keep-files                   [".git"]

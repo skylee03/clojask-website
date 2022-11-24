@@ -1,2 +1,3 @@
-{:sass-src             ["css"]
+{
+;;  :sass-src             ["css"]
  :resources            ["img"]}

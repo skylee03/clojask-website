@@ -4,20 +4,15 @@
  :page-index 0
  :navbar? true}
 
-This page is about the general architecture of Clojask - a parallel data processing framework in Clojure. 
-The [source code](https://github.com/clojure-finance/clojask) can be found on GitHub.
+## Talk on Clojure data-recur meeting
 
-## Overview 
+This talk is about the general information and status of the project as of Oct 2022. (From: 9:09 To: 58:02)
 
-Clojask is an library for parallel computing datasets on Clojure
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nTyPMxDlw0w?start=549&end=586" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Our emphasis is on providing the following attributes
-- Ease of installation and use 
-- Efficient operations with low overhead 
-- Provide ability to quickly process larger-than-memory datasets
-- Utilise features of Clojure in the form of lazy sequences, macros, etc [link to the about page]
-- Provide flexibility on single/cluster machine operations (Currently in the works)
+</a>
 
+---
 
 ## Benchmarks
 
@@ -129,18 +124,21 @@ The benchmarking code for Dask and Clojask could be found here respectively:
 * [Dask benchmarking code](https://github.com/clojure-finance/clojask/blob/main/benchmark/dask-benchmark.ipynb)
 * [Clojask benchmaking code](https://github.com/clojure-finance/clojask/blob/main/benchmark/clojure-benchmark.clj)
 
+</a>
+
+---
+
 ## Comparison/Advantages with other larger than memory systems
+
 **Hadoop MapReduce**
 
-| Functions                      | Clojask             | Hadoop MapReduce   |  
-| ------------------------------ | ------------------- | ------------------ |   
-| Larger-than-memory source file | ✅                 | ❌                 |  
-| Write intermediate results to tmp files | ✅                 | ❌                 |  
-| MapReduce paradigm | ✅                 | ❌                 |  
-| Cluster support* | ❌                 | ✅                 |  
+| Functions                      | Clojask             | Hadoop MapReduce   |
+| ------------------------------ | ------------------- | ------------------ |
+| Larger-than-memory source file | ✅                 | ✅                |
+| Write intermediate results to tmp files | ✅                 | ✅                |
+| MapReduce paradigm | ✅                 | ✅                |
+| Join, filter, aggregate, etc. on large files | ✅                | ❌                |
 
-*\*We are aiming to provide support for clusters soon*
-  
 
 **Spark**
 
@@ -151,55 +149,12 @@ The benchmarking code for Dask and Clojask could be found here respectively:
 | Cache intermediate results between stages in memory | ❌ | ✅ |
 | Minimum memory usage | ✅ | ❌ |
 
-## System of operations
-Clojask is defined by two key types: incremental and replaceable operations. 
+</a>
 
-### Replaceable operations 
-
-Replaceable operatons include 
-- set-type
-- add-parser 
-- group-by
-- add-formatter
-
-Replaceable operations can be called multiple times to **replace** the previous call of the operation 
-
-```clojure 
-(def x (dataframe "path/to/a.csv"))
-;; defines dataframe from csv file "a.csv" 
-
-(set-type x "int" "employee_no")
-;; makes column "employee numbers" integers
- 
-(set-type x "str" "employee_no")
-;; makes column "employee numbers" strings  
-```
-
-In the case above, Clojask will ultimately interpret the "employeee_no" column as a **string**, rather than an **integer**. 
-
-### Incremental operations
-
-Incremental operations include
-- filter
-- operate
-- aggregate
-
-Incremental operations are able to build on top of one another and build up **incrementally** in their operation.
-
-```clojure
-(filter x "Salary" (fn [salary] (<= salary 800)))
-;; this statement deletes all the rows that have a salary larger than 800
-
-(filter x "Department" (fn [dept] (= dept "computer science")))
-;; this statements deletes all the rows that contain people not in the computer science department
-
-(filter x ["Salary" "Department"] (fn [salary dept] (and (<= salary 800) (= dept "computer science"))))
-;; keeps only people from computer science department with salary not larger than 800
-```
-
-This means additional incremental operations are appllied on top of exisiting operations
+---
 
 ## Clojask Library Ecosystem 
+
 (Click to view a closeup of image)
 
 <!-- ![Clojask operations](/img/clojask_ecosystem.png) -->
@@ -208,7 +163,7 @@ This means additional incremental operations are appllied on top of exisiting op
 <img src="https://raw.githubusercontent.com/clojure-finance/clojask-website/main/content/img/clojask_ecosystem.png" alt="Clojask ecosystem" />
 </a>
 
----  
+---
 
 ## Clojask Logic Flow Diagram 
 (Click to view a closeup of image)

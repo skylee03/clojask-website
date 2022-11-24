@@ -4,71 +4,156 @@
 :toc :ul
 :tags ["Start"]}
 
-## Getting Started
+## Clojask Types
 
-Please note that the Onyx library is currently being used in Clojask for its distributed platform.
+### string
 
-Subsequently, Clojask is currently **not supported on Windows.**  
+The default type for all columns
 
-Currently, Onyx is **supported only on Linux or MacOS** and **currently does not support Windows** for its distributed computing. 
+Class: ` java.lang.String`
 
-We hope to be able to provide support soon. 
-
-### Requirements
-- Clojure ([installation](https://clojure.org/guides/getting_started))
-- Leiningen ([installation](https://leiningen.org/))
-- Java (Version 11 or below is supported)
-
-### Installation
-
-Insert this line into your `project.clj` if using Leiningen.
+**Examples**
 
 ```clojure
-[com.github.clojure-finance/clojask "1.2.3"]
+(set-type dataframe "col-name" "string")
 ```
 
-Insert this line into your `deps.edn` if using CLI.
+### int
+
+Most efficiently stores an integer
+
+Class: `java.lang.Integer`
+
+**Examples**
 
 ```clojure
-com.github.clojure-finance/clojask {:mvn/version "1.2.3"}
+(set-type dataframe "col-name" "int")
 ```
 
-### Development
-To start an interactive prompt where you can enter arbitrary code to run in the context of your project:
+### double
 
-```
-lein repl
-```
-To run the default `:main` set in `project.clj`:
-```
-lein run
-```
-To run all tests written in the `test` namespace:
-```
-lein test
+Accepts floats and integers
+
+Class: `java.lang.Double`
+
+**Examples**
+
+```clojure
+(set-type dataframe "col-name" "double")
 ```
 
+### date
+
+Transform a date string (no time field)
+
+Class: `java.time.LocalDate` (default format string: `yyyy-MM-dd`)
+
+**Examples**
+
+```clojure
+;; if the date looks like this 2020/11/12
+(set-type dataframe "col-name" "date:yyyy/MM/dd")
+```
+
+### datetime
+
+Transform a date string (no time field)
+
+Class: `java.time.LocalDateTime` (default format string: `yyyy-MM-dd HH:mm:ss`)
+
+**Examples**
+
+```clojure
+;; if the date looks like this 2020/11/12 12:12:36
+(set-type dataframe "col-name" "datetime:yyyy/MM/dd HH:mm:ss")
+```
 
 
-## Beginner Tutorials
 
-If you are new to Clojure, we recommend having a quick read of the following tutorials first:
+## Hybrid Column & Empty Fields
 
-- [Clojure by Example](http://kimh.github.io/clojure-by-example/#about) - useful for beginners pick up the syntax quickly
+Take this dataset as an example.
 
-- [Clojure Docs](https://clojuredocs.org/) - a more thorough documentation that explains the built-in functions in Clojure
+| Employee | EmployeeName | Department | Salary |
+| -------- | ------------ | ---------- | ------ |
+| 1        | Alice        | 11         | 300    |
+| 2        | Bob          | 11         | 34,000 |
+| 3        | Carla        |            | 900    |
+| 4        | Daniel       | 12         | 1,000  |
+| 5        | Evelyn       | 13         | 800    |
+| ...      | ...          | ...        | ...    |
 
-- [Clojure for the Brave and True](https://www.braveclojure.com/clojure-for-the-brave-and-true/) - a book that helps you learn Clojure in an in-depth manner
+The first thing to do after creating this dataframe is to set the type of column **Salary** to `int`.
+
+```clojure
+(ck/set-type "Salary" "int")
+```
+
+However, when you take a look at the data type of the latest **Salary** column using function `print-df`. It contains both `int` and `string`. This is because some numbers (contains ",") are not recognized by the integer parser, such as 34,000 and 1,000. Therefore, when you operate function to this column, you should accept both `int` and `string` as the input. One way to solve this issue is to create your own parser for integer that ignores comma.
+
+```clojure
+(ck/set-parser "Salary" customized-parser)
+```
+
+The column will empty fields is just a special case of hybrid column. The **Department** column has an empty field. The type of it is `string` & `nil`. You can tell that empty fields simply contain value `nil`. It is worth notice that 
+
+```clojure
+(ck/compute ... :exception true)
+```
+
+will also assign `nil` to fields that throw exceptions during execution. Therefore, your operation functions have to consider `nil` input in these two scenarios.
 
 
 
-## Help & Support
+## System of operations
 
-In case you would encounter difficulties or have any suggestions for additional examples, please feel free to post it [here](https://github.com/clojure-finance/clojask/issues).
+Clojask is defined by two key types: incremental and replaceable operations. 
 
+### Replaceable operations 
 
+Replaceable operatons include 
 
-## API Documentation 
-[Check out the documentaion post here](/posts-output/API/)
+- set-type
+- add-parser 
+- group-by
+- add-formatter
+- join
+
+Replaceable operations can be called multiple times to **replace** the previous call of the operation 
+
+```clojure 
+(def x (dataframe "path/to/a.csv"))
+;; defines dataframe from csv file "a.csv" 
+
+(set-type x "int" "employee_no")
+;; makes column "employee numbers" integers
  
-If you more interested in the inner workings of Clojask, please [check out our abouts section](/pages-output/about)
+(set-type x "str" "employee_no")
+;; makes column "employee numbers" strings  
+```
+
+In the case above, Clojask will ultimately interpret the "employeee_no" column as a **string**, rather than an **integer**. 
+
+### Incremental operations
+
+Incremental operations include
+
+- filter
+- operate
+- aggregate
+
+Incremental operations are able to build on top of one another and build up **incrementally** in their operation.
+
+```clojure
+(filter x "Salary" (fn [salary] (<= salary 800)))
+;; this statement deletes all the rows that have a salary larger than 800
+
+(filter x "Department" (fn [dept] (= dept "computer science")))
+;; this statements deletes all the rows that contain people not in the computer science department
+
+(filter x ["Salary" "Department"] (fn [salary dept] (and (<= salary 800) (= dept "computer science"))))
+;; keeps only people from computer science department with salary not larger than 800
+```
+
+This means additional incremental operations are applied on top of existing operations
+

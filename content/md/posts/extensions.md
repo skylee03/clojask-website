@@ -1,7 +1,7 @@
 {:title "Extensions" 
 :date "2022-02-22"
 :layout :post
-:toc true}
+:toc :ul}
 
 ## clojask.extensions
 
