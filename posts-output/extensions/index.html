@@ -60,7 +60,7 @@
                         
                          <!-- custom navbar item -->
                         <li>
-                            <a title="Getting Started" href="/clojask-website/posts-output/get-started/"><div class="menu-item-text">Getting Started</div></a>
+                            <a title="Get Started" href="/clojask-website/posts-output/get-started/"><div class="menu-item-text">Getting Started</div></a>
                         </li>
                         <li>
                             <a title="API Docs" href="/clojask-website/posts-output/API/"><div class="menu-item-text">API Docs</div></a>
@@ -103,13 +103,13 @@
     <div id="post-meta">
         <h1>Extensions</h1>
         <div class="byline">
-            <!-- <span class="date">February 22, 2022</span> -->
+            <!-- <span class="date">2022年2月22日</span> -->
             
         </div>
     </div>
 </div>
 <div>
-    <ol class="toc"><li><a href="#clojaskextensions">clojask.extensions</a></li><ol><li><a href="#ns-clojaskextensionsbind">ns: clojask.extensions.bind</a></li><ol><li><a href="#cbind"><code>cbind</code></a></li><li><a href="#rbind"><code>rbind</code></a></li></ol><li><a href="#ns-clojaskextensionsreshape">ns: clojask.extensions.reshape</a></li><ol><li><a href="#api-foundation">API Foundation</a></li><li><a href="#melt"><code>melt</code></a></li><li><a href="#dcast"><code>dcast</code></a></li></ol></ol></ol>
+    <ul class="toc"><li><a href="#clojaskextensions">clojask.extensions</a></li><ul><li><a href="#ns-clojaskextensionsbind">ns: clojask.extensions.bind</a></li><ul><li><a href="#cbind"><code>cbind</code></a></li><li><a href="#rbind"><code>rbind</code></a></li></ul><li><a href="#ns-clojaskextensionsreshape">ns: clojask.extensions.reshape</a></li><ul><li><a href="#api-foundation">API Foundation</a></li><li><a href="#melt"><code>melt</code></a></li><li><a href="#dcast"><code>dcast</code></a></li></ul></ul></ul>
     <h2 id="clojaskextensions">clojask.extensions</h2><p>Like many popular Python libraries, such as numpy and pandas, third-party users can extend the function of Clojask by introducing more codes above the basic source code. Here is an example to support the creating such extension functions under the directory of <code>clojask.extensions</code>.</p><hr /><h3 id="ns-clojaskextensionsbind">ns: clojask.extensions.bind</h3><h4 id="cbind"><code>cbind</code></h4><p>Joins some dataset files into a new dataframe by columns.</p><p><em>The separator of each file is determined by its file format. The list of default seperator for each file can be find in <a href="https://github.com/clojure-finance/clojask-io/blob/main/src/clojask_io/input.clj#L54">clojask-io.input</a>. If it does not fit your needs, please try to modify the source code of <code>cbind</code> and change the <code>:sep</code> option of each <code>read-file</code> function.</em></p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td>path-a</td><td>String</td><td>The path of the first dataset file</td><td>Can be absolute or relative path</td></tr><tr><td>path-b</td><td>String</td><td>The path of the second dataset file</td><td>Can be absolute or relative path</td></tr><tr><td>[path-c's]</td><td>String</td><td>The path of the rest dataset files</td><td>Can be absolute or relative path; the number is not fixed</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; file a
 ;; date,item,price
 ;; 2010-01-20,1,18.3

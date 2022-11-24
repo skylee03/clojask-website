@@ -6,9 +6,9 @@
         
 <meta name="keywords" content="Start">
 
-<meta name="description" content="Getting StartedPlease note that the Onyx library is currently being used in Clojask for its distributed platform.">
+<meta name="description" content="Clojask Typesstring">
 
-<meta property="og:description" content="Getting StartedPlease note that the Onyx library is currently being used in Clojask for its distributed platform.">
+<meta property="og:description" content="Clojask Typesstring">
 
 <meta property="og:url" content="https://clojure-finance.github.io/clojask-website/clojask-website/posts-output/get-started/" />
 <meta property="og:title" content="Get Started" />
@@ -60,7 +60,7 @@
                         
                          <!-- custom navbar item -->
                         <li>
-                            <a title="Getting Started" href="/clojask-website/posts-output/get-started/"><div class="menu-item-text">Getting Started</div></a>
+                            <a title="Get Started" href="/clojask-website/posts-output/get-started/"><div class="menu-item-text">Getting Started</div></a>
                         </li>
                         <li>
                             <a title="API Docs" href="/clojask-website/posts-output/API/"><div class="menu-item-text">API Docs</div></a>
@@ -103,19 +103,40 @@
     <div id="post-meta">
         <h1>Get Started</h1>
         <div class="byline">
-            <!-- <span class="date">September 30, 2021</span> -->
+            <!-- <span class="date">2021年9月30日</span> -->
             
         </div>
     </div>
 </div>
 <div>
-    <ul class="toc"><li><a href="#getting-started">Getting Started</a></li><ul><li><a href="#requirements">Requirements</a></li><li><a href="#installation">Installation</a></li><li><a href="#development">Development</a></li></ul><li><a href="#beginner-tutorials">Beginner Tutorials</a></li><li><a href="#help--support">Help & Support</a></li><li><a href="#api-documentation">API Documentation</a></li></ul>
-    <h2 id="getting-started">Getting Started</h2><p>Please note that the Onyx library is currently being used in Clojask for its distributed platform.</p><p>Subsequently, Clojask is currently <strong>not supported on Windows.</strong></p><p>Currently, Onyx is <strong>supported only on Linux or MacOS</strong> and <strong>currently does not support Windows</strong> for its distributed computing.</p><p>We hope to be able to provide support soon.</p><h3 id="requirements">Requirements</h3><ul><li>Clojure (<a href="https://clojure.org/guides/getting_started">installation</a>)</li><li>Leiningen (<a href="https://leiningen.org/">installation</a>)</li><li>Java (Version 11 or below is supported)</li></ul><h3 id="installation">Installation</h3><p>Insert this line into your <code>project.clj</code> if using Leiningen.</p><pre><code class="clojure">[com.github.clojure-finance/clojask "1.2.3"]
-</code></pre><p>Insert this line into your <code>deps.edn</code> if using CLI.</p><pre><code class="clojure">com.github.clojure-finance/clojask {:mvn/version "1.2.3"}
-</code></pre><h3 id="development">Development</h3><p>To start an interactive prompt where you can enter arbitrary code to run in the context of your project:</p><pre><code>lein repl
-</code></pre><p>To run the default <code>:main</code> set in <code>project.clj</code>:</p><pre><code>lein run
-</code></pre><p>To run all tests written in the <code>test</code> namespace:</p><pre><code>lein test
-</code></pre><h2 id="beginner-tutorials">Beginner Tutorials</h2><p>If you are new to Clojure, we recommend having a quick read of the following tutorials first:</p><ul><li><p><a href="http://kimh.github.io/clojure-by-example/#about">Clojure by Example</a> - useful for beginners pick up the syntax quickly</p></li><li><p><a href="https://clojuredocs.org/">Clojure Docs</a> - a more thorough documentation that explains the built-in functions in Clojure</p></li><li><p><a href="https://www.braveclojure.com/clojure-for-the-brave-and-true/">Clojure for the Brave and True</a> - a book that helps you learn Clojure in an in-depth manner</p></li></ul><h2 id="help--support">Help &amp; Support</h2><p>In case you would encounter difficulties or have any suggestions for additional examples, please feel free to post it <a href="https://github.com/clojure-finance/clojask/issues">here</a>.</p><h2 id="api-documentation">API Documentation</h2><p><a href="/clojask-website/posts-output/API/">Check out the documentaion post here</a></p><p>If you more interested in the inner workings of Clojask, please <a href="/clojask-website/pages-output/about">check out our abouts section</a></p>
+    <ul class="toc"><li><a href="#clojask-types">Clojask Types</a></li><ul><li><a href="#string">string</a></li><li><a href="#int">int</a></li><li><a href="#double">double</a></li><li><a href="#date">date</a></li><li><a href="#datetime">datetime</a></li></ul><li><a href="#hybrid-column--empty-fields">Hybrid Column & Empty Fields</a></li><li><a href="#system-of-operations">System of operations</a></li><ul><li><a href="#replaceable-operations">Replaceable operations</a></li><li><a href="#incremental-operations">Incremental operations</a></li></ul></ul>
+    <h2 id="clojask-types">Clojask Types</h2><h3 id="string">string</h3><p>The default type for all columns</p><p>Class: <code>java.lang.String</code></p><p><strong>Examples</strong></p><pre><code class="clojure">(set-type dataframe "col-name" "string")
+</code></pre><h3 id="int">int</h3><p>Most efficiently stores an integer</p><p>Class: <code>java.lang.Integer</code></p><p><strong>Examples</strong></p><pre><code class="clojure">(set-type dataframe "col-name" "int")
+</code></pre><h3 id="double">double</h3><p>Accepts floats and integers</p><p>Class: <code>java.lang.Double</code></p><p><strong>Examples</strong></p><pre><code class="clojure">(set-type dataframe "col-name" "double")
+</code></pre><h3 id="date">date</h3><p>Transform a date string (no time field)</p><p>Class: <code>java.time.LocalDate</code> (default format string: <code>yyyy-MM-dd</code>)</p><p><strong>Examples</strong></p><pre><code class="clojure">;; if the date looks like this 2020/11/12
+(set-type dataframe "col-name" "date:yyyy/MM/dd")
+</code></pre><h3 id="datetime">datetime</h3><p>Transform a date string (no time field)</p><p>Class: <code>java.time.LocalDateTime</code> (default format string: <code>yyyy-MM-dd HH:mm:ss</code>)</p><p><strong>Examples</strong></p><pre><code class="clojure">;; if the date looks like this 2020/11/12 12:12:36
+(set-type dataframe "col-name" "datetime:yyyy/MM/dd HH:mm:ss")
+</code></pre><h2 id="hybrid-column--empty-fields">Hybrid Column &amp; Empty Fields</h2><p>Take this dataset as an example.</p><table><thead><tr><th>Employee</th><th>EmployeeName</th><th>Department</th><th>Salary</th></tr></thead><tbody><tr><td>1</td><td>Alice</td><td>11</td><td>300</td></tr><tr><td>2</td><td>Bob</td><td>11</td><td>34,000</td></tr><tr><td>3</td><td>Carla</td><td> </td><td>900</td></tr><tr><td>4</td><td>Daniel</td><td>12</td><td>1,000</td></tr><tr><td>5</td><td>Evelyn</td><td>13</td><td>800</td></tr><tr><td>...</td><td>...</td><td>...</td><td>...</td></tr></tbody></table><p>The first thing to do after creating this dataframe is to set the type of column <strong>Salary</strong> to <code>int</code>.</p><pre><code class="clojure">(ck/set-type "Salary" "int")
+</code></pre><p>However, when you take a look at the data type of the latest <strong>Salary</strong> column using function <code>print-df</code>. It contains both <code>int</code> and <code>string</code>. This is because some numbers (contains ",") are not recognized by the integer parser, such as 34,000 and 1,000. Therefore, when you operate function to this column, you should accept both <code>int</code> and <code>string</code> as the input. One way to solve this issue is to create your own parser for integer that ignores comma.</p><pre><code class="clojure">(ck/set-parser "Salary" customized-parser)
+</code></pre><p>The column will empty fields is just a special case of hybrid column. The <strong>Department</strong> column has an empty field. The type of it is <code>string</code> &amp; <code>nil</code>. You can tell that empty fields simply contain value <code>nil</code>. It is worth notice that</p><pre><code class="clojure">(ck/compute ... :exception true)
+</code></pre><p>will also assign <code>nil</code> to fields that throw exceptions during execution. Therefore, your operation functions have to consider <code>nil</code> input in these two scenarios.</p><h2 id="system-of-operations">System of operations</h2><p>Clojask is defined by two key types: incremental and replaceable operations.</p><h3 id="replaceable-operations">Replaceable operations</h3><p>Replaceable operatons include</p><ul><li>set-type</li><li>add-parser</li><li>group-by</li><li>add-formatter</li><li>join</li></ul><p>Replaceable operations can be called multiple times to <strong>replace</strong> the previous call of the operation</p><pre><code class="clojure">(def x (dataframe "path/to/a.csv"))
+;; defines dataframe from csv file "a.csv" 
+
+(set-type x "int" "employee_no")
+;; makes column "employee numbers" integers
+ 
+(set-type x "str" "employee_no")
+;; makes column "employee numbers" strings  
+</code></pre><p>In the case above, Clojask will ultimately interpret the "employeee_no" column as a <strong>string</strong>, rather than an <strong>integer</strong>.</p><h3 id="incremental-operations">Incremental operations</h3><p>Incremental operations include</p><ul><li>filter</li><li>operate</li><li>aggregate</li></ul><p>Incremental operations are able to build on top of one another and build up <strong>incrementally</strong> in their operation.</p><pre><code class="clojure">(filter x "Salary" (fn [salary] (&lt;= salary 800)))
+;; this statement deletes all the rows that have a salary larger than 800
+
+(filter x "Department" (fn [dept] (= dept "computer science")))
+;; this statements deletes all the rows that contain people not in the computer science department
+
+(filter x ["Salary" "Department"] (fn [salary dept] (and (&lt;= salary 800) (= dept "computer science"))))
+;; keeps only people from computer science department with salary not larger than 800
+</code></pre><p>This means additional incremental operations are applied on top of existing operations</p>
 </div>
 <!-- 
 <div id="post-tags">
