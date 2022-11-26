@@ -461,7 +461,7 @@ Compute the result. The pre-defined lazy operations will be executed in pipeline
 | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `dataframe`         | clojask.classes.DataFrame.DataFrame / Clojask.JoinedDataFrame | The operated object                                          |                                                              |
 | `num of workers`    | int (max 8)                                                  | The number of worker instances (except the input and output nodes) | Uses [onyx](http://www.onyxplatform.org/) as the distributed platform |
-| `output path`       | String                                                       | The path of the output csv file                              | If the path already exists, will overwrite the file.         |
+| `output path`       | String / `nil`                                               | The path of the output csv file                              | If the path already exists, will overwrite the file.<br>If `nil`, will store the output in memory as a vector of vectors, which represent each row. See [example](https://github.com/clojure-finance/clojask-examples/blob/main/src/clojask_examples/in_memory.clj). |
 | [`exception`]       | Boolean                                                      | Whether an exception during calculation will cause termination | By default `false`. Is useful for debugging or detecting empty fields |
 | [`order`]           | Boolean                                                      | If enforce the order of rows in the output to be the same as input | By default `false`. If set to `true`, will sacrifice the performance. |
 | [`output-function`] | Function                                                     | Specify how to output a row vector to the output file        | Takes two arguments.<br />`writer` java.io.BufferedWriter<br />`rows` clojure.lang.PersistentVector (rows) of clojure.lang.PersistentVector (each row) |
@@ -472,7 +472,7 @@ Compute the result. The pre-defined lazy operations will be executed in pipeline
 
 **Return**
 
-A `clojask.classes.DataFrame.DataFrame`, which is the resultant dataframe.
+A `clojask.classes.DataFrame.DataFrame`, which is the resultant dataframe. / A vector of vectors, which represent each row, if `output path` = `nil`.
 
 **Example**
 
@@ -494,7 +494,6 @@ A `clojask.classes.DataFrame.DataFrame`, which is the resultant dataframe.
 
 (compute x 8 "output.csv" :melt (fn [row] (map concat (repeat (take 2 x)) (take-last 2 x))))
 ;; each result row becomes two rows
-;; [a b c d] => [[a b c]
-;;							 [a b d]]
+;; [a b c d] => [[a b c] [a b d]]
 
 ```

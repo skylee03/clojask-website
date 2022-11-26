@@ -46,7 +46,7 @@ Class: `java.lang.Double`
 
 Transform a date string (no time field)
 
-Class: `java.time.LocalDate` (default format string: `yyyy-MM-dd`)
+Class: `java.util.Date` (default format string: `yyyy-MM-dd`)
 
 **Examples**
 
@@ -59,7 +59,7 @@ Class: `java.time.LocalDate` (default format string: `yyyy-MM-dd`)
 
 Transform a date string (no time field)
 
-Class: `java.time.LocalDateTime` (default format string: `yyyy-MM-dd HH:mm:ss`)
+Class: `java.util.Date` (default format string: `yyyy-MM-dd HH:mm:ss`)
 
 **Examples**
 
@@ -156,4 +156,3 @@ Incremental operations are able to build on top of one another and build up **in
 ```
 
 This means additional incremental operations are applied on top of existing operations
-
