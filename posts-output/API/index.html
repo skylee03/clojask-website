@@ -136,7 +136,7 @@
 ;; this statement deletes all the rows that have a salary larger than 800
 (filter x ["Salary" "Department"] (fn [salary dept] (and (&lt;= salary 800) (= dept "computer science"))))
 ;; keeps only people from computer science department with salary not larger than 800
-</code></pre><hr /><h4 id="set-type">set-type</h4><p>Set the data type of a column. As a result, the value will be parsed as the assigned data type when it is used in any subsequent operations.</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe</code></td><td>clojask.classes.DataFrame.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>column</code></td><td>String</td><td>Target columns</td><td>Should be existing columns within the dataframe.</td></tr><tr><td><code>type</code></td><td>String</td><td>Type of the column</td><td>The natively supported types are: int, double, string, date. Note that by default all the column types are string. If you need a special parsing function, see <code>add-parser</code>.</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; set data type of the column "Salary" to be double 
+</code></pre><hr /><h4 id="set-type">set-type</h4><p>Set the data type of a column. As a result, the value will be parsed as the assigned data type when it is used in any subsequent operations.</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe</code></td><td>clojask.classes.DataFrame.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>column</code></td><td>String</td><td>Target columns</td><td>Should be existing columns within the dataframe.</td></tr><tr><td><code>type</code></td><td>String</td><td>Type of the column</td><td>The natively supported types are: int, double, string, date. Note that by default all the column types are string. If you need a special parsing function, see <code>set-parser</code>.</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; set data type of the column "Salary" to be double 
 (set-type x "Salary" "double")
 </code></pre><hr /><h4 id="set-parser">set-parser</h4><p>A more flexible way to set type by specifying the customized parser.</p><table><thead><tr><th>Argument</th><th>Type</th><th>Function</th><th>Remarks</th></tr></thead><tbody><tr><td><code>dataframe</code></td><td>clojask.classes.DataFrame.DataFrame</td><td>The operated object</td><td> </td></tr><tr><td><code>column</code></td><td>String</td><td>Target columns</td><td>Should be existing columns within the dataframe</td></tr><tr><td><code>parser</code></td><td>function</td><td>The parser function that will parse a string to other types (or even string)</td><td>The function should take only one argument which is a string, and the parsed type should be serializable.</td></tr></tbody></table><p><strong>Example</strong></p><pre><code class="clojure">;; parse all the values in "Salary" with this function
 (set-parser x "Salary" #(Double/parseDouble %))
@@ -228,10 +228,10 @@
     <!-- 
     <div id="prev-next">
     
-    <a class="prev" href="/clojask-website/posts-output/aggregate-function/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">Aggregation Functions</div></a>
+    <a class="prev" href="/clojask-website/posts-output/examples/"><svg class="icon icon-circle-left"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-left"></use></svg><div class="nav-text">Examples</div></a>
     
     
-    <div class="next"></div>
+    <a class="next" href="/clojask-website/posts-output/aggregate-function/"><div class="nav-text"">Aggregation Functions</div><svg class="icon icon-circle-right"><use xlink:href="/clojask-website/img/icons.svg#icon-circle-right"></use></svg></a>
     
 </div>
 
