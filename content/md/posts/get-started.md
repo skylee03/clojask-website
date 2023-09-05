@@ -114,7 +114,7 @@ Clojask is defined by two key types: incremental and replaceable operations.
 Replaceable operatons include 
 
 - set-type
-- add-parser 
+- set-parser 
 - group-by
 - add-formatter
 - join
