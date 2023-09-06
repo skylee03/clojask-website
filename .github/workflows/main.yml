@@ -1,0 +1,15 @@
+name: Publish website
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build_site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cryogen Deploy
+        uses: skylee03/cryogen-action@v1
+        with:
+          folder: public/clojask-website
